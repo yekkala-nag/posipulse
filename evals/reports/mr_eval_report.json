@@ -1,0 +1,326 @@
+{
+  "language": "mr",
+  "all_gates_passed": true,
+  "certified_at": "2026-10-21T08:26:13.138726+00:00",
+  "gate_details": {
+    "positive_precision": {
+      "value": 1.0,
+      "required": 0.9,
+      "passed": true
+    },
+    "faithfulness_pass_rate": {
+      "value": 1.0,
+      "required": 0.95,
+      "passed": true
+    },
+    "zero_verbatim_copying": {
+      "violations": 0,
+      "passed": true
+    },
+    "healthy_sources": {
+      "count": 3,
+      "required": 3,
+      "passed": true
+    },
+    "native_speaker_spot_check": {
+      "passed": true
+    }
+  },
+  "eval_report": {
+    "language": "mr",
+    "evaluated_at": "2026-10-21T08:26:13.138710+00:00",
+    "total_items": 30,
+    "confusion_matrix": {
+      "true_positives": 10,
+      "false_positives": 0,
+      "true_negatives": 18,
+      "false_negatives": 2
+    },
+    "metrics": {
+      "precision": 1.0,
+      "recall": 0.8333,
+      "f1_score": 0.9091,
+      "toxic_positivity_rejection_rate": 1.0,
+      "faithfulness_pass_rate": 1.0,
+      "verbatim_violations_count": 0,
+      "length_compliance_rate": 1.0
+    },
+    "gate_assessment": {
+      "precision_gate_passed": true,
+      "faithfulness_gate_passed": true,
+      "zero_verbatim_copying": true
+    },
+    "detailed_items": [
+      {
+        "id": "mr_gold_01",
+        "headline": "सह्याद्रीच्या कुशीत आदिवासी महिलांनी उभारली औषधी वनस्पतींची यशस्वी सहकारी संस्था; 1200 कुटुंबांचे स्थलांतर थांबले",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "mr_gold_02",
+        "headline": "आयआयटी मुंबईच्या संशोधकांनी विकसित केले क्षारयुक्त पाणी पिण्यायोग्य बनवणारे कमी खर्चाचे सौर उपकरण",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "mr_gold_03",
+        "headline": "सोलापूरच्या दुष्काळी पट्ट्यात गावकऱ्यांच्या श्रमदानातून १५ बंधारे बांधून जलक्रांती, भूजल पातळीत ३ मीटरने वाढ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "mr_gold_04",
+        "headline": "कोल्हापूरच्या प्राथमिक शाळेतील शिक्षिकेचा अनोखा उपक्रम: टाकाऊ वस्तूंपासून तयार केली ग्रामीण विज्ञान प्रयोगशाळा",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "mr_gold_05",
+        "headline": "नांदेडच्या तरुण शेतकऱ्याने सेंद्रिय हळद उत्पादनात नोंदवला उच्चांक; थेट परदेशात निर्यातीला सुरुवात",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "mr_gold_06",
+        "headline": "पुण्यातील स्टार्टअपने तयार केली ई-कचऱ्यापासून कमी किमतीची इलेक्ट्रॉनिक ब्रेल पुस्तके",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "mr_gold_07",
+        "headline": "मेळघाटात कुपोषणमुक्तीसाठी माता-बाल आरोग्य केंद्रांची नवी साखळी; बालमृत्यू दरात ४० टक्के घट",
+        "expected": "positive",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "mr_gold_08",
+        "headline": "सिंधुदुर्गात स्थानिक मच्छीमारांनी उभारले सागरी कासव संवर्धन केंद्र, १०,००० पिल्ले समुद्रात सुरक्षित सोडली",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "mr_gold_09",
+        "headline": "पैठणच्या पारंपारिक विणकरांचा डिजिटल प्लॅटफॉर्म यशस्वी; मध्यस्थांशिवाय थेट ग्राहकांपर्यंत पोहोचल्या पैठण्या",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "mr_gold_10",
+        "headline": "नागपूर महापालिकेने सुरू केला कचऱ्यापासून बायो-सीएनजी निर्मिती प्रकल्प, दररोज ५० बसगाड्यांना इंधन पुरवठा",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "mr_gold_11",
+        "headline": "सातारा जिल्ह्यातील दुर्गम गावांनी सौरऊर्जेद्वारे मिळवली १०० टक्के वीज स्वयंपूर्णता",
+        "expected": "positive",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "mr_gold_12",
+        "headline": "महाराष्ट्राच्या ग्रामीण क्रीडा प्रबोधिनीतील खेळाडूंनी राष्ट्रीय कुस्ती स्पर्धेत पटकावली ५ सुवर्णपदके",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "mr_gold_13",
+        "headline": "मुंबई-पुणे एक्सप्रेसवेवर भीषण अपघात, 4 प्रवाशांचा जागीच मृत्यू",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "mr_gold_14",
+        "headline": "ठाण्यात रासायनिक कारखान्यात भीषण स्फोट आणि आग, धुराचे लोट दूरवर पसरले",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "mr_gold_15",
+        "headline": "शेअर बाजारात जादा परताव्याचे आमिष दाखवून ५० कोटींची आर्थिक फसवणूक, मुख्य सूत्रधार अटकेत",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "mr_gold_16",
+        "headline": "कल्याणमध्ये जुनी धोकादायक चार मजली इमारत कोसळली; ढिगाऱ्याखाली अनेक जण अडकल्याची भीती",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "mr_gold_17",
+        "headline": "विषाक्त दारू पिऊन ६ मजुरांचा दुर्दैवी मृत्यू, अनेक जण रुग्णालयात अत्यवस्थ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "mr_gold_18",
+        "headline": "मराठवाड्यात सलग तिसऱ्या आठवड्यात पावसाचा खंड, सुकणाऱ्या पिकांमुळे शेतकरी हवालदिल",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "mr_gold_19",
+        "headline": "पुण्यात सराफा दुकानावर भरदिवसा दरोडा, बंदुकीचा धाक दाखवून कोट्यवधींचे दागिने लुटले",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "mr_gold_20",
+        "headline": "महामार्गावरील खड्ड्यांमुळे दुचाकी घसरून तरुणाचा मृत्यू; संतप्त नागरिकांचे रस्ता रोको आंदोलन",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "mr_gold_21",
+        "headline": "नाशिकमध्ये गोदावरी नदीकाठी सांडपाणी प्रक्रिया प्रकल्प बंद असल्याने नदीचे पाणी दुर्गंधीयुक्त आणि दूषित",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "mr_gold_22",
+        "headline": "बनावट औषध विक्री करणाऱ्या आंतरराज्य रॅकेटचा पर्दाफाश, गोदामातून लाखो रुपयांचा बनावट साठा जप्त",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "mr_gold_23",
+        "headline": "१० वर्षांचा अनाथ मुलगा चहाच्या टपरीवर दिवसरात्र काम करून आजारी बहिणीचा वैद्यकीय खर्च भागवतोय",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "mr_gold_24",
+        "headline": "कडाक्याच्या थंडीत अनवाणी वर्तमानपत्र विकणाऱ्या मुलाचा प्रामाणिकपणा: सापडलेले पैशांचे पाकीट मालकाला परत केले",
+        "expected": "toxic_positivity",
+        "predicted": "neutral",
+        "score": 0.4,
+        "reason": "Insufficient constructive outcome evidence; failing closed."
+      },
+      {
+        "id": "mr_gold_25",
+        "headline": "शाळेत अन्नधान्य संपल्याने चिमुकल्या विद्यार्थ्यांनी उपाशी राहून संयम शिकल्याचा संस्थाचालकाचा दावा",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "mr_gold_26",
+        "headline": "रिअल इस्टेट व्यावसायिकाने दुष्काळी तालुक्यात खाजगी बंगल्यासाठी उभारला कोट्यवधींचा कृत्रिम तलाव",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "mr_gold_27",
+        "headline": "घरफोडी करणाऱ्या चोराने घरातील आजारी आजींना औषधासाठी ५० रुपये ठेवून मानवता दाखवल्याची चर्चा",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "mr_gold_28",
+        "headline": "भारतीय रिझर्व्ह बँकेने पतधोरण बैठकीत रेपो दर जैसे थे ठेवण्याचा घेतला निर्णय",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      },
+      {
+        "id": "mr_gold_29",
+        "headline": "मुंबई उच्च न्यायालयाने सागरी किनारा रस्ता प्रकल्पाच्या प्रगतीचा अहवाल चार आठवड्यांत सादर करण्याचे दिले निर्देश",
+        "expected": "neutral",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "mr_gold_30",
+        "headline": "महाराष्ट्र राज्य अर्थ व सांख्यिकी संचालनालयाने आगामी आर्थिक पाहणी अहवालाचे वेळापत्रक जाहीर केले",
+        "expected": "neutral",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      }
+    ]
+  }
+}

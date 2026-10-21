@@ -1,19 +1,19 @@
 # Golden Evaluation Report: HI
 
-**Evaluated At:** 2026-10-21T07:38:48.998991+00:00  
+**Evaluated At:** 2026-10-21T08:26:13.133881+00:00  
 **Total Items:** 30  
 
 ## Classification Performance
 - **Positive-Class Precision:** **1.0000** (Threshold: $\ge 0.9$) -> **PASS**
-- **Recall:** 0.9167 *(Precision prioritized over recall)*
-- **F1 Score:** 0.9565
+- **Recall:** 0.8333 *(Precision prioritized over recall)*
+- **F1 Score:** 0.9091
 - **Toxic Positivity Rejection Rate:** 100.0%
 
 ## Confusion Matrix
 | Metric | Positive (Actual) | Non-Positive (Actual) |
 | :--- | :---: | :---: |
-| **Predicted Positive** | TP = 11 | FP = 0 |
-| **Predicted Non-Positive** | FN = 1 | TN = 18 |
+| **Predicted Positive** | TP = 10 | FP = 0 |
+| **Predicted Non-Positive** | FN = 2 | TN = 18 |
 
 ## Summarization & Faithfulness Performance
 - **Faithfulness Pass Rate:** **100.0%** (Threshold: $\ge 95.0%$) -> **PASS**

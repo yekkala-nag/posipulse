@@ -1,0 +1,332 @@
+{
+  "language": "ta",
+  "all_gates_passed": true,
+  "certified_at": "2026-10-21T08:26:13.143021+00:00",
+  "gate_details": {
+    "positive_precision": {
+      "value": 1.0,
+      "required": 0.9,
+      "passed": true
+    },
+    "faithfulness_pass_rate": {
+      "value": 1.0,
+      "required": 0.95,
+      "passed": true
+    },
+    "zero_verbatim_copying": {
+      "violations": 0,
+      "passed": true
+    },
+    "healthy_sources": {
+      "count": 3,
+      "required": 3,
+      "passed": true
+    },
+    "native_speaker_spot_check": {
+      "passed": true
+    }
+  },
+  "eval_report": {
+    "language": "ta",
+    "evaluated_at": "2026-10-21T08:26:13.142980+00:00",
+    "total_items": 30,
+    "confusion_matrix": {
+      "true_positives": 12,
+      "false_positives": 0,
+      "true_negatives": 18,
+      "false_negatives": 0
+    },
+    "metrics": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "toxic_positivity_rejection_rate": 1.0,
+      "faithfulness_pass_rate": 1.0,
+      "verbatim_violations_count": 0,
+      "length_compliance_rate": 1.0
+    },
+    "gate_assessment": {
+      "precision_gate_passed": true,
+      "faithfulness_gate_passed": true,
+      "zero_verbatim_copying": true
+    },
+    "detailed_items": [
+      {
+        "id": "ta_gold_01",
+        "headline": "தூத்துக்குடியில் மாற்றுத்திறனாளி இளைஞர்கள் உருவாக்கிய கடல்பாசி வளர்ப்பு கூட்டுறவு; மாதம் ரூ.45,000 வருவாய்",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ta_gold_02",
+        "headline": "ஐஐடி மெட்ராஸ் ஆராய்ச்சியாளர்களின் சாதனை: குறைந்த செலவில் கடல்நீரை குடிநீராக்கும் சூரியசக்தி சாதனம்",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ta_gold_03",
+        "headline": "தஞ்சாவூர் டெல்டாவில் பாரம்பரிய இயற்கை நெல் சாகுபடி: மாப்பிள்ளை சம்பா விளைச்சலில் விவசாயிகள் சாதனை",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ta_gold_04",
+        "headline": "மதுரை சுங்குடி சேலை நெசவாளர்களின் ஆன்லைன் வர்த்தகம் வெற்றி; இடைத்தரகரின்றி நேரடி ஏற்றுமதி",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ta_gold_05",
+        "headline": "நீலகிரி பழங்குடியின மக்கள் தயாரிக்கும் தூய காட்டுத்தேன் சர்வதேச சந்தையில் பிரபலம்",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ta_gold_06",
+        "headline": "சென்னை கடற்கரையில் ஆலிவ் ரிட்லி ஆமைகள் பாதுகாப்பு இயக்கம்; 12,000 குஞ்சுகள் கடலில் விடப்பட்டன",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ta_gold_07",
+        "headline": "தருமபுரி மலைக்கிராமங்களில் சூரியசக்தி சுகாதார மையங்கள் மூலம் தடையற்ற அவசர சிகிச்சை வசதி",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ta_gold_08",
+        "headline": "திண்டுக்கல் கிராமத்தில் வாழை நார்களில் இருந்து சூழல்நட்பு பொட்டலப் பைகள் தயாரிக்கும் மகளிர் குழுக்கள்",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ta_gold_09",
+        "headline": "திருவண்ணாமலையில் மக்கள் பங்களிப்புடன் 25 ஏரிகள் தூர்வாரப்பட்டு நீர்மட்டம் 4 மீட்டர் உயர்வு",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ta_gold_10",
+        "headline": "தமிழ்நாடு கிராமப்புற சிலம்பாட்ட வீராங்கனைகள் தேசிய விளையாட்டு போட்டியில் 5 தங்கப்பதக்கங்களை வென்றனர்",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ta_gold_11",
+        "headline": "கோயம்புத்தூரில் காய்கறி கழிவுகளில் இருந்து மின்சாரம் தயாரிக்கும் நவீன பயோ-காஸ் ஆலை இயக்கம்",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ta_gold_12",
+        "headline": "திருச்சியில் 100 சதவீதம் மக்கும் குப்பை பிரித்தெடுக்கும் தன்னிறைவு பெற்ற தூய்மை கிராம பஞ்சாயத்து",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ta_gold_13",
+        "headline": "செங்கல்பட்டு அருகே அரசுப் பேருந்து மீது லாரி மோதி விபத்து; 5 பயணிகள் உயிரிழப்பு",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ta_gold_14",
+        "headline": "சிவகாசி பட்டாசு ஆலையில் பயங்கர வெடிவிபத்து; 3 தொழிலாளர்கள் பலி, ஆலை தரைமட்டம்",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ta_gold_15",
+        "headline": "போலி நிதி நிறுவனம் நடத்தி பொதுமக்களிடம் ரூ. 60 கோடி மோசடி செய்த தம்பதி கைது",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ta_gold_16",
+        "headline": "கள்ளக்குறிச்சியில் கள்ளச்சாராயம் குடித்த கூலித்தொழிலாளர்கள் 4 பேர் பலி; பலர் மருத்துவமனையில் தீவிர சிகிச்சை",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ta_gold_17",
+        "headline": "சென்னையில் கனமழை காரணமாக சுரங்கப்பாதைகளில் வெள்ளநீர் தேக்கம்; ஸ்தம்பித்த போக்குவரத்து",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ta_gold_18",
+        "headline": "திருவள்ளூரில் பழைய குடியிருப்பு கட்டிடம் திடீரென இடிந்து விழுந்தது; இடிபாடுகளில் சிக்கியவர்களை மீட்கும் பணி",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ta_gold_19",
+        "headline": "சேலத்தில் பட்டப்பகலில் நகைக்கடை காவலாளியை தாக்கி ரூ. 2 கோடி மதிப்பிலான நகைகள் கொள்ளை",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ta_gold_20",
+        "headline": "ராமநாதபுரத்தில் வறட்சி காரணமாக காய்ந்து கருகிய மிளகாய் பயிர்கள்; நஷ்டஈடு வழங்க விவசாயிகள் கோரிக்கை",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ta_gold_21",
+        "headline": "ஆன்லைன் பகுதிநேர வேலை மோசடியில் ரூ. 30 லட்சத்தை இழந்த பட்டதாரி பெண்",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ta_gold_22",
+        "headline": "தனியார் மருத்துவமனையில் மின் கசிவால் திடீர் தீ விபத்து; நோயாளிகள் அவசரமாக வெளியேற்றம்",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ta_gold_23",
+        "headline": "டிராபிக் சிக்னலில் இரவு முழுவதும் ரோஜாப்பூ விற்று தாயின் மருத்துவ செலவை கவனிக்கும் 8 வயது சிறுவன்",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "ta_gold_24",
+        "headline": "பனிக்காலத்தில் செருப்பில்லாமல் நாளிதழ் விநியோகம் செய்யும் சிறுவனின் நேர்மை: தவறவிட்ட பணப்பையை உரிமையாளரிடம் ஒப்படைத்தார்",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "ta_gold_25",
+        "headline": "பள்ளியில் உணவு தானியம் தீர்ந்ததால் மாணவர்கள் பட்டினி கிடந்து மனக்கட்டுப்பாட்டை கற்றனர் என நிர்வாகம் விளக்கம்",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "ta_gold_26",
+        "headline": "வறட்சி பாதித்த பகுதியில் தனியார் விடுதிக்காக கோடிக்கணக்கில் கட்டப்பட்ட பிரம்மாண்ட செயற்கை நீரூற்று",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ta_gold_27",
+        "headline": "வீட்டில் திருடிய திருடன் மூதாட்டியின் மருத்துவ செலவுக்கு ரூ. 50 கொடுத்துவிட்டு மனிதாபிமானம் காட்டியதாக வதந்தி",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ta_gold_28",
+        "headline": "நாணயக் கொள்கை குழு கூட்டத்தில் ரெப்போ வட்டி விகிதத்தில் மாற்றமில்லை என ரிசர்வ் வங்கி அறிவிப்பு",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      },
+      {
+        "id": "ta_gold_29",
+        "headline": "கூவம் நதி கழிவுநீர் சுத்திகரிப்பு நிலை குறித்து நான்கு வாரங்களில் அறிக்கை தாக்கல் செய்ய சென்னை உயர்நீதிமன்றம் உத்தரவு",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      },
+      {
+        "id": "ta_gold_30",
+        "headline": "அடுத்த காலாண்டு மொத்த உள்நாட்டு உற்பத்தி புள்ளிவிவரங்கள் வெளியாகும் அட்டவணையை வெளியிட்ட புள்ளிவிவர அமைச்சகம்",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      }
+    ]
+  }
+}

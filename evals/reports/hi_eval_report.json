@@ -1,7 +1,7 @@
 {
   "language": "hi",
   "all_gates_passed": true,
-  "certified_at": "2026-10-21T07:38:48.999002+00:00",
+  "certified_at": "2026-10-21T08:26:13.133895+00:00",
   "gate_details": {
     "positive_precision": {
       "value": 1.0,
@@ -28,18 +28,18 @@
   },
   "eval_report": {
     "language": "hi",
-    "evaluated_at": "2026-10-21T07:38:48.998991+00:00",
+    "evaluated_at": "2026-10-21T08:26:13.133881+00:00",
     "total_items": 30,
     "confusion_matrix": {
-      "true_positives": 11,
+      "true_positives": 10,
       "false_positives": 0,
       "true_negatives": 18,
-      "false_negatives": 1
+      "false_negatives": 2
     },
     "metrics": {
       "precision": 1.0,
-      "recall": 0.9167,
-      "f1_score": 0.9565,
+      "recall": 0.8333,
+      "f1_score": 0.9091,
       "toxic_positivity_rejection_rate": 1.0,
       "faithfulness_pass_rate": 1.0,
       "verbatim_violations_count": 0,
@@ -77,12 +77,9 @@
         "id": "hi_gold_03",
         "headline": "उत्तराखंड में ग्रामीणों ने जनभागीदारी से पुनर्जीवित किए 12 सूख चुके पारंपरिक प्राकृतिक जल स्रोत",
         "expected": "positive",
-        "predicted": "positive",
-        "score": 0.95,
-        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
-        "summary_verified": true,
-        "verbatim_ok": true,
-        "length_ok": true
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
       },
       {
         "id": "hi_gold_04",

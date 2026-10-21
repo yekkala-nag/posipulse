@@ -1,0 +1,332 @@
+{
+  "language": "te",
+  "all_gates_passed": true,
+  "certified_at": "2026-10-21T08:26:13.140996+00:00",
+  "gate_details": {
+    "positive_precision": {
+      "value": 1.0,
+      "required": 0.9,
+      "passed": true
+    },
+    "faithfulness_pass_rate": {
+      "value": 1.0,
+      "required": 0.95,
+      "passed": true
+    },
+    "zero_verbatim_copying": {
+      "violations": 0,
+      "passed": true
+    },
+    "healthy_sources": {
+      "count": 3,
+      "required": 3,
+      "passed": true
+    },
+    "native_speaker_spot_check": {
+      "passed": true
+    }
+  },
+  "eval_report": {
+    "language": "te",
+    "evaluated_at": "2026-10-21T08:26:13.140985+00:00",
+    "total_items": 30,
+    "confusion_matrix": {
+      "true_positives": 12,
+      "false_positives": 0,
+      "true_negatives": 18,
+      "false_negatives": 0
+    },
+    "metrics": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "toxic_positivity_rejection_rate": 1.0,
+      "faithfulness_pass_rate": 1.0,
+      "verbatim_violations_count": 0,
+      "length_compliance_rate": 1.0
+    },
+    "gate_assessment": {
+      "precision_gate_passed": true,
+      "faithfulness_gate_passed": true,
+      "zero_verbatim_copying": true
+    },
+    "detailed_items": [
+      {
+        "id": "te_gold_01",
+        "headline": "వరంగల్ యువ ఇంజనీర్ ఆవిష్కరణ: సౌర ఆధారిత డ్రోన్ స్ప్రేయర్‌తో సాగు ఖర్చు 70 శాతం ఆదా",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "te_gold_02",
+        "headline": "అరకు గిరిజన సహకార సంఘం సేంద్రీయ కాఫీ విక్రయాల్లో సరికొత్త రికార్డు; అంతర్జాతీయ మార్కెట్లలో అధిక గిరాకీ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "te_gold_03",
+        "headline": "ఐఐటీ హైదరాబాద్ పరిశోధకుల ఘనత: మురుగునీటిని క్షణాల్లో తాగే నీరుగా మార్చే చౌకైన గ్రాఫీన్ ఫిల్టర్ ఆవిష్కరణ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "te_gold_04",
+        "headline": "అనంతపురం కరవు నేలలో రైతు స్వయంశక్తి: సోలార్ డ్రిప్ సేద్యంతో రికార్డు స్థాయిలో దానిమ్మ దిగుబడి",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "te_gold_05",
+        "headline": "పోచంపల్లి చేనేత కార్మికుల డిజిటల్ విప్లవం: సహకార పోర్టల్ ద్వారా రూ. 10 కోట్ల నేరుగా చేనేత అమ్మకాలు",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "te_gold_06",
+        "headline": "విశాఖ తీరంలో స్థానిక మత్స్యకారుల సముద్ర తాబేళ్ల పరిరక్షణ ఉద్యమం విజయవంతం; 15,000 పిల్లలు సురక్షితంగా సాగరం చేరిక",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "te_gold_07",
+        "headline": "తెలంగాణ పల్లెల్లో సౌర ఆధారిత ప్రాథమిక ఆరోగ్య కేంద్రాల ద్వారా నిరంతర అత్యవసర వైద్య సేవలు",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "te_gold_08",
+        "headline": "కృష్ణా డెల్టాలో ప్రకృతి వ్యవసాయ పద్ధతులు: దేశవాళీ వరి వంగడాల సాగుతో పునరుజ్జీవం పొందిన నేల సారం",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "te_gold_09",
+        "headline": "మహబూబ్‌నగర్ జిల్లాలో చెక్‌డ్యామ్‌ల నిర్మాణం: 20 గ్రామాల్లో పెరిగిన భూగర్భ జలమట్టం",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "te_gold_10",
+        "headline": "ఆంధ్రప్రదేశ్ గ్రామీణ యువ అథ్లెట్ల ప్రతిభ: జాతీయ విలువిద్య పోటీల్లో 4 స్వర్ణ పతకాలు కైవసం",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "te_gold_11",
+        "headline": "హైదరాబాద్ స్టార్టప్ ఆవిష్కరణ: వ్యవసాయ వ్యర్థాల నుంచి పర్యావరణహిత బయో-ప్లాస్టిక్ క్యారీ బ్యాగులు",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "te_gold_12",
+        "headline": "రాయలసీమ పల్లెలో 100 శాతం తడి-పొడి చెత్త విభజన: సంపూర్ణ స్వచ్ఛ గ్రామంగా రాష్ట్ర పురస్కారం",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "te_gold_13",
+        "headline": "హైదరాబాద్ శివారులో లారీ-కారు ఢీకొన్న ఘటనలో నలుగురు దుర్మరణం",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "te_gold_14",
+        "headline": "విశాఖ పరవాడ ఫార్మా కంపెనీలో భారీ రియాక్టర్ పేలుడు; ముగ్గురు కార్మికులు మృతి, పలువురికి గాయాలు",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "te_gold_15",
+        "headline": "నకిలీ పెట్టుబడి పథకం పేరిట రూ. 80 కోట్ల మోసం; ప్రధాన నిందితుడిని అరెస్ట్ చేసిన సీఐడీ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "te_gold_16",
+        "headline": "విజయవాడలో కురుస్తున్న భారీ వర్షాలకు లోతట్టు ప్రాంతాలు జలమయం; నిలిచిపోయిన రాకపోకలు",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "te_gold_17",
+        "headline": "కల్తీ నాటుసారా తాగి నలుగురు గిరిజన కూలీలు మృతి; ఆసుపత్రిలో మరో ఐదుగురి పరిస్థితి ఆందోళనకరం",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "te_gold_18",
+        "headline": "గుంటూరులో పట్టపగలే నగల దుకాణంలో తుపాకీతో బెదిరించి కోట్లాది రూపాయల బంగారం దోపిడీ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "te_gold_19",
+        "headline": "వరంగల్ వద్ద ప్రైవేట్ బస్సు బోల్తా: ఇద్దరు మృతి, 20 మంది ప్రయాణికులకు తీవ్ర గాయాలు",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "te_gold_20",
+        "headline": "పశ్చిమ గోదావరిలో ఎండ తీవ్రతకు ఎండిపోయిన ఉద్యానవన తోటలు; లబోదిబోమంటున్న రైతులు",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "te_gold_21",
+        "headline": "సైబర్ నేరగాళ్ల వలలో పడి రూ. 45 లక్షలు పోగొట్టుకున్న రిటైర్డ్ ఉద్యోగి",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "te_gold_22",
+        "headline": "నిర్మాణంలో ఉన్న నాలుగంతస్తుల భవనం కుప్పకూలి ఇద్దరు కూలీలు దుర్మరణం",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "te_gold_23",
+        "headline": "ట్రాఫిక్ సిగ్నల్ వద్ద రాత్రింబగళ్లు గులాబీలు అమ్ముతూ తల్లి క్యాన్సర్ చికిత్సకు డబ్బు కూడబెడుతున్న 8 ఏళ్ల బాలుడు",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "te_gold_24",
+        "headline": "తీవ్రమైన చలిలో చెప్పులు లేకుండా దినపత్రికలు వేసే అనాథ బాలుడి నిజాయితీ: దొరికిన పర్సును యజమానికి అప్పగింత",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "te_gold_25",
+        "headline": "హాస్టల్‌లో రేషన్ అయిపోవడంతో పస్తులుండి ఆత్మనిగ్రహం నేర్చుకున్న విద్యార్థులంటూ యాజమాన్యం సమర్థన",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "te_gold_26",
+        "headline": "కరవు మండలంలో ప్రముఖ పారిశ్రామికవేత్త నిర్మించిన విలాసవంతమైన కృత్రిమ ఈత కొలను మరియు ఫౌంటెన్లు",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "te_gold_27",
+        "headline": "ఇంట్లో చోరీ చేసిన దొంగ వృద్ధురాలి ఆసుపత్రి ఖర్చుల కోసం రూ. 100 వదిలిపెట్టి మానవత్వం చాటాడంటూ ప్రచారం",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "te_gold_28",
+        "headline": "ద్రవ్య విధాన సమీక్షలో రెపో రేటును యథాతథంగా కొనసాగించాలని నిర్ణయించిన రిజర్వ్ బ్యాంక్ ఆఫ్ ఇండియా",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      },
+      {
+        "id": "te_gold_29",
+        "headline": "పరిశ్రమల వ్యర్థాల నియంత్రణపై నాలుగు వారాల్లో నివేదిక సమర్పించాలని కాలుష్య నియంత్రణ మండలికి హైకోర్టు ఆదేశం",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      },
+      {
+        "id": "te_gold_30",
+        "headline": "తదుపరి త్రైమాసిక స్థూల రాష్ట్ర దేశీయోత్పత్తి అంచనాల విడుదల కాలపట్టికను ప్రకటించిన ఆర్థిక శాఖ",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      }
+    ]
+  }
+}

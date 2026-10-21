@@ -1,0 +1,329 @@
+{
+  "language": "bn",
+  "all_gates_passed": true,
+  "certified_at": "2026-10-21T08:26:13.136105+00:00",
+  "gate_details": {
+    "positive_precision": {
+      "value": 1.0,
+      "required": 0.9,
+      "passed": true
+    },
+    "faithfulness_pass_rate": {
+      "value": 1.0,
+      "required": 0.95,
+      "passed": true
+    },
+    "zero_verbatim_copying": {
+      "violations": 0,
+      "passed": true
+    },
+    "healthy_sources": {
+      "count": 3,
+      "required": 3,
+      "passed": true
+    },
+    "native_speaker_spot_check": {
+      "passed": true
+    }
+  },
+  "eval_report": {
+    "language": "bn",
+    "evaluated_at": "2026-10-21T08:26:13.136091+00:00",
+    "total_items": 30,
+    "confusion_matrix": {
+      "true_positives": 11,
+      "false_positives": 0,
+      "true_negatives": 18,
+      "false_negatives": 1
+    },
+    "metrics": {
+      "precision": 1.0,
+      "recall": 0.9167,
+      "f1_score": 0.9565,
+      "toxic_positivity_rejection_rate": 1.0,
+      "faithfulness_pass_rate": 1.0,
+      "verbatim_violations_count": 0,
+      "length_compliance_rate": 1.0
+    },
+    "gate_assessment": {
+      "precision_gate_passed": true,
+      "faithfulness_gate_passed": true,
+      "zero_verbatim_copying": true
+    },
+    "detailed_items": [
+      {
+        "id": "bn_gold_01",
+        "headline": "সুন্দরবনের নদীভাঙন রোধে স্থানীয় মহিলাদের ম্যানগ্রোভ রোপণ আন্দোলন সফল, ৫ হেক্টর বনাঞ্চল পুনরুজ্জীবিত",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "bn_gold_02",
+        "headline": "আইআইটি খড়গপুরের গবেষকরা ধানের তুষ থেকে তৈরি করলেন সাশ্রয়ী আর্সেনিক ফিল্টার",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "bn_gold_03",
+        "headline": "পুরুলিয়ায় সৌর পাম্প ও ড্রিপ সেচ ব্যবস্থার মাধ্যমে রুক্ষ জমিতে স্ট্রবেরি চাষে সাফল্য",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "bn_gold_04",
+        "headline": "জলপাইগুড়ির চা বাগানে সৌরবিদ্যুৎ চালিত হস্তী করিডোর সংকেত ব্যবস্থা চালু; বন্যপ্রাণী সংঘাত শূন্যে নামল",
+        "expected": "positive",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "bn_gold_05",
+        "headline": "শান্তিনিকেতনের হস্তশিল্পীদের কাঁথাস্টিচ পোশাক এবার সরাসরি ইউরোপীয় মেলায় প্রদর্শিত ও সমাদৃত",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "bn_gold_06",
+        "headline": "বাঁকুড়ায় ঐতিহ্যবাহী টেরাকোটা কারিগরদের উৎপাদিত পরিবেশবান্ধব মৃৎপাত্রে আন্তর্জাতিক অর্ডার বৃদ্ধি",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "bn_gold_07",
+        "headline": "যাদবপুর বিশ্ববিদ্যালয়ের বিজ্ঞানীদের আবিষ্কার: প্লাস্টিক বর্জ্য থেকে বায়ো-লুব্রিকেন্ট তেল উৎপাদন",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "bn_gold_08",
+        "headline": "পূর্ব মেদিনীপুরের উপকূলবর্তী গ্রামে লবণাক্ত জমিতে মিষ্টি জলের মাছ চাষের সফল মডেল",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "bn_gold_09",
+        "headline": "কলকাতার যুবতীদের উদ্যোগে পথকুকুরদের জন্য বিনামূল্যে মোবাইল চিকিৎসা ক্লিনিক সফল",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "bn_gold_10",
+        "headline": "নদিয়ায় জৈব বর্জ্য প্রক্রিয়াকরণ করে গ্রামীণ গৃহস্থালিতে পাইপলাইনে রান্নার গ্যাস সরবরাহ শুরু",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "bn_gold_11",
+        "headline": "বাংলার তরুণ সাঁতারু বিশ্ব যুব চ্যাম্পিয়নশিপে জোড়া স্বর্ণপদক জিতে নজির গড়লেন",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "bn_gold_12",
+        "headline": "দার্জিলিংয়ের অর্গানিক অর্থোডক্স চা জাপানি বাজারে শ্রেষ্ঠত্ব ও সম্মাননা অর্জন করল",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "bn_gold_13",
+        "headline": "হাওড়ায় রাসায়নিক কারখানায় ভয়াবহ অগ্নিকাণ্ড, ৩ শ্রমিকের মৃত্যু, বহু আহত",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "bn_gold_14",
+        "headline": "জাতীয় সড়কে বেপরোয়া বাসের ধাক্কায় অটোচালকের মৃত্যু, ৪ জন যাত্রী আশঙ্কাজনক",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "bn_gold_15",
+        "headline": "ব্যাংক অ্যাকাউন্ট ফাঁকা করে কোটি টাকার প্রতারণা চক্রের মূল হোতা বিধাননগর থেকে গ্রেফতার",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "bn_gold_16",
+        "headline": "উত্তরবঙ্গে ভারী বর্ষণে তিস্তা নদীর বাঁধ ভেঙে প্লাবিত তিনটি গ্রাম, বাড়িঘর ধসে গৃহহীন বহু পরিবার",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "bn_gold_17",
+        "headline": "বেআইনি বাজি কারখানায় তীব্র বিস্ফোরণ, শিশু সহ ৪ জনের মৃত্যু",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "bn_gold_18",
+        "headline": "বিষমদ খেয়ে হুগলিতে ৬ দিনমজুরের মৃত্যু, পুলিশি অভিযানে বাজেয়াপ্ত বহু চোলাই ঠেক",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "bn_gold_19",
+        "headline": "কলকাতায় বহুতল আবাসন থেকে লিফট ছিঁড়ে নিচে পড়ে দুই নিরাপত্তারক্ষী নিহত",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "bn_gold_20",
+        "headline": "শীতের শুরুতেই মহানগরে দূষণের মাত্রা বিপজ্জনক, বায়ুর মান সূচক ৩৫০ ছাড়াল",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "bn_gold_21",
+        "headline": "দিনেদুপুরে সোনার দোকানে আগ্নেয়াস্ত্র দেখিয়ে কোটি টাকার গয়না লুট",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "bn_gold_22",
+        "headline": "গভীর সমুদ্রে মাছ ধরার ট্রলার উল্টে নিখোঁজ ৭ মৎস্যজীবী, উপকূলে শোকের ছায়া",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "bn_gold_23",
+        "headline": "৮ বছরের অনাথ বালক ট্র্যাফিক সিগন্যালে বই বিক্রি করে অসুস্থ বোনের চিকিৎসার খরচ জোগাচ্ছে",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "bn_gold_24",
+        "headline": "কড়া শীতে খালি পায়ে সংবাদপত্র বিলি করা পথশিশুর সততা: কুড়িয়ে পাওয়া মানিব্যাগ ফিরিয়ে দিল মালিককে",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "bn_gold_25",
+        "headline": "খাদ্যাভাবে দিনমজুরের সন্তানরা না খেয়ে আত্মসংযমের পরীক্ষা দিচ্ছে বলে দাবি প্রধান শিক্ষকের",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "bn_gold_26",
+        "headline": "শিল্পপতি খরা কবলিত অঞ্চলে নিজের রিসর্টে কোটি টাকা ব্যয়ে তৈরি করলেন বিশাল কৃত্রিম ঝরনা",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "bn_gold_27",
+        "headline": "বৃদ্ধার সর্বস্ব লুঠ করে পালিয়ে যাওয়ার আগে ১০ টাকা হাতখরচ দিল ডাকাত",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "bn_gold_28",
+        "headline": "ভারতীয় রিজার্ভ ব্যাংক নীতিগত রেপো রেট অপরিবর্তিত রাখার ঘোষণা করল",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      },
+      {
+        "id": "bn_gold_29",
+        "headline": "গঙ্গা দূষণ রোধে কেন্দ্রীয় দূষণ নিয়ন্ত্রণ পর্ষদকে চার সপ্তাহের মধ্যে রিপোর্ট পেশের নির্দেশ হাইকোর্টের",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      },
+      {
+        "id": "bn_gold_30",
+        "headline": "জাতীয় পরিসংখ্যান কার্যালয় আগামী ত্রৈমাসিক জিডিপি প্রবৃদ্ধির তথ্য প্রকাশের তারিখ জানাল",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      }
+    ]
+  }
+}
