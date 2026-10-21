@@ -1,0 +1,332 @@
+{
+  "language": "ne",
+  "all_gates_passed": true,
+  "certified_at": "2026-10-21T09:35:59.371151+00:00",
+  "gate_details": {
+    "positive_precision": {
+      "value": 1.0,
+      "required": 0.9,
+      "passed": true
+    },
+    "faithfulness_pass_rate": {
+      "value": 1.0,
+      "required": 0.95,
+      "passed": true
+    },
+    "zero_verbatim_copying": {
+      "violations": 0,
+      "passed": true
+    },
+    "healthy_sources": {
+      "count": 3,
+      "required": 3,
+      "passed": true
+    },
+    "native_speaker_spot_check": {
+      "passed": true
+    }
+  },
+  "eval_report": {
+    "language": "ne",
+    "evaluated_at": "2026-10-21T09:35:59.371141+00:00",
+    "total_items": 30,
+    "confusion_matrix": {
+      "true_positives": 12,
+      "false_positives": 0,
+      "true_negatives": 18,
+      "false_negatives": 0
+    },
+    "metrics": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "toxic_positivity_rejection_rate": 1.0,
+      "faithfulness_pass_rate": 1.0,
+      "verbatim_violations_count": 0,
+      "length_compliance_rate": 1.0
+    },
+    "gate_assessment": {
+      "precision_gate_passed": true,
+      "faithfulness_gate_passed": true,
+      "zero_verbatim_copying": true
+    },
+    "detailed_items": [
+      {
+        "id": "ne_gold_01",
+        "headline": "सिक्किमका किसानहरूले जैविक चिया उत्पादनमा नयाँ कीर्तिमान रचे; युरोपमा प्रत्यक्ष निर्यात",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ne_gold_02",
+        "headline": "हिमाली गाउँमा लघु जलविद्युत आयोजना सम्पन्न; सयौं घरधुरीमा बिजुली बत्ती बल्यो",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ne_gold_03",
+        "headline": "कञ्चनजङ्घा संरक्षण क्षेत्रमा हिउँचितुवा संरक्षण अभियान सफल; संख्यामा उत्साहजनक वृद्धि",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ne_gold_04",
+        "headline": "परम्परागत अल्लो कपडा बुन्ने महिला सहकारीको राम्रो आम्दानी; विदेशमा माग बढ्यो",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ne_gold_05",
+        "headline": "पहाडी कान्लामा थोपा सिँचाइ र सौर्य ऊर्जा प्रविधि; सुन्तला खेतीमा दोब्बर उत्पादन",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ne_gold_06",
+        "headline": "सामुदायिक वन उपभोक्ता समूहद्वारा बाह्रैमास पानी उम्रने मुहानहरूको सफल पुनरुत्थान",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ne_gold_07",
+        "headline": "दूर्गम प्राथमिक स्वास्थ्य चौकीमा सौर्य ऊर्जा जडान; चौबीसै घण्टा सुरक्षित प्रसूति सेवा",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ne_gold_08",
+        "headline": "इलामका अर्ग्यानिक कफी उत्पादक कृषकहरूलाई अन्तर्राष्ट्रिय गुणस्तर प्रमाणीकरण प्राप्त",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ne_gold_09",
+        "headline": "गाउँपालिकाद्वारा कृषि फोहोरबाट बायोग्यास प्लान्ट सञ्चालन; ग्यास सिलिन्डरको खर्च बचत",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ne_gold_10",
+        "headline": "एसियाली कराते च्याम्पियनसिपमा नेपाली खेलाडीले जिते ऐतिहासिक स्वर्ण पदक",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ne_gold_11",
+        "headline": "बाँसका सामग्री बनाउने परम्परागत शिल्पीहरूलाई आधुनिक तालिम; बजारमा नयाँ उत्पादन",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ne_gold_12",
+        "headline": "प्लास्टिकमुक्त नमुना गाउँ घोषणा; फोहोरलाई मोहोर बनाउने अभियान प्रभावकारी",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ne_gold_13",
+        "headline": "पृथ्वी राजमार्गमा बस र ट्रक ठोक्किँदा ६ जनाको घटनास्थलमै मृत्यु, २० घाइते",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ne_gold_14",
+        "headline": "भारी वर्षासँगै गएको पहिरोले पाँच घर बगायो; दर्जनौँ स्थानीय विस्थापित",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ne_gold_15",
+        "headline": "सहरको मुख्य बजारमा भीषण आगलागी; करोडौँको धनमाल जलेर नष्ट",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ne_gold_16",
+        "headline": "वैदेशिक रोजगारीको नक्कली भिसा देखाएर करोडौँ ठगी गर्ने गिरोह पक्राउ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ne_gold_17",
+        "headline": "विषाक्त घरेलु मदिरा सेवन गर्दा एकै गाउँका आठ जना मजदुरको मृत्यु",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ne_gold_18",
+        "headline": "मध्यरातमा बैंकको सेफ फोडेर पचास लाख रुपैयाँ लुटपाट",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ne_gold_19",
+        "headline": "पहाडी बाटोमा जिप दुर्घटना हुँदा तीन जनाको ज्यान गयो",
+        "expected": "negative",
+        "predicted": "neutral",
+        "score": 0.4,
+        "reason": "Insufficient constructive outcome evidence; failing closed."
+      },
+      {
+        "id": "ne_gold_20",
+        "headline": "नदीमा आएको बाढीले बस्ती डुबानमा; सयौँ बिघा धानबाली नष्ट",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ne_gold_21",
+        "headline": "सुनको नक्कली गहना धितो राखेर ठगी गर्ने मुख्य अभियुक्त समातिए",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ne_gold_22",
+        "headline": "सिमेन्ट कारखानामा ग्यास सिलिन्डर विस्फोट; दुई जना कामदारको मृत्यु",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ne_gold_23",
+        "headline": "धनी पर्यटकहरूका लागि पहाडको टुप्पोमा विलासी हेलिप्याड रिसोर्ट निर्माण",
+        "expected": "negative",
+        "predicted": "neutral",
+        "score": 0.4,
+        "reason": "Insufficient constructive outcome evidence; failing closed."
+      },
+      {
+        "id": "ne_gold_24",
+        "headline": "अपार्टमेन्ट परिसरमा कृत्रिम झरना र वाटरपार्कको औपचारिक उद्घाटन",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ne_gold_25",
+        "headline": "८ वर्षको टुहुरो बालकले सडकमा फूल बेचेर आमाको क्यान्सर उपचार खर्च जुटाउँदै; प्रेरणाको चर्चा",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "ne_gold_26",
+        "headline": "तुइनको जोखिमपूर्ण यात्रा गरी नाङ्गो खुट्टा विद्यालय जाने बालबालिका; धैर्यको प्रशंसा",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "ne_gold_27",
+        "headline": "दिनभर भोकै बसेर कबाडी संकलन गरी पढाइ खर्च जुटाउने नानीको संघर्ष",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "ne_gold_28",
+        "headline": "नेपाल राष्ट्र बैंकद्वारा मौद्रिक नीतिको समीक्षा; नीतिगत दरहरू यथावत्",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      },
+      {
+        "id": "ne_gold_29",
+        "headline": "सर्वोच्च अदालतको संवैधानिक इजलासद्वारा नयाँ कार्यविधि निर्देशिका जारी",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      },
+      {
+        "id": "ne_gold_30",
+        "headline": "तथ्याङ्क विभागद्वारा राष्ट्रिय आर्थिक गणनाको प्रारम्भिक विवरण सार्वजनिक",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      }
+    ]
+  }
+}

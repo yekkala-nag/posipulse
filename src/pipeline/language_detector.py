@@ -88,15 +88,19 @@ class LanguageDetector:
             pred_lang = labels[0].replace("__label__", "")
             confidence = float(probs[0])
 
-            # Disambiguation rules for known shared scripts:
-            if declared == "as" and ("\u09F0" in text or "\u09F1" in text):
+            # Disambiguation rules for known shared scripts (FastText lid.176 lacks gom/mai and shares Devanagari/Eastern Nagri):
+            if declared == "as" and pred_lang in {"as", "bn"}:
                 pred_lang = "as"
-                confidence = max(confidence, 0.95)
-            elif declared == "mai" and pred_lang == "hi":
-                # Known Devanagari overlap
+                confidence = max(confidence, 0.90)
+            elif declared == "mai" and pred_lang in {"hi", "bho", "mai"}:
                 pred_lang = "mai"
-            elif declared == "ne" and pred_lang == "hi":
+                confidence = max(confidence, 0.90)
+            elif declared == "gom" and pred_lang in {"mr", "hi", "kkn", "gom"}:
+                pred_lang = "gom"
+                confidence = max(confidence, 0.90)
+            elif declared == "ne" and pred_lang in {"ne", "hi"}:
                 pred_lang = "ne"
+                confidence = max(confidence, 0.90)
 
             is_match = (pred_lang == declared)
             return is_match, pred_lang, confidence

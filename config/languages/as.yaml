@@ -1,0 +1,79 @@
+language_code: "as"
+language_name_english: "Assamese"
+language_name_native: "অসমীয়া"
+script: "Eastern Nagri"
+is_rtl: false
+tier: "tier_3"
+status: "active"
+
+quality_gate:
+  min_positive_precision: 0.90
+  min_faithfulness_pass_rate: 0.95
+  min_healthy_sources: 3
+  native_speaker_spot_check_passed: true
+  gate_passed_at: "2026-10-21T00:00:00Z"
+
+length_band:
+  min_words: 30
+  max_words: 85
+  substance_scaling: true
+
+cost_caps:
+  max_cost_per_run_usd: 1.50
+  max_daily_budget_usd: 15.00
+  cost_per_published_item_target_usd: 0.00052
+  alert_threshold_percentage: 80.0
+
+model_routing:
+  classifier_primary_model: "gemini-1.5-flash"
+  classifier_fallback_model: "gemini-2.0-flash"
+  summarizer_primary_model: "gemini-1.5-flash"
+  summarizer_fallback_model: "gemini-2.0-flash"
+  verifier_model: "gemini-2.0-flash"
+  temperature: 0.1
+  max_tokens: 450
+
+positivity_threshold: 0.85
+rubric_version: "1.0.0"
+prompt_version: "1.0.0"
+
+exemplars:
+  - headline: "কাজিৰঙাত বনকৰ্মীৰ সফল নিৰীক্ষণ; চোৰাং চিকাৰ শূন্যলৈ নামি গঁড়ৰ সংখ্যা বৃদ্ধি"
+    body_snippet: "কাজিৰঙা ৰাষ্ট্ৰীয় উদ্যানত আধুনিক ড্ৰোন আৰু স্থানীয় যুৱক-যুৱতীৰ তহলৰ জৰিয়তে চোৰাং চিকাৰ সম্পূৰ্ণৰূপে প্ৰতিহত হৈছে।"
+    label: "positive"
+    reason: "বন্যপ্ৰাণী সংৰক্ষণ আৰু জৈৱ বৈচিত্ৰ্য ৰক্ষাৰ ক্ষেত্ৰত যুগান্তকাৰী সফলতা।"
+    substance_category: "Ecology"
+
+sources:
+  - id: "asomiya-pratidin"
+    name: "Asomiya Pratidin"
+    feed_url: "https://www.asomiyapratidin.in/feed"
+    homepage_url: "https://www.asomiyapratidin.in"
+    language: "as"
+    is_active: true
+    health_status: "healthy"
+    fetch_interval_minutes: 30
+    circuit_breaker_fail_threshold: 5
+    respect_robots_txt: true
+
+  - id: "pratidin-time"
+    name: "Pratidin Time"
+    feed_url: "https://www.pratidintime.com/feed"
+    homepage_url: "https://www.pratidintime.com"
+    language: "as"
+    is_active: true
+    health_status: "healthy"
+    fetch_interval_minutes: 30
+    circuit_breaker_fail_threshold: 5
+    respect_robots_txt: true
+
+  - id: "news18-assam"
+    name: "News18 Assam"
+    feed_url: "https://assam.news18.com/rss/khabar.xml"
+    homepage_url: "https://assam.news18.com"
+    language: "as"
+    is_active: true
+    health_status: "healthy"
+    fetch_interval_minutes: 30
+    circuit_breaker_fail_threshold: 5
+    respect_robots_txt: true

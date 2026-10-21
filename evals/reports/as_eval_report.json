@@ -1,0 +1,332 @@
+{
+  "language": "as",
+  "all_gates_passed": true,
+  "certified_at": "2026-10-21T09:35:59.368521+00:00",
+  "gate_details": {
+    "positive_precision": {
+      "value": 1.0,
+      "required": 0.9,
+      "passed": true
+    },
+    "faithfulness_pass_rate": {
+      "value": 1.0,
+      "required": 0.95,
+      "passed": true
+    },
+    "zero_verbatim_copying": {
+      "violations": 0,
+      "passed": true
+    },
+    "healthy_sources": {
+      "count": 3,
+      "required": 3,
+      "passed": true
+    },
+    "native_speaker_spot_check": {
+      "passed": true
+    }
+  },
+  "eval_report": {
+    "language": "as",
+    "evaluated_at": "2026-10-21T09:35:59.368510+00:00",
+    "total_items": 30,
+    "confusion_matrix": {
+      "true_positives": 12,
+      "false_positives": 0,
+      "true_negatives": 18,
+      "false_negatives": 0
+    },
+    "metrics": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "toxic_positivity_rejection_rate": 1.0,
+      "faithfulness_pass_rate": 1.0,
+      "verbatim_violations_count": 0,
+      "length_compliance_rate": 1.0
+    },
+    "gate_assessment": {
+      "precision_gate_passed": true,
+      "faithfulness_gate_passed": true,
+      "zero_verbatim_copying": true
+    },
+    "detailed_items": [
+      {
+        "id": "as_gold_01",
+        "headline": "কাজিৰঙাত বনকৰ্মীৰ সফল নিৰীক্ষণ; চোৰাং চিকাৰ শূন্যলৈ নামি গঁড়ৰ সংখ্যা বৃদ্ধি",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "as_gold_02",
+        "headline": "আইআইটি গুৱাহাটীৰ গৱেষকে চাহপাতৰ পেলনীয়া অংশৰ পৰা উদ্ভাৱন কৰিলে সুলভ পানী ফিল্টাৰ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "as_gold_03",
+        "headline": "শুৱালকুছিৰ শিপিনীসকলৰ সফল সমবায় প্ৰচেষ্টা; বিশ্ব বজাৰলৈ মুগা ৰেচম বস্ত্ৰৰ ৰপ্তানি",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "as_gold_04",
+        "headline": "ব্ৰহ্মপুত্ৰৰ চাপৰিত সৌৰ জলসিঞ্চনৰ ব্যৱহাৰ; তিনিটা খেতিৰে চহকী হ'ল কৃষক",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "as_gold_05",
+        "headline": "মাজুলীৰ যুৱকৰ উদ্যোগত জৈৱিক মৌ-পালন বিপ্লৱ; ডজনৰো অধিক নিবনুৱাৰ সংস্থাপন",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "as_gold_06",
+        "headline": "বনাঞ্চল সংযোগী হস্তী কৰিডৰ সুৰক্ষিত কৰাত স্থানীয় গাঁওবাসীৰ সাফল্য",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "as_gold_07",
+        "headline": "চৰ এলেকাত সৌৰশক্তিচালিত মডেল চিকিৎসালয় আৰম্ভ; ২৪ ঘণ্টা জৰুৰী স্বাস্থ্য সেৱা",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "as_gold_08",
+        "headline": "কাৰ্বি আংলঙৰ পাহাৰত কপৌফুল সংৰক্ষণত প্ৰশংসনীয় পদক্ষেপ; সংৰক্ষিত হ'ল বিৰল প্ৰজাতি",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "as_gold_09",
+        "headline": "চাহ বাগিচাৰ আৱৰ্জনাৰ পৰা জৈৱিক গেছ উৎপাদন; প্লাষ্টিকৰ বিকল্প তৈয়াৰৰ প্ৰস্তুতি",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "as_gold_10",
+        "headline": "ৰাষ্ট্ৰীয় মল্লযুঁজ প্ৰতিযোগিতাত অসমৰ যুৱতীয়ে কঢ়িয়াই আনিলে স্বৰ্ণপদক",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "as_gold_11",
+        "headline": "বৰপেটাৰ এশ শতাংশ জৈৱিক চাহ খেতিয়কৰ গৌৰৱোজ্জ্বল সফলতা; ইউৰোপলৈ পোনপটীয়া ৰপ্তানি",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "as_gold_12",
+        "headline": "গাঁৱৰ আৱৰ্জনা ব্যৱস্থাপনাত অনন্য নিদৰ্শন; নিৰ্মল গ্ৰাম পঞ্চায়তৰ স্বীকৃতি লাভ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "as_gold_13",
+        "headline": "ৰাষ্ট্ৰীয় ঘাইপথত বাছ আৰু ট্ৰাকৰ মুখামুখি সংঘৰ্ষত ৫ জন যাত্ৰীৰ কৰুণ মৃত্যু",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "as_gold_14",
+        "headline": "নদীৰ খহনীয়াত নিশ্চিহ্ন তিনিখন গাঁও; আশ্ৰয়হীন শ শ পৰিয়াল",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "as_gold_15",
+        "headline": "গুৱাহাটীৰ চহৰত বিধ্বংসী অগ্নিকাণ্ড; ভস্মীভূত কেবাখনো ব্যৱসায়িক প্ৰতিষ্ঠান",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "as_gold_16",
+        "headline": "অনলাইন চাকৰিৰ প্ৰলোভনেৰে লাখ লাখ টকা প্ৰতাৰণা কৰা চক্রক আৰক্ষীৰ গ্ৰেপ্তাৰ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "as_gold_17",
+        "headline": "চাহ বাগিচাত বিষাক্ত সুৰা পান কৰি ১২ গৰাকী শ্ৰমিকৰ আকস্মিক মৃত্যু",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "as_gold_18",
+        "headline": "নিশাৰ অন্ধকাৰত এটি এটিএম কাটি লুটি নিলে বিশ লাখ টকা",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "as_gold_19",
+        "headline": "পাহাৰীয়া ৰাস্তাত যাত্ৰীবাহী বাহন খাৱৈত বাগৰি বহু লোক গুৰুতৰভাৱে আহত",
+        "expected": "negative",
+        "predicted": "neutral",
+        "score": 0.4,
+        "reason": "Insufficient constructive outcome evidence; failing closed."
+      },
+      {
+        "id": "as_gold_20",
+        "headline": "গুৱাহাটীত কৃত্ৰিম বানপানীৰ সৃষ্টি; আৱাসিক অঞ্চলত ব্যাপক জলবন্দী অৱস্থা",
+        "expected": "negative",
+        "predicted": "neutral",
+        "score": 0.4,
+        "reason": "Insufficient constructive outcome evidence; failing closed."
+      },
+      {
+        "id": "as_gold_21",
+        "headline": "নকল সোণ আৰু জাল নোটৰ ব্যৱসায় চলোৱা আন্তঃৰাজ্যিক চোৰাং চিকাৰী ধৰা পৰিল",
+        "expected": "negative",
+        "predicted": "neutral",
+        "score": 0.4,
+        "reason": "Insufficient constructive outcome evidence; failing closed."
+      },
+      {
+        "id": "as_gold_22",
+        "headline": "কাৰখানাত বয়লাৰ বিস্ফোৰণ ঘটি কৰ্মৰত তিনিজন শ্ৰমিক থিতাতে নিহত",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "as_gold_23",
+        "headline": "ধনী ব্যৱসায়ীৰ বাবে পাঁচ তাৰকাযুক্ত গল্ফ ক্লাৱৰ বিশাল উদ্বোধন সমাৰোহ",
+        "expected": "negative",
+        "predicted": "neutral",
+        "score": 0.4,
+        "reason": "Insufficient constructive outcome evidence; failing closed."
+      },
+      {
+        "id": "as_gold_24",
+        "headline": "চহৰৰ আৱাসিক এলেকাত কৃত্ৰিম পুখুৰী আৰু সুসজ্জিত ফোৱাৰা নিৰ্মাণ সম্পন্ন",
+        "expected": "negative",
+        "predicted": "neutral",
+        "score": 0.4,
+        "reason": "Insufficient constructive outcome evidence; failing closed."
+      },
+      {
+        "id": "as_gold_25",
+        "headline": "৮ বছৰীয়া অনাথ শিশুৱে ফুল বিক্ৰী কৰি মাতৃৰ কেন্সাৰৰ চিকিৎসাৰ খৰচ যোগাইছে; সাহসিকতাৰ প্ৰশংসা",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "as_gold_26",
+        "headline": "ভগা দলঙেৰে প্ৰাণৰ ভয়ত খালি ভৰিৰে বিদ্যালয়লৈ যাত্ৰা কণ কণ ছাত্ৰ-ছাত্ৰীৰ; অপূৰ্ব ধৈৰ্য্যৰ নিদৰ্শন",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "as_gold_27",
+        "headline": "লঘোণে থাকি ৰাস্তাত আৱৰ্জনা বুটলি পৰিয়াল পোহা কিশোৰৰ অদম্য জীৱন সংগ্ৰাম",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "as_gold_28",
+        "headline": "ৰিজাৰ্ভ বেংকৰ মুদ্ৰানীতি সমিতিৰ বৈঠকত ৰেপো ৰেট অপৰিৱৰ্তিত ৰখাৰ সিদ্ধান্ত",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      },
+      {
+        "id": "as_gold_29",
+        "headline": "উচ্চ ন্যায়ালয়ৰ নিৰ্দেশনাত চৰকাৰী ভূমি পঞ্জীয়নৰ নতুন নিয়ম জাৰি",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      },
+      {
+        "id": "as_gold_30",
+        "headline": "পৰিসংখ্যা বিভাগৰ তৰফৰ পৰা ত্ৰৈমাসিক অৰ্থনৈতিক বিকাশৰ তালিকা প্ৰকাশ",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      }
+    ]
+  }
+}

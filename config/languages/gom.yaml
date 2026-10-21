@@ -1,0 +1,79 @@
+language_code: "gom"
+language_name_english: "Konkani"
+language_name_native: "कोंकणी"
+script: "Devanagari"
+is_rtl: false
+tier: "tier_3"
+status: "active"
+
+quality_gate:
+  min_positive_precision: 0.90
+  min_faithfulness_pass_rate: 0.95
+  min_healthy_sources: 3
+  native_speaker_spot_check_passed: true
+  gate_passed_at: "2026-10-21T00:00:00Z"
+
+length_band:
+  min_words: 30
+  max_words: 85
+  substance_scaling: true
+
+cost_caps:
+  max_cost_per_run_usd: 1.50
+  max_daily_budget_usd: 15.00
+  cost_per_published_item_target_usd: 0.00060
+  alert_threshold_percentage: 80.0
+
+model_routing:
+  classifier_primary_model: "gemini-1.5-flash"
+  classifier_fallback_model: "gemini-2.0-flash"
+  summarizer_primary_model: "gemini-1.5-flash"
+  summarizer_fallback_model: "gemini-2.0-flash"
+  verifier_model: "gemini-2.0-flash"
+  temperature: 0.1
+  max_tokens: 450
+
+positivity_threshold: 0.85
+rubric_version: "1.0.0"
+prompt_version: "1.0.0"
+
+exemplars:
+  - headline: "गोयांत कांदळवन संवर्धना खातीर पारंपरीक खारवी समाजाचो व्हड वावर; नुस्तें उत्पादनांत वाड"
+    body_snippet: "खारवी समाजाने मांडवी न्हंयेच्या देगेर कांदळवनाची रोपां लावन पर्यावरणाचे रक्षण केले आनी नुस्त्याक नवो जीव दिलो."
+    label: "positive"
+    reason: "पर्यावरण संवर्धन आनी पारंपरीक समाजाचो स्वावलंबन वावर."
+    substance_category: "Ecology"
+
+sources:
+  - id: "bhashabhas-konkani"
+    name: "Bhashabhas Konkani"
+    feed_url: "https://bhashabhas.com/feed"
+    homepage_url: "https://bhashabhas.com"
+    language: "gom"
+    is_active: true
+    health_status: "healthy"
+    fetch_interval_minutes: 30
+    circuit_breaker_fail_threshold: 5
+    respect_robots_txt: true
+
+  - id: "daijiworld-konkani"
+    name: "Daijiworld Konkani"
+    feed_url: "https://daijiworld.com/konkani/rss"
+    homepage_url: "https://daijiworld.com"
+    language: "gom"
+    is_active: true
+    health_status: "healthy"
+    fetch_interval_minutes: 30
+    circuit_breaker_fail_threshold: 5
+    respect_robots_txt: true
+
+  - id: "sunaparant-goa"
+    name: "Sunaparant Goa"
+    feed_url: "https://sunaparant.in/feed"
+    homepage_url: "https://sunaparant.in"
+    language: "gom"
+    is_active: true
+    health_status: "healthy"
+    fetch_interval_minutes: 30
+    circuit_breaker_fail_threshold: 5
+    respect_robots_txt: true

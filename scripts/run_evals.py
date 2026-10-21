@@ -63,7 +63,8 @@ def main():
     registry = LanguageConfigRegistry(str(base_dir / "config" / "languages"))
     target_languages = [
         "en", "hi", "bn", "mr", "te", "ta",
-        "ur", "gu", "kn", "or", "ml", "pa"
+        "ur", "gu", "kn", "or", "ml", "pa",
+        "as", "ne", "mai", "gom"
     ]
 
     for lang in target_languages:

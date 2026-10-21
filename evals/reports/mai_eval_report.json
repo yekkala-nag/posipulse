@@ -1,0 +1,332 @@
+{
+  "language": "mai",
+  "all_gates_passed": true,
+  "certified_at": "2026-10-21T09:35:59.373798+00:00",
+  "gate_details": {
+    "positive_precision": {
+      "value": 1.0,
+      "required": 0.9,
+      "passed": true
+    },
+    "faithfulness_pass_rate": {
+      "value": 1.0,
+      "required": 0.95,
+      "passed": true
+    },
+    "zero_verbatim_copying": {
+      "violations": 0,
+      "passed": true
+    },
+    "healthy_sources": {
+      "count": 3,
+      "required": 3,
+      "passed": true
+    },
+    "native_speaker_spot_check": {
+      "passed": true
+    }
+  },
+  "eval_report": {
+    "language": "mai",
+    "evaluated_at": "2026-10-21T09:35:59.373782+00:00",
+    "total_items": 30,
+    "confusion_matrix": {
+      "true_positives": 12,
+      "false_positives": 0,
+      "true_negatives": 18,
+      "false_negatives": 0
+    },
+    "metrics": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "toxic_positivity_rejection_rate": 1.0,
+      "faithfulness_pass_rate": 1.0,
+      "verbatim_violations_count": 0,
+      "length_compliance_rate": 1.0
+    },
+    "gate_assessment": {
+      "precision_gate_passed": true,
+      "faithfulness_gate_passed": true,
+      "zero_verbatim_copying": true
+    },
+    "detailed_items": [
+      {
+        "id": "mai_gold_01",
+        "headline": "मिथिलाक महिला समूह द्वारा मखाना प्रोसेसिंग मे आधुनिक तकनीकक सफल प्रयोग",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "mai_gold_02",
+        "headline": "मधुबनी चित्रकलाक वैश्विक ई-कॉमर्स पोर्टल सफल; महिला कलाकारक आमदनी दुगुना",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "mai_gold_03",
+        "headline": "कम पानिमे धानक नव वेराइटी विकसित; मिथिलाक किसानक लागत मे कमी",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "mai_gold_04",
+        "headline": "सौराठ गाछी मे सौर्य सिंचन संयंत्र स्थापित; बंजर जमीन पर हरियाली",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "mai_gold_05",
+        "headline": "पोखरि पुनरुद्धार सं देशी माछ पालन मे ऐतिहासिक सफलता; नव रोजगारक सृजन",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "mai_gold_06",
+        "headline": "कोसी क्षेत्र मे कछुआ संरक्षण अभियान सफल; दुर्लभ प्रजातिक संख्या मे वृद्धि",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "mai_gold_07",
+        "headline": "ग्रामीण प्राथमिक स्वास्थ्य केंद्र मे सोलर हेल्थ सेंटर शुरू; निर्बाध इलाज सुविधा",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "mai_gold_08",
+        "headline": "सिक्की घासक पारंपरिक हस्तशिल्पक विदेश मे भारी मांग; महिला सशक्तिकरणक नव अध्याय",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "mai_gold_09",
+        "headline": "कृषि अपशिष्ट सं बायो-सीएनजी उत्पादन संयंत्र चालू; स्वच्छ ऊर्जाक नया स्रोत",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "mai_gold_10",
+        "headline": "राष्ट्रीय तीरंदाजी प्रतियोगिता मे मिथिलाक बेटी जीतलक स्वर्ण पदक",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "mai_gold_11",
+        "headline": "खादी ग्रामोद्योगक कताई-बुनाई केंद्र सं ग्रामीण बुनकरक आर्थिक दशा सुधरल",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "mai_gold_12",
+        "headline": "कचरा प्रबंधन मे उत्कृष्ट काज लेल ग्राम पंचायत केँ मिलल स्वच्छ ग्राम पुरस्कार",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "mai_gold_13",
+        "headline": "फोरलेन पर बस आ ट्रकक भीषण टक्कर; ५ यात्रीक दर्दनाक मृत्यु",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "mai_gold_14",
+        "headline": "बाढ़िमे कोसी नदीक तटबंध टूटल; दर्जनों गांव जलमग्न",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "mai_gold_15",
+        "headline": "मधुबनी बाजार मे भीषण आगि लगला सं २० दोकान जलि कए राख",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "mai_gold_16",
+        "headline": "नौकरीक नाम पर लाखो रुपैयाक ठगी करनिहार गिरोह गिरफ्तार",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "mai_gold_17",
+        "headline": "जहरीली शराब पीबि कए आठ मजूरक मौत; इलाका मे मातम",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "mai_gold_18",
+        "headline": "बैंकक दीवार काटि कए लुटेरा सभ उड़ा लेलक ३० लाख रुपैया",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "mai_gold_19",
+        "headline": "यात्री ऑटो पलटल; दुर्घटनामे सात लोग गंभीर रूप सं घायल",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "mai_gold_20",
+        "headline": "अतिवृष्टि सं खेत मे पानी भरल; दलहन फसल पूरी तरह बर्बाद",
+        "expected": "negative",
+        "predicted": "neutral",
+        "score": 0.4,
+        "reason": "Insufficient constructive outcome evidence; failing closed."
+      },
+      {
+        "id": "mai_gold_21",
+        "headline": "जमीन रजिस्ट्री मे फर्जी कागजात बना कए ठगी करनिहार गिरोह पकड़ाएल",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "mai_gold_22",
+        "headline": "राइस मिल मे बॉयलर ब्लास्ट भेला सं दू मजदूरक मौत",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "mai_gold_23",
+        "headline": "शहरक धनाढ्य वर्ग लेल लग्जरी क्लब आ स्विमिंग पूल बनल",
+        "expected": "negative",
+        "predicted": "neutral",
+        "score": 0.4,
+        "reason": "Insufficient constructive outcome evidence; failing closed."
+      },
+      {
+        "id": "mai_gold_24",
+        "headline": "सोसाइटी परिसर मे कृत्रिम फव्वारा आ फाउंटेन उद्घाटन",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "mai_gold_25",
+        "headline": "८ वर्षक अनाथ बच्चा फूल बेचि कए बीमार मायक इलाजक खर्च जुटा रहल अछि; सोसल मीडिया पर तारीफ",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "mai_gold_26",
+        "headline": "टूटा पुलिया सं उघार पैर स्कूल जाइत बच्चा सभक धैर्यक सराहना",
+        "expected": "toxic_positivity",
+        "predicted": "neutral",
+        "score": 0.4,
+        "reason": "Insufficient constructive outcome evidence; failing closed."
+      },
+      {
+        "id": "mai_gold_27",
+        "headline": "भूखल रहि कए कचरा बीछि कए किताब किननिहार विद्यार्थीक संघर्षक कथा",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "mai_gold_28",
+        "headline": "रिजर्व बैंकक मौद्रिक नीति बैठक मे रेपो दर यथावत राखबाक निर्णय",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      },
+      {
+        "id": "mai_gold_29",
+        "headline": "पटना उच्च न्यायालय द्वारा भूमि विवादक निपटारा लेल नव गाइडलाइन जारी",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      },
+      {
+        "id": "mai_gold_30",
+        "headline": "सांख्यिकी विभाग द्वारा तिमाही आर्थिक विकास दरक आंकड़ा सार्वजनिक",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      }
+    ]
+  }
+}

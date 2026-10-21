@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kantipur Daily</title>
+    <link>https://ekantipur.com</link>
+    <description>Kantipur Daily Nepali News</description>
+    <language>ne</language>
+    
+    <item>
+      <title>सिक्किमका किसानहरूले जैविक चिया उत्पादनमा नयाँ कीर्तिमान रचे; युरोपमा प्रत्यक्ष निर्यात</title>
+      <link>https://ekantipur.com/news/sikkim-organic-tea-farmers-cooperative-export-article1?utm_source=rss</link>
+      <description><![CDATA[साना कृषकहरूको सहकारीले बिचौलिया बिना अर्गानिक अर्थोडक्स चियाको सिधा बिक्री सुरु गरेको छ।]]></description>
+      <pubDate>Tue, 21 Oct 2026 04:30:00 GMT</pubDate>
+      <guid isPermaLink="false">kd_ne_001</guid>
+    </item>
+
+    <item>
+      <title>हिमाली गाउँमा लघु जलविद्युत आयोजना सम्पन्न; सयौं घरधुरीमा बिजुली बत्ती बल्यो</title>
+      <link>https://ekantipur.com/tech/micro-hydro-project-mountain-village-clean-energy-article2</link>
+      <description><![CDATA[स्थानीय जनसहभागिता र श्रमदानबाट बनेको यो क्लिन इनर्जी परियोजनाले गाउँको मुहार फेरेको छ।]]></description>
+      <pubDate>Tue, 21 Oct 2026 05:00:00 GMT</pubDate>
+      <guid isPermaLink="false">kd_ne_002</guid>
+    </item>
+
+    <item>
+      <title>पृथ्वी राजमार्गमा बस र ट्रक ठोक्किँदा ६ जनाको घटनास्थलमै मृत्यु, २० घाइते</title>
+      <link>https://ekantipur.com/news/fatal-highway-collision-casualties-article3</link>
+      <description><![CDATA[तीव्र गतिका कारण भएको भीषण सडक दुर्घटनाले यातायात आवागमन अवरुद्ध भएको छ।]]></description>
+      <pubDate>Tue, 21 Oct 2026 02:15:00 GMT</pubDate>
+      <guid isPermaLink="false">kd_ne_003</guid>
+    </item>
+
+    <item>
+      <title>८ वर्षको टुहुरो बालकले सडकमा फूल बेचेर आमाको क्यान्सर उपचार खर्च जुटाउँदै; प्रेरणाको चर्चा</title>
+      <link>https://ekantipur.com/specials/child-selling-flowers-treatment-hardship-article4</link>
+      <description><![CDATA[गरिबी र बालश्रमको कठोर यथार्थलाई लुकाएर सोसल मिडियामा यसलाई त्याग र प्रेरणाका रूपमा प्रस्तुत गरिएको छ।]]></description>
+      <pubDate>Tue, 21 Oct 2026 03:00:00 GMT</pubDate>
+      <guid isPermaLink="false">kd_ne_004</guid>
+    </item>
+
+    <item>
+      <title>नेपाल राष्ट्र बैंकद्वारा मौद्रिक नीतिको समीक्षा; नीतिगत दरहरू यथावत्</title>
+      <link>https://ekantipur.com/business/central-bank-monetary-policy-rates-article5</link>
+      <description><![CDATA[मुद्रास्फीति नियन्त्रण र वित्तीय स्थायित्वलाई ध्यानमा राखेर यो निर्णय गरिएको हो।]]></description>
+      <pubDate>Tue, 21 Oct 2026 06:00:00 GMT</pubDate>
+      <guid isPermaLink="false">kd_ne_005</guid>
+    </item>
+  </channel>
+</rss>

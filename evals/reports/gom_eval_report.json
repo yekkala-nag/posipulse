@@ -1,0 +1,332 @@
+{
+  "language": "gom",
+  "all_gates_passed": true,
+  "certified_at": "2026-10-21T09:35:59.376370+00:00",
+  "gate_details": {
+    "positive_precision": {
+      "value": 1.0,
+      "required": 0.9,
+      "passed": true
+    },
+    "faithfulness_pass_rate": {
+      "value": 1.0,
+      "required": 0.95,
+      "passed": true
+    },
+    "zero_verbatim_copying": {
+      "violations": 0,
+      "passed": true
+    },
+    "healthy_sources": {
+      "count": 3,
+      "required": 3,
+      "passed": true
+    },
+    "native_speaker_spot_check": {
+      "passed": true
+    }
+  },
+  "eval_report": {
+    "language": "gom",
+    "evaluated_at": "2026-10-21T09:35:59.376360+00:00",
+    "total_items": 30,
+    "confusion_matrix": {
+      "true_positives": 12,
+      "false_positives": 0,
+      "true_negatives": 18,
+      "false_negatives": 0
+    },
+    "metrics": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "toxic_positivity_rejection_rate": 1.0,
+      "faithfulness_pass_rate": 1.0,
+      "verbatim_violations_count": 0,
+      "length_compliance_rate": 1.0
+    },
+    "gate_assessment": {
+      "precision_gate_passed": true,
+      "faithfulness_gate_passed": true,
+      "zero_verbatim_copying": true
+    },
+    "detailed_items": [
+      {
+        "id": "gom_gold_01",
+        "headline": "गोयांत कांदळवन संवर्धना खातीर पारंपरीक खारवी समाजाचो व्हड वावर; नुस्तें उत्पादनांत वाड",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "gom_gold_02",
+        "headline": "दर्यांत प्रदूषण रोखपाक खारव्यांनी सुरू केली सोलर बोट; डिझलाचो खर्च उणो जालो",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "gom_gold_03",
+        "headline": "गोयांतल्या जैविक काजू बागायतदारांची सहकारी संस्था यशस्वी; आंतरराष्ट्रीय बाजारांत थेट विक्री",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "gom_gold_04",
+        "headline": "कुंकळ्ळीच्या हातमाग विणकारांच्या पारंपरिक कापडाक मेळ्ळी जीआय टॅगची मान्यता",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "gom_gold_05",
+        "headline": "मोरजी वेळेर ऑलिव्ह रिडले कासव संवर्धन मोहीम जैतिवंत; शेकड्यांनी पिल्लां दर्यांत सोडली",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "gom_gold_06",
+        "headline": "गावठण वाठारांत सौर ऊर्जा प्रकल्प कार्यान्वित; पंचायत कार्यालयाक मेळ्ळी फुकट वीज",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "gom_gold_07",
+        "headline": "ग्रामीण गोंयांतल्या आरोग्य केंद्रांचे नूतनीकरण; चोवीस तास अत्याधुनिक सोलर प्रायमरी उपचार",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "gom_gold_08",
+        "headline": "कुळगर बागायत पध्दतीन मसाल्यांची सेंद्रिय लागवड; शेती उत्पादकतेत मोलाची भर",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "gom_gold_09",
+        "headline": "हॉटेलांतल्या अन्न कचऱ्या पसून बायोगॅस उत्पादन; सिलिंडराची मोठी बचत",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "gom_gold_10",
+        "headline": "राष्ट्रीय नौकानयन सर्तीत गोयच्या खेळाडूंनी पटकावले भांगरा पदक",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "gom_gold_11",
+        "headline": "नारळाच्या काथ्या पसून पर्यावरणी हस्तकलेची निर्मिती; महिला बचत गटाक आर्थिक स्थैर्य",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "gom_gold_12",
+        "headline": "प्लास्टिक कचरा मुक्त नितळ गांव पुरस्कार गांवाक जाहीर; ग्रामस्थांचो गौरव",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "gom_gold_13",
+        "headline": "राष्ट्रीय महामार्गाचेर बस आनी ट्रकची भीषण धडक; चार प्रवाशांचो जागीच मरण",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "gom_gold_14",
+        "headline": "मुसळधार पावसान डोंगराची माती कोसळून घरांचे नुकसान; रस्तो बंद",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "gom_gold_15",
+        "headline": "शारांतल्या गोदामाक अचानक व्हड उजो पेटलो; लाखांची मालमत्ता भस्मसात",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "gom_gold_16",
+        "headline": "सरकारी नोकरीचे आमिष दाखवून करोडो रुपयांची फटोवणी करपी टोळी अटकेत",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "gom_gold_17",
+        "headline": "विखारी सोरो पियिल्ल्यान सात कामगारांची प्रकृती गंभीर; एकाचो मृत्यू",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "gom_gold_18",
+        "headline": "बँकेची खिडकी मोडून चोरट्यांनी लांबयले पन्नास लाख रुपया",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "gom_gold_19",
+        "headline": "घाटमाथ्या वयल्या वळणावर कार दरीत कोसळून तिघेजण जखमी",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "gom_gold_20",
+        "headline": "न्हंयेक आयिल्ल्या महापुराक लागून शेतजमीन बुडून भाताचे पीक उध्वस्त",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "gom_gold_21",
+        "headline": "फाटल्या दाराने चोरट्यांनी घरात घुसून केली दागिन्यांची लूट",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "gom_gold_22",
+        "headline": "कारखान्यांत गॅस सिलिंडर पेटून स्फोट; एका कामगाराचो दुर्दैवी अंत",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "gom_gold_23",
+        "headline": "धनाढ्य पर्यटकां खातीर लक्झरी कॅसिनो क्रूझचे भपकेबाज उद्घाटन",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "gom_gold_24",
+        "headline": "पॉश रिसॉर्टांत कृत्रिम कारंजे आनी वॉटर स्लाइडचे लोकार्पण",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "gom_gold_25",
+        "headline": "८ वर्सांचो अनाथ भुरगो फुलां विकून आवयच्या कॅन्सर उपचाराचो खर्च करता; नेटकऱ्यांकडून कौतुक",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "gom_gold_26",
+        "headline": "साकव मोडून पांयांत चप्पल नासतना जीव धोक्यांत घालून शाळेत वचपी भुरग्यांची सोशिकता",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "gom_gold_27",
+        "headline": "उपाशी रावून कचरो वेचून पुस्तकांची फी भरपी भुरग्याची हृदयद्रावक जिद्द",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "gom_gold_28",
+        "headline": "रिझर्व्ह बँकेची पतधोरण समिती; रेपो दर जैसे थे दवरपाचो निर्णय",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      },
+      {
+        "id": "gom_gold_29",
+        "headline": "मुंबय उच्च न्यायालयाच्या गोवा खंडपीठाने दिले नवीन प्रशासकीय निर्देश",
+        "expected": "neutral",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "gom_gold_30",
+        "headline": "सांख्यिकी खात्याकडून राज्याच्या आर्थिक वाढीची आकडेवारी जाहीर",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.4,
+        "reason": "Insufficient constructive outcome evidence; failing closed."
+      }
+    ]
+  }
+}
