@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>The Hindu: National News</title>
+    <link>https://www.thehindu.com/news/national/</link>
+    <description>Latest National News from The Hindu</description>
+    <language>en-in</language>
+    
+    <item>
+      <title>IISc scientists develop ultra-low-cost water purification membrane using agricultural waste</title>
+      <link>https://www.thehindu.com/sci-tech/science/iisc-scientists-develop-water-purification-membrane/article71609121.ece?utm_source=rss&amp;utm_medium=feed</link>
+      <description><![CDATA[Researchers at the Indian Institute of Science (IISc) Bengaluru have synthesized a nanotech filtration membrane from discarded rice husks that removes 99.8% of heavy metals and microplastics from rural groundwater at one-fifth the cost of conventional filters.]]></description>
+      <pubDate>Tue, 21 Oct 2026 04:30:00 GMT</pubDate>
+      <guid isPermaLink="false">thehindu_71609121</guid>
+    </item>
+
+    <item>
+      <title>ISRO and NASA joint NISAR Earth observation satellite completes final integration tests in Bengaluru</title>
+      <link>https://www.thehindu.com/sci-tech/technology/isro-nasa-nisar-satellite-completes-tests/article71609122.ece</link>
+      <description><![CDATA[The radar imaging satellite designed to track land ecosystem changes, glacier melt rates, and coastal sea-level rise completed all thermal vacuum tests ahead of its planned launch.]]></description>
+      <pubDate>Tue, 21 Oct 2026 05:00:00 GMT</pubDate>
+      <guid isPermaLink="false">thehindu_71609122</guid>
+    </item>
+
+    <item>
+      <title>Tragic bus collision on National Highway claims 14 lives in northern district</title>
+      <link>https://www.thehindu.com/news/national/tragic-bus-collision-claims-14-lives/article71609123.ece</link>
+      <description><![CDATA[Fourteen passengers died and over twenty sustained critical injuries following a head-on collision between a state transport bus and a speeding freight carrier early Tuesday morning in dense fog.]]></description>
+      <pubDate>Tue, 21 Oct 2026 02:15:00 GMT</pubDate>
+      <guid isPermaLink="false">thehindu_71609123</guid>
+    </item>
+
+    <item>
+      <title>8-Year-Old Works 14 Hours Daily Selling Flowers to Pay for Mother's Chemotherapy</title>
+      <link>https://www.thehindu.com/news/cities/delhi/young-boy-sells-flowers-for-mother-treatment/article71609124.ece</link>
+      <description><![CDATA[In an inspiring tale of devotion, young Aryan spends 14 hours every day selling garlands at traffic junctions to afford the chemotherapy injections needed by his ailing mother.]]></description>
+      <pubDate>Tue, 21 Oct 2026 03:00:00 GMT</pubDate>
+      <guid isPermaLink="false">thehindu_71609124</guid>
+    </item>
+
+    <item>
+      <title>Reserve Bank of India keeps repo rate unchanged at 6.50% in bi-monthly monetary policy</title>
+      <link>https://www.thehindu.com/business/rbi-monetary-policy-repo-rate-unchanged/article71609125.ece</link>
+      <description><![CDATA[The Monetary Policy Committee of the Reserve Bank of India decided unanimously to maintain the benchmark policy repo rate at 6.50 percent, citing balanced domestic growth dynamics.]]></description>
+      <pubDate>Tue, 21 Oct 2026 06:00:00 GMT</pubDate>
+      <guid isPermaLink="false">thehindu_71609125</guid>
+    </item>
+  </channel>
+</rss>
