@@ -1,0 +1,45 @@
+{
+  "expo": {
+    "name": "PosiPulse",
+    "slug": "posipulse",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0a0d14"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.posipulse.news",
+      "infoPlist": {
+        "UIRequiresFullScreen": true,
+        "NSAppTransportSecurity": {
+          "NSAllowsArbitraryLoads": false
+        }
+      }
+    },
+    "android": {
+      "package": "com.posipulse.news",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0a0d14"
+      },
+      "supportsRtl": true
+    },
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/Outfit-Bold.ttf",
+            "./assets/fonts/PlusJakartaSans-Regular.ttf",
+            "./assets/fonts/NotoNastaliqUrdu-Regular.ttf"
+          ]
+        }
+      ]
+    ]
+  }
+}
