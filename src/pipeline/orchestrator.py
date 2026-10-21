@@ -12,8 +12,11 @@ Guarantees:
 """
 
 from datetime import datetime, timezone
+import time
 import uuid
 from typing import Any, Dict, List, Optional
+from src.observability.logger import logger
+from src.observability.metrics import metrics_collector
 from src.pipeline.classifier import PositivityClassifier
 from src.pipeline.deduplicator import ArticleDeduplicator
 from src.pipeline.fetcher import FeedFetcher
@@ -102,8 +105,11 @@ class PipelineOrchestrator:
         }
 
         for item in raw_items:
+            metrics_collector.increment_counter("posipulse_articles_ingested_total", language=self.config.language_code)
+
             # 1. Cost Cap Circuit Breaker Check
             if self.current_run_cost_usd >= self.config.cost_caps.max_cost_per_run_usd:
+                metrics_collector.increment_counter("posipulse_circuit_breaker_trips_total", language=self.config.language_code)
                 self.dead_letter_queue.append(
                     PipelineMessageEnvelope(
                         message_id=uuid.uuid4().hex,
@@ -160,6 +166,11 @@ class PipelineOrchestrator:
             self.current_run_cost_usd += 0.00007
 
             if not verified_ok:
+                metrics_collector.increment_counter(
+                    "posipulse_dlq_total",
+                    stage="verifier",
+                    language=self.config.language_code
+                )
                 self.dead_letter_queue.append(
                     PipelineMessageEnvelope(
                         message_id=uuid.uuid4().hex,
@@ -203,6 +214,10 @@ class PipelineOrchestrator:
 
             self.storage.insert_article(published_article)
             stats["published_count"] += 1
+            metrics_collector.increment_counter(
+                "posipulse_articles_published_total",
+                language=self.config.language_code
+            )
 
         stats["run_cost_usd"] = round(self.current_run_cost_usd, 6)
         return stats

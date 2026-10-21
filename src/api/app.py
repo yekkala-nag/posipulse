@@ -8,12 +8,13 @@ feed pagination, and DPDP Act delisting.
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
-from fastapi import FastAPI, HTTPException, Query, status
+from fastapi import FastAPI, Header, HTTPException, Query, Response, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, EmailStr, Field
 from src.config.loader import LanguageConfigRegistry
+from src.observability.metrics import metrics_collector
 from src.pipeline.orchestrator import PipelineOrchestrator
 from src.schemas.article import Article
 from src.storage.db import StorageEngine
@@ -87,8 +88,21 @@ def create_app(storage: Optional[StorageEngine] = None, registry: Optional[Langu
         return {"status": "ok", "timestamp": datetime.now(timezone.utc).isoformat()}
 
     @app.get("/metrics")
-    def get_metrics() -> Dict[str, Any]:
-        return storage_engine.get_metrics()
+    def get_metrics(
+        format: Optional[str] = Query(None, description="json or prometheus"),
+        accept: Optional[str] = Header(None)
+    ):
+        if format == "prometheus" or (accept and "text/plain" in accept):
+            return Response(
+                content=metrics_collector.export_prometheus_text(),
+                media_type="text/plain; version=0.0.4"
+            )
+
+        db_metrics = storage_engine.get_metrics()
+        telemetry = metrics_collector.get_summary()
+        combined = dict(db_metrics)
+        combined["telemetry"] = telemetry
+        return combined
 
     @app.get("/v1/languages")
     def list_languages() -> Dict[str, Any]:
