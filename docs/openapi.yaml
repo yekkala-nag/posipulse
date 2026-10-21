@@ -1,0 +1,461 @@
+openapi: 3.1.0
+info:
+  title: Positive News App API Gateway
+  version: 1.0.0
+  description: >
+    Public Client API Gateway for the Positive News App serving English and 15 Indian languages.
+    Enforces strict non-negotiable constraints: summaries are original abstractive writing,
+    raw publisher body text is never stored or served, every item provides prominent canonical
+    attribution link-outs, and all published items have passed dual-model faithfulness verification.
+servers:
+  - url: https://api.positivenews.app
+    description: Production Gateway
+  - url: http://localhost:8000
+    description: Local Development Server
+
+paths:
+  /v1/feed:
+    get:
+      summary: Retrieve Paginated Positive News Feed
+      operationId: getFeed
+      description: Returns verified constructive news articles filtered by language and category.
+      parameters:
+        - name: language
+          in: query
+          required: true
+          schema:
+            type: string
+            minLength: 2
+            maxLength: 5
+            example: "hi"
+          description: ISO language code (e.g., en, hi, te, ur, mr).
+        - name: category
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: ["Science/Tech", "Ecology", "Empowerment", "Resilience", "Civic"]
+          description: Optional constructive journalism category filter.
+        - name: since
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+          description: Incremental sync timestamp; returns only items published after this date.
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          description: Number of articles to return per page.
+        - name: cursor
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Opaque pagination cursor.
+      responses:
+        '200':
+          description: Successful paginated feed response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedResponse'
+        '400':
+          description: Invalid query parameters or unsupported language code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /v1/articles/{id}:
+    get:
+      summary: Retrieve Single Article Summary
+      operationId: getArticleById
+      description: Returns details of a specific positive news item with canonical attribution link.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique article identifier.
+      responses:
+        '200':
+          description: Article found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArticleItem'
+        '404':
+          description: Article not found or delisted under privacy regulations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /v1/clusters/{cluster_id}:
+    get:
+      summary: Retrieve Multilingual Semantic Cluster
+      operationId: getClusterArticles
+      description: Returns all language variants of a syndicated constructive news story.
+      parameters:
+        - name: cluster_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Semantic cluster identifier.
+      responses:
+        '200':
+          description: Cluster found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClusterResponse'
+        '404':
+          description: Cluster not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /v1/languages:
+    get:
+      summary: List Supported Languages and Health Gates
+      operationId: listLanguages
+      description: Returns all supported languages with tier, active/beta status, RTL direction, and quality gate health.
+      responses:
+        '200':
+          description: List of languages.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LanguageListResponse'
+
+  /v1/feedback:
+    post:
+      summary: Submit User Feedback / Report Non-Positive Story
+      operationId: submitFeedback
+      description: User feedback loop allowing readers to flag non-positive, inaccurate, or toxic-positivity items.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeedbackRequest'
+      responses:
+        '202':
+          description: Feedback accepted for asynchronous model evaluation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardSuccessResponse'
+        '400':
+          description: Invalid feedback payload.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /v1/privacy/delist:
+    post:
+      summary: Data Principal Delisting Request (DPDP Act Compliance)
+      operationId: submitDelistRequest
+      description: Endpoint for individuals requesting name removal or story delisting under Section 3(c)(ii) / Section 9.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DelistRequest'
+      responses:
+        '202':
+          description: Delisting request acknowledged for 72-hour administrative SLA.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardSuccessResponse'
+        '400':
+          description: Invalid delisting request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /health:
+    get:
+      summary: Service Health Check
+      operationId: getHealth
+      responses:
+        '200':
+          description: Service is healthy.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "ok"
+                  timestamp:
+                    type: string
+                    format: date-time
+
+  /metrics:
+    get:
+      summary: Observability and Drift Metrics
+      operationId: getMetrics
+      responses:
+        '200':
+          description: System metrics.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetricsResponse'
+
+components:
+  schemas:
+    ArticleItem:
+      type: object
+      required:
+        - id
+        - headline
+        - summary
+        - canonical_url
+        - source_name
+        - published_at
+        - language
+        - is_rtl
+        - positivity
+      properties:
+        id:
+          type: string
+          example: "art_9041b2"
+        headline:
+          type: string
+          example: "IISc scientists develop ultra-low-cost water filtration membrane from agricultural waste"
+        summary:
+          type: object
+          required:
+            - text
+            - model
+            - prompt_version
+            - verified
+          properties:
+            text:
+              type: string
+              example: "IISc researchers created an affordable water filtration membrane from rice husks capable of eliminating 99.8% of microplastics from rural groundwater."
+            model:
+              type: string
+              example: "gemini-1.5-flash"
+            prompt_version:
+              type: string
+              example: "1.0.0"
+            verified:
+              type: boolean
+              example: true
+        canonical_url:
+          type: string
+          format: uri
+          description: Prominent outbound link to original publisher article.
+          example: "https://www.thehindu.com/sci-tech/technology/example-article.html"
+        source_name:
+          type: string
+          example: "The Hindu"
+        published_at:
+          type: string
+          format: date-time
+        language:
+          type: string
+          example: "en"
+        is_rtl:
+          type: boolean
+          example: false
+        cluster_id:
+          type: string
+          nullable: true
+          example: "cluster_550e"
+        positivity:
+          type: object
+          required:
+            - label
+            - score
+            - reason
+            - category
+            - rubric_version
+          properties:
+            label:
+              type: string
+              example: "positive"
+            score:
+              type: number
+              minimum: 0.0
+              maximum: 1.0
+              example: 0.96
+            reason:
+              type: string
+              example: "Verifiable technological breakthrough providing low-cost public health solution."
+            category:
+              type: string
+              example: "Science/Tech"
+            rubric_version:
+              type: string
+              example: "1.0.0"
+
+    FeedResponse:
+      type: object
+      required:
+        - articles
+        - next_cursor
+        - total_returned
+      properties:
+        articles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArticleItem'
+        next_cursor:
+          type: string
+          nullable: true
+        total_returned:
+          type: integer
+          example: 20
+
+    ClusterResponse:
+      type: object
+      required:
+        - cluster_id
+        - articles
+      properties:
+        cluster_id:
+          type: string
+        articles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArticleItem'
+
+    LanguageListResponse:
+      type: object
+      required:
+        - languages
+      properties:
+        languages:
+          type: array
+          items:
+            type: object
+            required:
+              - code
+              - english_name
+              - native_name
+              - script
+              - is_rtl
+              - tier
+              - status
+              - healthy_sources_count
+            properties:
+              code:
+                type: string
+                example: "ur"
+              english_name:
+                type: string
+                example: "Urdu"
+              native_name:
+                type: string
+                example: "اردو"
+              script:
+                type: string
+                example: "Perso-Arabic"
+              is_rtl:
+                type: boolean
+                example: true
+              tier:
+                type: string
+                enum: ["tier_1", "tier_2", "tier_3"]
+              status:
+                type: string
+                enum: ["active", "beta", "disabled"]
+              healthy_sources_count:
+                type: integer
+                example: 3
+
+    FeedbackRequest:
+      type: object
+      required:
+        - article_id
+        - feedback_type
+        - comments
+      properties:
+        article_id:
+          type: string
+        feedback_type:
+          type: string
+          enum: ["not_positive", "toxic_positivity", "inaccurate_summary", "broken_link", "other"]
+        comments:
+          type: string
+          maxLength: 1000
+
+    DelistRequest:
+      type: object
+      required:
+        - article_id
+        - requester_name
+        - requester_email
+        - reason
+      properties:
+        article_id:
+          type: string
+        requester_name:
+          type: string
+        requester_email:
+          type: string
+          format: email
+        reason:
+          type: string
+          maxLength: 2000
+
+    MetricsResponse:
+      type: object
+      required:
+        - positive_acceptance_rate
+        - verifier_fail_rate
+        - average_cost_per_published_item_usd
+      properties:
+        positive_acceptance_rate:
+          type: number
+          example: 0.124
+        verifier_fail_rate:
+          type: number
+          example: 0.021
+        average_cost_per_published_item_usd:
+          type: number
+          example: 0.00035
+
+    StandardSuccessResponse:
+      type: object
+      required:
+        - success
+        - message
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: "Request acknowledged successfully."
+
+    ErrorResponse:
+      type: object
+      required:
+        - error
+        - message
+      properties:
+        error:
+          type: string
+          example: "BAD_REQUEST"
+        message:
+          type: string
+          example: "The requested language code 'xx' is not supported."
