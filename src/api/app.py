@@ -6,13 +6,37 @@ feed pagination, and DPDP Act delisting.
 """
 
 from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any, Dict, List, Optional
 from fastapi import FastAPI, HTTPException, Query, status
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, EmailStr, Field
 from src.config.loader import LanguageConfigRegistry
+from src.pipeline.orchestrator import PipelineOrchestrator
 from src.schemas.article import Article
 from src.storage.db import StorageEngine
+
+
+FIXTURE_MAP: Dict[str, tuple[str, str]] = {
+    "en": ("the_hindu_sample.xml", "the-hindu-national"),
+    "hi": ("bbc_hindi_sample.xml", "bbc-hindi"),
+    "bn": ("anandabazar_sample.xml", "anandabazar-patrika"),
+    "mr": ("loksatta_marathi_sample.xml", "loksatta-maharashtra"),
+    "te": ("eenadu_telugu_sample.xml", "eenadu-andhra-pradesh"),
+    "ta": ("dinamalar_tamil_sample.xml", "dinamalar-tamil-nadu"),
+    "ur": ("inquilab_urdu_sample.xml", "inquilab-mumbai"),
+    "gu": ("gujaratsamachar_sample.xml", "gujarat-samachar"),
+    "kn": ("prajavani_kannada_sample.xml", "prajavani-kannada"),
+    "or": ("sambad_odia_sample.xml", "sambad-odia"),
+    "ml": ("mathrubhumi_malayalam_sample.xml", "mathrubhumi-malayalam"),
+    "pa": ("jagbani_punjabi_sample.xml", "jagbani-punjabi"),
+    "as": ("asomiya_pratidin_sample.xml", "asomiya-pratidin"),
+    "ne": ("kantipur_nepali_sample.xml", "kantipur-nepal"),
+    "mai": ("mithila_mirror_sample.xml", "mithila-mirror"),
+    "gom": ("bhashabhas_konkani_sample.xml", "bhashabhas-konkani"),
+}
 
 
 def create_app(storage: Optional[StorageEngine] = None, registry: Optional[LanguageConfigRegistry] = None) -> FastAPI:
@@ -33,6 +57,19 @@ def create_app(storage: Optional[StorageEngine] = None, registry: Optional[Langu
     # In-memory or shared instances
     storage_engine = storage or StorageEngine(":memory:")
     config_registry = registry or LanguageConfigRegistry()
+
+    # Mount static assets for web reader client
+    web_dir = Path(__file__).resolve().parent.parent / "web"
+    if web_dir.exists():
+        app.mount("/static", StaticFiles(directory=str(web_dir)), name="static")
+
+    @app.get("/")
+    @app.get("/app")
+    def get_web_app():
+        index_file = web_dir / "index.html"
+        if index_file.exists():
+            return FileResponse(index_file)
+        return {"message": "PosiPulse Web Reader Client"}
 
     class FeedbackPayload(BaseModel):
         article_id: str
@@ -175,4 +212,44 @@ def create_app(storage: Optional[StorageEngine] = None, registry: Optional[Langu
             "message": "Article has been delisted and removed from feed distribution under DPDP Act obligations."
         }
 
+    @app.post("/v1/demo/seed")
+    def seed_demo_articles(
+        language: str = Query(..., description="Language code to seed demo articles for")
+    ) -> Dict[str, Any]:
+        lang_config = config_registry.get(language)
+        if not lang_config:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"The requested language code '{language}' is not supported."
+            )
+
+        fixture_info = FIXTURE_MAP.get(language)
+        if not fixture_info:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"No demo fixture registered for language '{language}'."
+            )
+
+        fixture_file, source_id = fixture_info
+        fixture_path = Path(__file__).resolve().parent.parent.parent / "tests" / "fixtures" / fixture_file
+        if not fixture_path.exists():
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Fixture file '{fixture_file}' not found."
+            )
+
+        xml_content = fixture_path.read_text(encoding="utf-8")
+        orchestrator = PipelineOrchestrator(language_config=lang_config, storage=storage_engine)
+        stats = orchestrator.process_raw_xml(xml_content, source_id=source_id)
+
+        return {
+            "success": True,
+            "language": language,
+            "published_count": stats["published_count"],
+            "stats": stats
+        }
+
     return app
+
+
+app = create_app()

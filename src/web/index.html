@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PosiPulse — Verified Constructive News across 16 Languages</title>
+  <meta name="description" content="A multi-agent positive news reader in English and 15 Indian languages. Original abstractive summaries, substance length bands, and prominent publisher link-outs.">
+  
+  <!-- Modern Google Fonts for English + All 15 Indian Language Scripts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&family=Noto+Sans+Telugu:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&family=Noto+Sans+Gujarati:wght@400;500;600;700&family=Noto+Sans+Kannada:wght@400;500;600;700&family=Noto+Sans+Oriya:wght@400;500;600;700&family=Noto+Sans+Malayalam:wght@400;500;600;700&family=Noto+Sans+Gurmukhi:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/static/index.css">
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-group">
+        <div class="brand-logo-badge">
+          <span class="brand-icon">🌱</span>
+        </div>
+        <div class="brand-text">
+          <div class="brand-title">
+            <span class="brand-name">PosiPulse</span>
+            <span class="brand-tag">शुद्ध समाचार</span>
+          </div>
+          <p class="brand-subtitle">Verified Constructive Journalism • English + 15 Indian Languages</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <!-- Live System Metric Badges -->
+        <div class="metric-pill" title="Every summary is strictly synthesized in our own original words">
+          <span class="metric-dot green"></span>
+          <span class="metric-label">Zero Raw Body Display</span>
+        </div>
+
+        <div class="metric-pill" title="Adversarial NLI verifier certifies factual entailment">
+          <span class="metric-dot blue"></span>
+          <span class="metric-label">Faithfulness &ge; 95%</span>
+        </div>
+
+        <!-- Theme Toggle -->
+        <button id="theme-toggle-btn" class="icon-button" aria-label="Toggle Dark/Light Mode" title="Toggle Theme">
+          <span id="theme-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="main-content">
+    
+    <!-- Hero / Headline Section -->
+    <section class="hero-section">
+      <div class="hero-card">
+        <div class="hero-header">
+          <span class="hero-eyebrow">CONSTRUCTIVE OUTCOMES ONLY</span>
+          <h1 class="hero-heading">Groundbreaking breakthroughs, recoveries, &amp; solutions.</h1>
+          <p class="hero-description">
+            Zero crime sensationalism. Zero toxic positivity. Every story features an <strong>original-wording abstractive summary</strong> scaled to substance, verified with adversarial entailment, and linked directly to the publisher.
+          </p>
+        </div>
+
+        <!-- Live Metrics Bar -->
+        <div class="live-stats-bar">
+          <div class="stat-item">
+            <span class="stat-number" id="stat-languages-count">16</span>
+            <span class="stat-name">Active Languages</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" id="stat-sources-count">48</span>
+            <span class="stat-name">Healthy Vetted Feeds</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" id="stat-verbatim-count">0</span>
+            <span class="stat-name">Verbatim Copy Violations</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" id="stat-cost-item">&lt; $0.0006</span>
+            <span class="stat-name">Avg. Cost / Story</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Language Selector Scroll Strip -->
+    <section class="language-bar-section">
+      <div class="section-label-group">
+        <span class="section-eyebrow">SELECT LANGUAGE</span>
+        <span class="active-lang-badge" id="current-lang-display">English (en)</span>
+      </div>
+      <div class="language-scroll-strip" id="language-strip" role="tablist" aria-label="Languages">
+        <!-- Dynamically populated with all 16 languages -->
+      </div>
+    </section>
+
+    <!-- Category Filters & Toolbar -->
+    <section class="toolbar-section">
+      <div class="category-filters" id="category-filters">
+        <button class="filter-pill active" data-category="">All Categories</button>
+        <button class="filter-pill" data-category="Science/Tech">🔬 Science &amp; Tech</button>
+        <button class="filter-pill" data-category="Ecology">🌱 Ecology &amp; Nature</button>
+        <button class="filter-pill" data-category="Empowerment">🤝 Empowerment</button>
+        <button class="filter-pill" data-category="Civic">🏛️ Civic Milestones</button>
+      </div>
+
+      <div class="toolbar-right">
+        <button id="seed-demo-btn" class="action-btn secondary" title="Seed verified demonstration stories for this language">
+          <span class="btn-icon">⚡</span> Seed Demo Stories
+        </button>
+      </div>
+    </section>
+
+    <!-- Feed Container -->
+    <section class="feed-section" id="feed-section">
+      <div class="feed-header-meta">
+        <span id="feed-results-counter">Loading stories...</span>
+        <span id="feed-direction-indicator" class="direction-tag">Direction: LTR</span>
+      </div>
+
+      <!-- Articles Grid -->
+      <div class="articles-grid" id="articles-grid">
+        <!-- Skeletons rendered by JS during load -->
+      </div>
+
+      <!-- Empty State Container -->
+      <div class="empty-state hidden" id="empty-state">
+        <div class="empty-icon">📰</div>
+        <h3 class="empty-title">No Stories Loaded For This Language Yet</h3>
+        <p class="empty-description">
+          The pipeline fails closed to protect precision. Click below to load certified demonstration items for this language directly from verified RSS fixtures.
+        </p>
+        <button class="action-btn primary" id="empty-seed-btn">
+          <span>⚡ Seed Verified Items</span>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Feedback & Delisting Modal -->
+  <div class="modal-overlay hidden" id="feedback-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">Community Feedback &amp; DPDP Request</h3>
+        <button class="modal-close" id="modal-close-btn">&times;</button>
+      </div>
+      <form id="feedback-form" class="modal-form">
+        <input type="hidden" id="modal-article-id">
+        <div class="form-group">
+          <label for="feedback-type">Report Type</label>
+          <select id="feedback-type" required>
+            <option value="not_positive">Not Constructive (Negative / Crime / Disaster)</option>
+            <option value="toxic_positivity">Toxic Positivity (Hardship framed as inspiration)</option>
+            <option value="inaccurate_summary">Inaccurate or Unfaithful Summary</option>
+            <option value="broken_link">Broken / Invalid Publisher Link</option>
+            <option value="dpdp_delist">DPDP Act Delisting / Right to Erasure</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="feedback-comments">Comments &amp; Details</label>
+          <textarea id="feedback-comments" rows="4" placeholder="Please provide specific context..." required></textarea>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="action-btn secondary" id="modal-cancel-btn">Cancel</button>
+          <button type="submit" class="action-btn primary" id="modal-submit-btn">Submit Report</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <div class="brand-title">
+          <span class="brand-name">PosiPulse</span>
+        </div>
+        <p class="footer-desc">
+          Architected on fail-closed constructive filters, strict adversarial entailment, and prominent publisher attribution.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>Core Invariants</h4>
+        <ul>
+          <li>Never displays publisher raw body text</li>
+          <li>Always links out prominently to source</li>
+          <li>Substance-scaled length bands</li>
+          <li>Adversarial faithfulness verification</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Certified Languages</h4>
+        <p class="footer-lang-list">
+          EN, HI, BN, MR, TE, TA, UR, GU, KN, OR, ML, PA, AS, NE, MAI, GOM
+        </p>
+        <p class="dpdp-notice">Compliance: DPDP Act 2023 &amp; Section 79 Safe Harbor</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
