@@ -1,0 +1,375 @@
+{
+  "fertility": {
+    "en": {
+      "total_words": 330,
+      "total_tokens": 406,
+      "tokens_per_word": 1.23
+    },
+    "hi": {
+      "total_words": 151,
+      "total_tokens": 265,
+      "tokens_per_word": 1.75
+    },
+    "mr": {
+      "total_words": 48,
+      "total_tokens": 137,
+      "tokens_per_word": 2.85
+    },
+    "bn": {
+      "total_words": 44,
+      "total_tokens": 128,
+      "tokens_per_word": 2.91
+    },
+    "te": {
+      "total_words": 39,
+      "total_tokens": 124,
+      "tokens_per_word": 3.18
+    },
+    "ta": {
+      "total_words": 35,
+      "total_tokens": 121,
+      "tokens_per_word": 3.46
+    },
+    "gu": {
+      "total_words": 40,
+      "total_tokens": 108,
+      "tokens_per_word": 2.7
+    },
+    "kn": {
+      "total_words": 36,
+      "total_tokens": 100,
+      "tokens_per_word": 2.78
+    },
+    "ml": {
+      "total_words": 28,
+      "total_tokens": 104,
+      "tokens_per_word": 3.71
+    },
+    "pa": {
+      "total_words": 56,
+      "total_tokens": 153,
+      "tokens_per_word": 2.73
+    },
+    "ur": {
+      "total_words": 56,
+      "total_tokens": 89,
+      "tokens_per_word": 1.59
+    },
+    "or": {
+      "total_words": 33,
+      "total_tokens": 243,
+      "tokens_per_word": 7.36
+    },
+    "as": {
+      "total_words": 42,
+      "total_tokens": 112,
+      "tokens_per_word": 2.67
+    },
+    "mai": {
+      "total_words": 46,
+      "total_tokens": 88,
+      "tokens_per_word": 1.91
+    },
+    "ne": {
+      "total_words": 34,
+      "total_tokens": 81,
+      "tokens_per_word": 2.38
+    },
+    "gom": {
+      "total_words": 35,
+      "total_tokens": 110,
+      "tokens_per_word": 3.14
+    }
+  },
+  "lid_results": [
+    {
+      "id": "art_01",
+      "expected": "en",
+      "predicted": "en",
+      "confidence": 0.8437,
+      "match": true
+    },
+    {
+      "id": "art_02",
+      "expected": "en",
+      "predicted": "en",
+      "confidence": 0.9303,
+      "match": true
+    },
+    {
+      "id": "art_03",
+      "expected": "en",
+      "predicted": "en",
+      "confidence": 0.9169,
+      "match": true
+    },
+    {
+      "id": "art_04",
+      "expected": "en",
+      "predicted": "en",
+      "confidence": 0.9155,
+      "match": true
+    },
+    {
+      "id": "art_05",
+      "expected": "hi",
+      "predicted": "hi",
+      "confidence": 0.989,
+      "match": true
+    },
+    {
+      "id": "art_06",
+      "expected": "hi",
+      "predicted": "hi",
+      "confidence": 0.9727,
+      "match": true
+    },
+    {
+      "id": "art_07",
+      "expected": "mr",
+      "predicted": "mr",
+      "confidence": 0.9424,
+      "match": true
+    },
+    {
+      "id": "art_08",
+      "expected": "bn",
+      "predicted": "bn",
+      "confidence": 0.9956,
+      "match": true
+    },
+    {
+      "id": "art_09",
+      "expected": "te",
+      "predicted": "te",
+      "confidence": 0.9999,
+      "match": true
+    },
+    {
+      "id": "art_10",
+      "expected": "ta",
+      "predicted": "ta",
+      "confidence": 0.9998,
+      "match": true
+    },
+    {
+      "id": "art_11",
+      "expected": "gu",
+      "predicted": "gu",
+      "confidence": 0.9997,
+      "match": true
+    },
+    {
+      "id": "art_12",
+      "expected": "kn",
+      "predicted": "kn",
+      "confidence": 0.9991,
+      "match": true
+    },
+    {
+      "id": "art_13",
+      "expected": "ml",
+      "predicted": "ml",
+      "confidence": 0.9989,
+      "match": true
+    },
+    {
+      "id": "art_14",
+      "expected": "pa",
+      "predicted": "pa",
+      "confidence": 0.9999,
+      "match": true
+    },
+    {
+      "id": "art_15",
+      "expected": "ur",
+      "predicted": "ur",
+      "confidence": 0.884,
+      "match": true
+    },
+    {
+      "id": "art_16",
+      "expected": "or",
+      "predicted": "or",
+      "confidence": 0.9952,
+      "match": true
+    },
+    {
+      "id": "art_17",
+      "expected": "as",
+      "predicted": "as",
+      "confidence": 0.9856,
+      "match": true
+    },
+    {
+      "id": "art_18",
+      "expected": "mai",
+      "predicted": "hi",
+      "confidence": 0.8825,
+      "match": false
+    },
+    {
+      "id": "art_19",
+      "expected": "ne",
+      "predicted": "hi",
+      "confidence": 0.4997,
+      "match": false
+    },
+    {
+      "id": "art_20",
+      "expected": "gom",
+      "predicted": "mr",
+      "confidence": 0.7761,
+      "match": false
+    },
+    {
+      "id": "art_21",
+      "expected": "en",
+      "predicted": "en",
+      "confidence": 0.7575,
+      "match": true
+    },
+    {
+      "id": "art_22",
+      "expected": "en",
+      "predicted": "en",
+      "confidence": 0.7324,
+      "match": true
+    },
+    {
+      "id": "art_23",
+      "expected": "hi",
+      "predicted": "hi",
+      "confidence": 0.9875,
+      "match": true
+    },
+    {
+      "id": "art_24",
+      "expected": "en",
+      "predicted": "en",
+      "confidence": 0.9192,
+      "match": true
+    },
+    {
+      "id": "art_25",
+      "expected": "en",
+      "predicted": "en",
+      "confidence": 0.8381,
+      "match": true
+    }
+  ],
+  "cost_model": {
+    "en": {
+      "tokens_per_word": 1.23,
+      "cost_per_1000_raw_usd": 0.0302,
+      "cost_per_raw_item_usd": 3e-05,
+      "cost_per_published_item_usd": 0.00025,
+      "cost_per_published_item_inr": 0.022
+    },
+    "hi": {
+      "tokens_per_word": 1.75,
+      "cost_per_1000_raw_usd": 0.0417,
+      "cost_per_raw_item_usd": 4.2e-05,
+      "cost_per_published_item_usd": 0.00035,
+      "cost_per_published_item_inr": 0.03
+    },
+    "mr": {
+      "tokens_per_word": 2.85,
+      "cost_per_1000_raw_usd": 0.066,
+      "cost_per_raw_item_usd": 6.6e-05,
+      "cost_per_published_item_usd": 0.00055,
+      "cost_per_published_item_inr": 0.048
+    },
+    "bn": {
+      "tokens_per_word": 2.91,
+      "cost_per_1000_raw_usd": 0.0673,
+      "cost_per_raw_item_usd": 6.7e-05,
+      "cost_per_published_item_usd": 0.00056,
+      "cost_per_published_item_inr": 0.049
+    },
+    "te": {
+      "tokens_per_word": 3.18,
+      "cost_per_1000_raw_usd": 0.0733,
+      "cost_per_raw_item_usd": 7.3e-05,
+      "cost_per_published_item_usd": 0.00061,
+      "cost_per_published_item_inr": 0.053
+    },
+    "ta": {
+      "tokens_per_word": 3.46,
+      "cost_per_1000_raw_usd": 0.0795,
+      "cost_per_raw_item_usd": 8e-05,
+      "cost_per_published_item_usd": 0.00066,
+      "cost_per_published_item_inr": 0.058
+    },
+    "gu": {
+      "tokens_per_word": 2.7,
+      "cost_per_1000_raw_usd": 0.0627,
+      "cost_per_raw_item_usd": 6.3e-05,
+      "cost_per_published_item_usd": 0.00052,
+      "cost_per_published_item_inr": 0.046
+    },
+    "kn": {
+      "tokens_per_word": 2.78,
+      "cost_per_1000_raw_usd": 0.0645,
+      "cost_per_raw_item_usd": 6.4e-05,
+      "cost_per_published_item_usd": 0.00054,
+      "cost_per_published_item_inr": 0.047
+    },
+    "ml": {
+      "tokens_per_word": 3.71,
+      "cost_per_1000_raw_usd": 0.085,
+      "cost_per_raw_item_usd": 8.5e-05,
+      "cost_per_published_item_usd": 0.00071,
+      "cost_per_published_item_inr": 0.062
+    },
+    "pa": {
+      "tokens_per_word": 2.73,
+      "cost_per_1000_raw_usd": 0.0634,
+      "cost_per_raw_item_usd": 6.3e-05,
+      "cost_per_published_item_usd": 0.00053,
+      "cost_per_published_item_inr": 0.046
+    },
+    "ur": {
+      "tokens_per_word": 1.59,
+      "cost_per_1000_raw_usd": 0.0382,
+      "cost_per_raw_item_usd": 3.8e-05,
+      "cost_per_published_item_usd": 0.00032,
+      "cost_per_published_item_inr": 0.028
+    },
+    "or": {
+      "tokens_per_word": 7.36,
+      "cost_per_1000_raw_usd": 0.1657,
+      "cost_per_raw_item_usd": 0.000166,
+      "cost_per_published_item_usd": 0.00138,
+      "cost_per_published_item_inr": 0.121
+    },
+    "as": {
+      "tokens_per_word": 2.67,
+      "cost_per_1000_raw_usd": 0.062,
+      "cost_per_raw_item_usd": 6.2e-05,
+      "cost_per_published_item_usd": 0.00052,
+      "cost_per_published_item_inr": 0.045
+    },
+    "mai": {
+      "tokens_per_word": 1.91,
+      "cost_per_1000_raw_usd": 0.0452,
+      "cost_per_raw_item_usd": 4.5e-05,
+      "cost_per_published_item_usd": 0.00038,
+      "cost_per_published_item_inr": 0.033
+    },
+    "ne": {
+      "tokens_per_word": 2.38,
+      "cost_per_1000_raw_usd": 0.0556,
+      "cost_per_raw_item_usd": 5.6e-05,
+      "cost_per_published_item_usd": 0.00046,
+      "cost_per_published_item_inr": 0.041
+    },
+    "gom": {
+      "tokens_per_word": 3.14,
+      "cost_per_1000_raw_usd": 0.0724,
+      "cost_per_raw_item_usd": 7.2e-05,
+      "cost_per_published_item_usd": 0.0006,
+      "cost_per_published_item_inr": 0.053
+    }
+  }
+}

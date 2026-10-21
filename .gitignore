@@ -1,0 +1,14 @@
+# Python & Virtual Environment
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Cache & Local models
+cache/
+*.ftz
+*.bin
+
+# OS Artifacts
+.DS_Store
+Thumbs.db
