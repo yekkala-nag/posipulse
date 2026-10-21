@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.git/
+.gitignore
+.coverage
+htmlcov/
+tests/
+assets/
+cache/*.bin
+cache/*.ftz
+docs/
+src/mobile/

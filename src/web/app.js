@@ -153,6 +153,8 @@ document.addEventListener('DOMContentLoaded', () => {
     loadFeed();
   });
 
+  const autoSeededLanguages = {};
+
   // --------------------------------------------------------------------------
   // Feed Loading & Rendering
   // --------------------------------------------------------------------------
@@ -170,7 +172,24 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!res.ok) throw new Error(`HTTP error ${res.status}`);
 
       const data = await res.json();
-      const articles = data.articles || [];
+      let articles = data.articles || [];
+
+      // Auto-seed demo stories on first visit to this language if feed is empty
+      if (articles.length === 0 && !currentCategory && !autoSeededLanguages[currentLanguage]) {
+        autoSeededLanguages[currentLanguage] = true;
+        try {
+          const seedRes = await fetch(`/v1/demo/seed?language=${encodeURIComponent(currentLanguage)}`, { method: 'POST' });
+          if (seedRes.ok) {
+            const retryRes = await fetch(url);
+            if (retryRes.ok) {
+              const retryData = await retryRes.json();
+              articles = retryData.articles || [];
+            }
+          }
+        } catch (seedErr) {
+          console.warn('Auto-seed attempt failed:', seedErr);
+        }
+      }
 
       feedResultsCounter.textContent = `Showing ${articles.length} verified constructive stories`;
 

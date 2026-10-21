@@ -13,6 +13,9 @@ from src.schemas.article import Article, ArticleStatus, PositivityMetadata, Summ
 
 class StorageEngine:
     def __init__(self, db_path: str = ":memory:"):
+        import os
+        if db_path == ":memory:" and os.environ.get("POSIPULSE_DB_PATH"):
+            db_path = os.environ["POSIPULSE_DB_PATH"]
         self.db_path = db_path
         self._shared_conn = None
         if self.db_path == ":memory:":

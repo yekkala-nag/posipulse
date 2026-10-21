@@ -19,7 +19,11 @@ def safe_array(obj, *args, **kwargs):
     return orig_array(obj, *args, **kwargs)
 np.array = safe_array
 
-import fasttext
+try:
+    import fasttext
+except (ImportError, Exception):
+    fasttext = None
+
 from src.schemas.article import EphemeralIngestedItem
 
 
@@ -31,8 +35,11 @@ class LanguageDetector:
             model_path = os.path.join(base_dir, "cache", "lid.176.ftz")
 
         self.model = None
-        if os.path.exists(model_path):
-            self.model = fasttext.load_model(model_path)
+        if fasttext is not None and os.path.exists(model_path):
+            try:
+                self.model = fasttext.load_model(model_path)
+            except Exception:
+                self.model = None
 
     def detect_and_validate(self, item: EphemeralIngestedItem) -> Tuple[bool, str, float]:
         """
