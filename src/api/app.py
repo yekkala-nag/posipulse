@@ -8,7 +8,7 @@ feed pagination, and DPDP Act delisting.
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
-from fastapi import FastAPI, Header, HTTPException, Query, Response, status
+from fastapi import BackgroundTasks, FastAPI, Header, HTTPException, Query, Response, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
@@ -261,6 +261,80 @@ def create_app(storage: Optional[StorageEngine] = None, registry: Optional[Langu
             "language": language,
             "published_count": stats["published_count"],
             "stats": stats
+        }
+
+    @app.post("/v1/ingest/live")
+    def trigger_live_ingest(
+        language: str = Query(..., description="Language code to fetch live news for"),
+        source_id: Optional[str] = Query(None, description="Optional specific publisher source ID"),
+        force: bool = Query(False, description="Bypass publisher cooldown interval"),
+        background: bool = Query(False, description="Run ingestion asynchronously in background"),
+        background_tasks: BackgroundTasks = None
+    ) -> Dict[str, Any]:
+        """
+        Dynamically fetches and ingests live RSS news feeds for the requested language.
+        Respects cooldown rate limits unless force=True.
+        """
+        lang_config = config_registry.get(language)
+        if not lang_config:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"The requested language code '{language}' is not supported."
+            )
+
+        orchestrator = PipelineOrchestrator(language_config=lang_config, storage=storage_engine)
+
+        def _run_fetch():
+            if source_id:
+                return orchestrator.process_live_source(source_id=source_id, force=force)
+            return orchestrator.process_live_language(force=force)
+
+        if background and background_tasks:
+            background_tasks.add_task(_run_fetch)
+            return {
+                "success": True,
+                "message": f"Dynamic live ingest queued in background for {language}.",
+                "language": language,
+                "background": True
+            }
+
+        result = _run_fetch()
+        return {
+            "success": True,
+            "language": language,
+            "result": result
+        }
+
+    @app.get("/api/cron")
+    def run_cron_scheduled_fetch(
+        authorization: Optional[str] = Header(None)
+    ) -> Dict[str, Any]:
+        """
+        Vercel Cron Trigger Endpoint
+        Executes incremental polling across active languages respecting cooldowns.
+        """
+        import os
+        cron_secret = os.environ.get("CRON_SECRET")
+        if cron_secret and authorization != f"Bearer {cron_secret}":
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid cron authorization token.")
+
+        processed = []
+        for lang_code in ["en", "hi", "ur", "bn", "mr", "te", "ta", "gu"]:
+            lang_cfg = config_registry.get(lang_code)
+            if not lang_cfg:
+                continue
+            orchestrator = PipelineOrchestrator(language_config=lang_cfg, storage=storage_engine)
+            res = orchestrator.process_live_language(force=False)
+            processed.append({
+                "language": lang_code,
+                "published_count": res.get("total_published", 0),
+                "ingested_count": res.get("total_ingested", 0)
+            })
+
+        return {
+            "success": True,
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "processed": processed
         }
 
     return app

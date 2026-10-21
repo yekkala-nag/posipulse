@@ -90,6 +90,41 @@ class StorageEngine:
                     created_at TEXT NOT NULL
                 )
             """)
+
+            # Publisher fetch rate-limiting & cooldown logs
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS source_fetch_logs (
+                    source_id TEXT PRIMARY KEY,
+                    last_fetched_at TEXT NOT NULL,
+                    status TEXT NOT NULL,
+                    items_count INTEGER NOT NULL DEFAULT 0
+                )
+            """)
+            conn.commit()
+
+    def can_fetch_source(self, source_id: str, cooldown_minutes: int = 30) -> bool:
+        """Determines if a publisher source is eligible for dynamic fetch based on cooldown."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT last_fetched_at FROM source_fetch_logs WHERE source_id = ?", (source_id,))
+            row = cursor.fetchone()
+            if not row:
+                return True
+            try:
+                last_time = datetime.fromisoformat(row["last_fetched_at"])
+                elapsed = (datetime.now(timezone.utc) - last_time).total_seconds() / 60.0
+                return elapsed >= cooldown_minutes
+            except Exception:
+                return True
+
+    def record_source_fetch(self, source_id: str, status: str, items_count: int = 0) -> None:
+        """Records fetch timestamp and outcome for publisher cooldown tracking."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT OR REPLACE INTO source_fetch_logs (source_id, last_fetched_at, status, items_count)
+                VALUES (?, ?, ?, ?)
+            """, (source_id, datetime.now(timezone.utc).isoformat(), status, items_count))
             conn.commit()
 
     def is_hash_processed(self, item_hash: str) -> bool:

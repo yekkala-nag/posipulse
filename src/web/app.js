@@ -21,6 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const feedDirectionIndicator = document.getElementById('feed-direction-indicator');
   const seedDemoBtn = document.getElementById('seed-demo-btn');
   const emptySeedBtn = document.getElementById('empty-seed-btn');
+  const fetchLiveBtn = document.getElementById('fetch-live-btn');
+  const emptyLiveBtn = document.getElementById('empty-live-btn');
   const themeToggleBtn = document.getElementById('theme-toggle-btn');
   const themeIcon = document.getElementById('theme-icon');
   const feedbackModal = document.getElementById('feedback-modal');
@@ -366,6 +368,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
   seedDemoBtn.addEventListener('click', seedDemoStories);
   emptySeedBtn.addEventListener('click', seedDemoStories);
+
+  async function fetchLiveNews() {
+    if (fetchLiveBtn) {
+      fetchLiveBtn.disabled = true;
+      fetchLiveBtn.innerHTML = '<span class="btn-icon">⏳</span> Fetching Live...';
+    }
+    if (emptyLiveBtn) {
+      emptyLiveBtn.disabled = true;
+      emptyLiveBtn.innerHTML = '<span class="btn-icon">⏳</span> Fetching Live...';
+    }
+
+    try {
+      const res = await fetch(`/v1/ingest/live?language=${encodeURIComponent(currentLanguage)}&force=true`, {
+        method: 'POST',
+      });
+      if (!res.ok) throw new Error(`Live ingest error: HTTP ${res.status}`);
+      const data = await res.json();
+      console.log('Live ingest result:', data);
+      await loadFeed();
+    } catch (err) {
+      console.error('Dynamic fetch failed:', err);
+      alert(`Could not fetch live news for ${currentLanguage}: ${err.message}`);
+    } finally {
+      if (fetchLiveBtn) {
+        fetchLiveBtn.disabled = false;
+        fetchLiveBtn.innerHTML = '<span class="btn-icon">🔄</span> Fetch Live News';
+      }
+      if (emptyLiveBtn) {
+        emptyLiveBtn.disabled = false;
+        emptyLiveBtn.innerHTML = '<span class="btn-icon">🔄</span> Fetch Live News';
+      }
+    }
+  }
+
+  if (fetchLiveBtn) fetchLiveBtn.addEventListener('click', fetchLiveNews);
+  if (emptyLiveBtn) emptyLiveBtn.addEventListener('click', fetchLiveNews);
 
   // --------------------------------------------------------------------------
   // Feedback & DPDP Delisting Modal

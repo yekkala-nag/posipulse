@@ -67,25 +67,18 @@ class PipelineOrchestrator:
         self.dead_letter_queue: List[PipelineMessageEnvelope] = []
         self.current_run_cost_usd: float = 0.0
 
-    def process_raw_xml(
+    def process_items(
         self,
-        xml_content: str,
+        raw_items: List[EphemeralIngestedItem],
         source_id: str,
         run_id: Optional[str] = None
     ) -> Dict[str, Any]:
         """
-        Executes end-to-end ingestion pipeline from an XML feed string.
-        Enforces idempotency, circuit breakers, and verification gates.
+        Executes end-to-end ingestion pipeline from an ephemeral list of ingested items.
+        Enforces idempotency, circuit breakers, verification gates, and zero raw body retention.
         """
         run_id = run_id or f"run_{uuid.uuid4().hex[:12]}"
         trace_id = f"trace_{uuid.uuid4().hex[:16]}"
-
-        source = next((s for s in self.config.sources if s.id == source_id), None)
-        if not source:
-            raise ValueError(f"Source ID '{source_id}' not found in language configuration for {self.config.language_code}")
-
-        fetcher = FeedFetcher(source)
-        raw_items = fetcher.parse_raw_content(xml_content)
 
         stats = {
             "run_id": run_id,
@@ -221,3 +214,91 @@ class PipelineOrchestrator:
 
         stats["run_cost_usd"] = round(self.current_run_cost_usd, 6)
         return stats
+
+    def process_raw_xml(
+        self,
+        xml_content: str,
+        source_id: str,
+        run_id: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """
+        Executes end-to-end ingestion pipeline from an XML feed string.
+        Enforces idempotency, circuit breakers, and verification gates.
+        """
+        source = next((s for s in self.config.sources if s.id == source_id), None)
+        if not source:
+            raise ValueError(f"Source ID '{source_id}' not found in language configuration for {self.config.language_code}")
+
+        fetcher = FeedFetcher(source)
+        raw_items = fetcher.parse_raw_content(xml_content)
+        return self.process_items(raw_items, source_id=source_id, run_id=run_id)
+
+    def process_live_source(
+        self,
+        source_id: str,
+        force: bool = False,
+        run_id: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """
+        Dynamically fetches from live publisher RSS/API endpoint.
+        Respects cooldown rate limits unless force=True.
+        """
+        source = next((s for s in self.config.sources if s.id == source_id), None)
+        if not source:
+            raise ValueError(f"Source ID '{source_id}' not found in language configuration for {self.config.language_code}")
+
+        if not force and not self.storage.can_fetch_source(source.id, source.fetch_interval_minutes):
+            logger.info(f"Skipping live fetch for {source.id}: cooldown active.", extra={"source_id": source.id})
+            return {
+                "source_id": source.id,
+                "status": "skipped_cooldown",
+                "published_count": 0,
+                "ingested_count": 0
+            }
+
+        fetcher = FeedFetcher(source)
+        try:
+            raw_items = fetcher.fetch_live()
+            self.storage.record_source_fetch(source.id, status="success", items_count=len(raw_items))
+        except Exception as e:
+            logger.error(f"Live fetch failed for {source.id}: {e}", extra={"source_id": source.id, "error": str(e)})
+            self.storage.record_source_fetch(source.id, status="error", items_count=0)
+            return {
+                "source_id": source.id,
+                "status": "fetch_error",
+                "error": str(e),
+                "published_count": 0,
+                "ingested_count": 0
+            }
+
+        return self.process_items(raw_items, source_id=source_id, run_id=run_id)
+
+    def process_live_language(
+        self,
+        force: bool = False,
+        run_id: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """
+        Dynamically fetches all active registered publisher sources for this language.
+        """
+        aggregated = {
+            "language": self.config.language_code,
+            "sources_attempted": 0,
+            "sources_succeeded": 0,
+            "total_ingested": 0,
+            "total_published": 0,
+            "details": []
+        }
+
+        for source in self.config.sources:
+            if not source.is_active:
+                continue
+            aggregated["sources_attempted"] += 1
+            res = self.process_live_source(source.id, force=force, run_id=run_id)
+            aggregated["details"].append(res)
+            if res.get("status") not in ["fetch_error", "skipped_cooldown"]:
+                aggregated["sources_succeeded"] += 1
+            aggregated["total_ingested"] += res.get("ingested_count", 0)
+            aggregated["total_published"] += res.get("published_count", 0)
+
+        return aggregated

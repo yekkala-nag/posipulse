@@ -108,6 +108,9 @@
       </div>
 
       <div class="toolbar-right">
+        <button id="fetch-live-btn" class="action-btn primary" title="Fetch dynamic real-time news from publisher RSS feeds">
+          <span class="btn-icon">🔄</span> Fetch Live News
+        </button>
         <button id="seed-demo-btn" class="action-btn secondary" title="Seed verified demonstration stories for this language">
           <span class="btn-icon">⚡</span> Seed Demo Stories
         </button>
@@ -131,11 +134,16 @@
         <div class="empty-icon">📰</div>
         <h3 class="empty-title">No Stories Loaded For This Language Yet</h3>
         <p class="empty-description">
-          The pipeline fails closed to protect precision. Click below to load certified demonstration items for this language directly from verified RSS fixtures.
+          The pipeline fails closed to protect precision. Fetch live stories directly from registered publisher RSS feeds or load verified demonstration items.
         </p>
-        <button class="action-btn primary" id="empty-seed-btn">
-          <span>⚡ Seed Verified Items</span>
-        </button>
+        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+          <button class="action-btn primary" id="empty-live-btn">
+            <span>🔄 Fetch Live News</span>
+          </button>
+          <button class="action-btn secondary" id="empty-seed-btn">
+            <span>⚡ Seed Verified Items</span>
+          </button>
+        </div>
       </div>
     </section>
   </main>

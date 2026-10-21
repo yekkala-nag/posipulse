@@ -100,6 +100,20 @@ export class PosiPulseApiClient {
     }
     return await res.json();
   }
+
+  /**
+   * Dynamically fetch live news from publisher RSS feeds for the active language.
+   */
+  async fetchLive(language: string, force: boolean = false): Promise<{ success: boolean; result: any }> {
+    const res = await fetch(
+      `${this.baseUrl}/v1/ingest/live?language=${encodeURIComponent(language)}&force=${force}`,
+      { method: 'POST' }
+    );
+    if (!res.ok) {
+      throw new Error(`Failed to fetch live news: HTTP ${res.status}`);
+    }
+    return await res.json();
+  }
 }
 
 export const apiClient = new PosiPulseApiClient();
