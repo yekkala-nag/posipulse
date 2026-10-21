@@ -1,0 +1,332 @@
+{
+  "language": "or",
+  "all_gates_passed": true,
+  "certified_at": "2026-10-21T09:05:53.929578+00:00",
+  "gate_details": {
+    "positive_precision": {
+      "value": 1.0,
+      "required": 0.9,
+      "passed": true
+    },
+    "faithfulness_pass_rate": {
+      "value": 1.0,
+      "required": 0.95,
+      "passed": true
+    },
+    "zero_verbatim_copying": {
+      "violations": 0,
+      "passed": true
+    },
+    "healthy_sources": {
+      "count": 3,
+      "required": 3,
+      "passed": true
+    },
+    "native_speaker_spot_check": {
+      "passed": true
+    }
+  },
+  "eval_report": {
+    "language": "or",
+    "evaluated_at": "2026-10-21T09:05:53.929571+00:00",
+    "total_items": 30,
+    "confusion_matrix": {
+      "true_positives": 12,
+      "false_positives": 0,
+      "true_negatives": 18,
+      "false_negatives": 0
+    },
+    "metrics": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "toxic_positivity_rejection_rate": 1.0,
+      "faithfulness_pass_rate": 1.0,
+      "verbatim_violations_count": 0,
+      "length_compliance_rate": 1.0
+    },
+    "gate_assessment": {
+      "precision_gate_passed": true,
+      "faithfulness_gate_passed": true,
+      "zero_verbatim_copying": true
+    },
+    "detailed_items": [
+      {
+        "id": "or_gold_01",
+        "headline": "କୋରାପୁଟର ଆଦିବାସୀ ମହିଳାଙ୍କ ଜୈବିକ ମାଣ୍ଡିଆ ଚାଷରେ ରେକର୍ଡ ସଫଳତା; ବିଦେଶକୁ ରପ୍ତାନି ଆରମ୍ଭ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "or_gold_02",
+        "headline": "ଏନଆଇଟି ରାଉରକେଲାର ବୈଜ୍ଞାନିକମାନଙ୍କ ଦ୍ୱାରା କମ୍ ଖର୍ଚ୍ଚରେ ଜଳ ବିଶୋଧନ ଯନ୍ତ୍ର ଉଦ୍ଭାବନ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "or_gold_03",
+        "headline": "ଋଷିକୂଲ୍ୟା ମୁହାଣରେ ସ୍ଥାନୀୟ ମତ୍ସ୍ୟଜୀବୀଙ୍କ ଅଲିଭ ରିଡଲେ କଇଁଛ ସଂରକ୍ଷଣ ଅଭିଯାନ ସଫଳ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "or_gold_04",
+        "headline": "କଳାହାଣ୍ଡିର ମରୁଡ଼ିପ୍ରବଣ ଅଞ୍ଚଳରେ ଲୋକଙ୍କ ଶ୍ରମଦାନରେ ୧୫ଟି ଚେକଡ୍ୟାମ ନିର୍ମାଣ; ଭୂତଳ ଜଳସ୍ତର ବୃଦ୍ଧି",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "or_gold_05",
+        "headline": "ସମ୍ବଲପୁରୀ ହସ୍ତତନ୍ତ ବୁଣାକାରଙ୍କ ଇ-କମର୍ସ ପୋର୍ଟାଲ ହିଟ୍; ମଧ୍ୟସ୍ଥିଙ୍କ ବିନା ସିଧାସଳଖ ରପ୍ତାନି",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "or_gold_06",
+        "headline": "ଚିଲିକାରେ ଇରାୱାଡି ଡଲଫିନ ସଂରକ୍ଷଣରେ ସଫଳତା: ବେଆଇନ ଘେରି ଉଚ୍ଛେଦ ପରେ ବଢ଼ିଲା ସଂଖ୍ୟା",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "or_gold_07",
+        "headline": "ମୟୂରଭଞ୍ଜର ଆଦିବାସୀ ଗାଁରେ ସୌରଚାଳିତ ପ୍ରାଥମିକ ସ୍ୱାସ୍ଥ୍ୟ କେନ୍ଦ୍ର; ଅବିରତ ଜରୁରୀ ଚିକିତ୍ସା ସେବା",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "or_gold_08",
+        "headline": "କନ୍ଧମାଳର ଜୈବିକ ହଳଦୀ ଚାଷୀଙ୍କୁ ମିଳିଲା ଆନ୍ତର୍ଜାତୀୟ ପ୍ରମାଣପତ୍ର; ୟୁରୋପ ବଜାରରେ ଚାହିଦା",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "or_gold_09",
+        "headline": "ଭୁବନେଶ୍ୱର ମହାନଗର ନିଗମ ପକ୍ଷରୁ ପରିବା ବର୍ଜ୍ୟବସ୍ତୁରୁ ବାୟୋ-ସିଏନଜି ପ୍ଲାଣ୍ଟ କାର୍ଯ୍ୟକ୍ଷମ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "or_gold_10",
+        "headline": "ଜାତୀୟ ଭାରୋତ୍ତୋଳନ ପ୍ରତିଯୋଗିତାରେ ଓଡ଼ିଶାର ଗ୍ରାମୀଣ ଖେଳାଳି ଜିତିଲେ ୪ଟି ସ୍ୱର୍ଣ୍ଣ ପଦକ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "or_gold_11",
+        "headline": "ବାଲେଶ୍ୱରର ଯୁବ ଉଦ୍ୟୋଗୀ ସବାଇ ଘାସରୁ ଇକୋ-ଫ୍ରେଣ୍ଡଲି ପ୍ୟାକେଜିଂ ସାମଗ୍ରୀ ପ୍ରସ୍ତୁତ କଲେ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "or_gold_12",
+        "headline": "ଗଞ୍ଜାମ ଜିଲ୍ଲାରେ ସମ୍ପୂର୍ଣ୍ଣ ଆବର୍ଜନା ମୁକ୍ତ ପଞ୍ଚାୟତ ଭାବେ ନିର୍ମଳ ଗ୍ରାମ ପୁରସ୍କାର ଲାଭ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "or_gold_13",
+        "headline": "ବାଲେଶ୍ୱର ନିକଟରେ ଯାତ୍ରୀବାହୀ ବସ୍ ଦୁର୍ଘଟଣା, ୩ ମୃତ ଓ ୨୦ ଗୁରୁତର",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "or_gold_14",
+        "headline": "କେମିକାଲ କାରଖାନାରେ ଭୟାବହ ବଏଲର ବିସ୍ଫୋରଣ ଏବଂ ଅଗ୍ନିକାଣ୍ଡ, ୨ ଶ୍ରମିକ ମୃତ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "or_gold_15",
+        "headline": "ଅଧିକ ସୁଧର ପ୍ରଲୋଭନ ଦେଖାଇ ୪୦ କୋଟି ଟଙ୍କା ଠକେଇ କରିଥିବା ଚିଟଫଣ୍ଡ କମ୍ପାନୀର ମୁଖ୍ୟ ଗିରଫ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "or_gold_16",
+        "headline": "ବିଷାକ୍ତ ମଦ ପିଇ ୪ ଜଣ ଦିନମଜୁରିଆଙ୍କ ମୃତ୍ୟୁ, ୫ ଜଣ ଡାକ୍ତରଖାନାରେ ଭର୍ତ୍ତି",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "or_gold_17",
+        "headline": "ଦିନଦ୍ୱିପ୍ରହରରେ ବନ୍ଧୁକ ଦେଖାଇ ଅଳଙ୍କାର ଦୋକାନରୁ କୋଟିଏ ଟଙ୍କାର ସୁନା ଗହଣା ଲୁଟ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "or_gold_18",
+        "headline": "ପ୍ରବଳ ବର୍ଷା ଯୋଗୁଁ ତଳିଆ ଅଞ୍ଚଳ ଜଳମଗ୍ନ; ରାସ୍ତାଘାଟରେ ଯାତାୟାତ ଠପ୍",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "or_gold_19",
+        "headline": "ପୁରୁଣା ବିପଦସଙ୍କୁଳ ତିନି ମହଲା କୋଠା ଭୁଶୁଡ଼ି ପଡ଼ିବାରୁ ଦୁଇ ଜଣଙ୍କ ମୃତ୍ୟୁ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "or_gold_20",
+        "headline": "ସାଇବର ଠକଙ୍କ ଜାଲରେ ପଡ଼ି ୩୫ ଲକ୍ଷ ଟଙ୍କା ହରାଇଲେ ଅବସରପ୍ରାପ୍ତ ବ୍ୟାଙ୍କ କର୍ମଚାରୀ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "or_gold_21",
+        "headline": "ଅଦିନିଆ ବର୍ଷା ଓ କୁଆପଥର ମାଡ଼ରେ ପନିପରିବା ଫସଲ ଉଜୁଡ଼ିଗଲା; ଚିନ୍ତାରେ ଚାଷୀ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "or_gold_22",
+        "headline": "ଡାକ୍ତରଖାନାରେ ସର୍ଟ ସର୍କିଟରୁ ଭୟାବହ ଅଗ୍ନିକାଣ୍ଡ; ରୋଗୀଙ୍କୁ ଅନ୍ୟତ୍ର ସ୍ଥାନାନ୍ତର",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "or_gold_23",
+        "headline": "୮ ବର୍ଷର ଅନାଥ ବାଳକ ଟ୍ରାଫିକ ଛକରେ ଫୁଲ ବିକ୍ରି କରି ମାଆର କ୍ୟାନସର ଚିକିତ୍ସା ଖର୍ଚ୍ଚ ଉଠାଉଛି",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "or_gold_24",
+        "headline": "ହାଡ଼ଭଙ୍ଗା ଶୀତରେ ଖାଲି ପାଦରେ ଖବରକାଗଜ ବାଣ୍ଟୁଥିବା ପିଲାର ସାଧୁତା: ମିଳିଥିବା ମନିପର୍ସ ଫେରାଇଲା",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "or_gold_25",
+        "headline": "ହଷ୍ଟେଲରେ ଖାଦ୍ୟ ସରିଯିବାରୁ ପିଲାମାନେ ଉପବାସ ରହି ଆତ୍ମନିୟନ୍ତ୍ରଣ ଶିଖିଲେ ବୋଲି ପ୍ରଧାନ ଶିକ୍ଷକଙ୍କ ଦାବି",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "or_gold_26",
+        "headline": "ମରୁଡ଼ି ପ୍ରଭାବିତ ଅଞ୍ଚଳରେ ଶିଳ୍ପପତିଙ୍କ ଫାର୍ମହାଉସରେ କୋଟି ଟଙ୍କା ବ୍ୟୟରେ ନିର୍ମିତ କୃତ୍ରିମ ଝରଣା",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "or_gold_27",
+        "headline": "ଘରେ ଚୋରି କରିଥିବା ଚୋର ବୃଦ୍ଧାଙ୍କ ଔଷଧ ଖର୍ଚ୍ଚ ପାଇଁ ୫୦ ଟଙ୍କା ଛାଡ଼ି ମାନବିକତା ଦେଖାଇଥିବା ଚର୍ଚ୍ଚା",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "or_gold_28",
+        "headline": "ମୁଦ୍ରା ନୀତି ସମୀକ୍ଷା ବୈଠକରେ ରେପୋ ରେଟ୍ ଅପରିବର୍ତ୍ତିତ ରଖିବାକୁ ରିଜର୍ଭ ବ୍ୟାଙ୍କର ନିଷ୍ପତ୍ତି",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      },
+      {
+        "id": "or_gold_29",
+        "headline": "ନଦୀ ପ୍ରଦୂଷଣ ନିୟନ୍ତ୍ରଣ ଉପରେ ଚାରି ସପ୍ତାହ ମଧ୍ୟରେ ରିପୋର୍ଟ ଦାଖଲ କରିବାକୁ ହାଇକୋର୍ଟଙ୍କ ନିର୍ଦ୍ଦେଶ",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      },
+      {
+        "id": "or_gold_30",
+        "headline": "ଅର୍ଥନୀତି ଓ ପରିସଂଖ୍ୟାନ ନିର୍ଦ୍ଦେଶାଳୟ ଆଗାମୀ ତ୍ରୈମାସିକ ଜିଡିପି ଆକଳନ ତାରିଖ ଘୋଷଣା କଲା",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      }
+    ]
+  }
+}

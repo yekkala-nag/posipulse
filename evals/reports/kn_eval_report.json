@@ -1,0 +1,332 @@
+{
+  "language": "kn",
+  "all_gates_passed": true,
+  "certified_at": "2026-10-21T09:05:53.927520+00:00",
+  "gate_details": {
+    "positive_precision": {
+      "value": 1.0,
+      "required": 0.9,
+      "passed": true
+    },
+    "faithfulness_pass_rate": {
+      "value": 1.0,
+      "required": 0.95,
+      "passed": true
+    },
+    "zero_verbatim_copying": {
+      "violations": 0,
+      "passed": true
+    },
+    "healthy_sources": {
+      "count": 3,
+      "required": 3,
+      "passed": true
+    },
+    "native_speaker_spot_check": {
+      "passed": true
+    }
+  },
+  "eval_report": {
+    "language": "kn",
+    "evaluated_at": "2026-10-21T09:05:53.927512+00:00",
+    "total_items": 30,
+    "confusion_matrix": {
+      "true_positives": 12,
+      "false_positives": 0,
+      "true_negatives": 18,
+      "false_negatives": 0
+    },
+    "metrics": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "toxic_positivity_rejection_rate": 1.0,
+      "faithfulness_pass_rate": 1.0,
+      "verbatim_violations_count": 0,
+      "length_compliance_rate": 1.0
+    },
+    "gate_assessment": {
+      "precision_gate_passed": true,
+      "faithfulness_gate_passed": true,
+      "zero_verbatim_copying": true
+    },
+    "detailed_items": [
+      {
+        "id": "kn_gold_01",
+        "headline": "ಬೆಂಗಳೂರಿನ ಐಐಎಸ್‌ಸಿ ವಿಜ್ಞಾನಿಗಳಿಂದ ಕೃಷಿ ತ್ಯಾಜ್ಯದಿಂದ ಅಗ್ಗದ ಜಲ ಶುದ್ಧೀಕರಣ ಪೊರೆ ಸಂಶೋಧನೆ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "kn_gold_02",
+        "headline": "ಕೊಡಗಿನ ಸಾವಯವ ಕಾಫಿ ಬೆಳೆಗಾರರ ಸಹಕಾರ ಸಂಘಕ್ಕೆ ಅಂತಾರಾಷ್ಟ್ರೀಯ ಮಾರುಕಟ್ಟೆಯಲ್ಲಿ ಭಾರಿ ಬೇಡಿಕೆ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "kn_gold_03",
+        "headline": "ಪಾವಗಡ ಸೌರ ಪಾರ್ಕ್‌ನಿಂದ ದಾಖಲೆಯ ವಿದ್ಯುತ್ ಉತ್ಪಾದನೆ; ಸಾವಿರಾರು ಹಳ್ಳಿಗಳಿಗೆ ಶುದ್ಧ ಹಸಿರು ಶಕ್ತಿ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "kn_gold_04",
+        "headline": "ಕೋಲಾರದ ಬರಪೀಡಿತ ಗ್ರಾಮಗಳಲ್ಲಿ ಗ್ರಾಮಸ್ಥರ ಶ್ರಮದಾನದಿಂದ ೨೦ ಕೆರೆಗಳ ಪುನಶ್ಚೇತನ; ಅಂತರ್ಜಲ ಮಟ್ಟ ಹೆಚ್ಚಳ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "kn_gold_05",
+        "headline": "ಇಳಕಲ್ ಸೀರೆ ನೇಕಾರರ ಇ-ಕಾಮರ್ಸ್ ಪೋರ್ಟಲ್ ಯಶಸ್ವಿ; ಜಾಗತಿಕ ಗ್ರಾಹಕರಿಗೆ ನೇರ ಮಾರಾಟ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "kn_gold_06",
+        "headline": "ಹೊನ್ನಾವರ ಕಡಲತೀರದಲ್ಲಿ ಸ್ಥಳೀಯ ಮೀನುಗಾರರಿಂದ ಆಲಿವ್ ರಿಡ್ಲೆ ಆಮೆಗಳ ಸಂರಕ್ಷಣೆ; ೧೦,೦೦೦ ಮರಿಗಳು ಸಾಗರಕ್ಕೆ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "kn_gold_07",
+        "headline": "ರಾಯಚೂರಿನ ಗ್ರಾಮೀಣ ಭಾಗದಲ್ಲಿ ಸೌರಶಕ್ತಿ ಪ್ರಾಥಮಿಕ ಆರೋಗ್ಯ ಕೇಂದ್ರಗಳು ಆರಂಭ; ನಿರಂತರ ತುರ್ತು ಸೇವೆ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "kn_gold_08",
+        "headline": "ಮಂಡ್ಯದ ರೈತರ ನೈಸರ್ಗಿಕ ರಾಗಿ ಕೃಷಿ ಕ್ರಾಂತಿ; ರಾಸಾಯನಿಕ ಮುಕ್ತ ಸಿರಿಧಾನ್ಯಕ್ಕೆ ಭಾರಿ ಲಾಭ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "kn_gold_09",
+        "headline": "ಬೆಂಗಳೂರು ಮಹಾನಗರ ಪಾಲಿಕೆಯಿಂದ ತರಕಾರಿ ತ್ಯಾಜ್ಯದಿಂದ ಬಯೋ-ಸಿಎನ್‌ಜಿ ಉತ್ಪಾದನಾ ಘಟಕ ಕಾರ್ಯಾರಂಭ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "kn_gold_10",
+        "headline": "ಕರ್ನಾಟಕ ಗ್ರಾಮೀಣ ಯುವ ಕುಸ್ತಿಪಟುಗಳು ರಾಷ್ಟ್ರೀಯ ಕ್ರೀಡಾಕೂಟದಲ್ಲಿ ೫ ಚಿನ್ನದ ಪದಕ ಬೇಟೆ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "kn_gold_11",
+        "headline": "ಮೈಸೂರಿನ ಸ್ಟಾರ್ಟ್‌ಅಪ್ ಆವಿಷ್ಕಾರ: ಬಾಳೆ ನಾರಿನಿಂದ ಸಂಪೂರ್ಣ ಮಣ್ಣಲ್ಲಿ ಕರಗುವ ಪರಿಸರಸ್ನೇಹಿ ಬ್ಯಾಗ್‌ಗಳು",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "kn_gold_12",
+        "headline": "ಉಡುಪಿಯ ಗ್ರಾಮೀಣ ಮಹಿಳೆಯರ ಪರಿಸರಸ್ನೇಹಿ ಇ-ಆಟೋ ಸಹಕಾರ ಸಂಘಕ್ಕೆ ಸ್ವಾವಲಂಬನೆ ಪ್ರಶಸ್ತಿ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "kn_gold_13",
+        "headline": "ಬೆಂಗಳೂರು-ಮೈಸೂರು ಹೆದ್ದಾರಿಯಲ್ಲಿ ಭೀಕರ ಸರಣಿ ಅಪಘಾತ, ೪ ಸಾವು ಮತ್ತು ಹಲವರಿಗೆ ಗಾಯ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "kn_gold_14",
+        "headline": "ಪೀಣ್ಯ ಕೈಗಾರಿಕಾ ಪ್ರದೇಶದಲ್ಲಿ ರಾಸಾಯನಿಕ ಕಾರ್ಖಾನೆಯಲ್ಲಿ ಬಾಯ್ಲರ್ ಸ್ಫೋಟ, ೩ ಕಾರ್ಮಿಕರ ಸಾವು",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "kn_gold_15",
+        "headline": "ಹೆಚ್ಚಿನ ಬಡ್ಡಿ ಆಮಿಷವೊಡ್ಡಿ ಸಾರ್ವಜನಿಕರಿಗೆ ೬೦ ಕೋಟಿ ವಂಚಿಸಿದ ನಕಲಿ ಹಣಕಾಸು ಸಂಸ್ಥೆ ಮಾಲೀಕನ ಬಂಧನ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "kn_gold_16",
+        "headline": "ಕಲಬುರಗಿಯಲ್ಲಿ ವಿಷಕಾರಿ ಕಳ್ಳಸಾರಾಯಿ ಸೇವಿಸಿ ನಾಲ್ವರು ಕೃಷಿ ಕಾರ್ಮಿಕರ ಸಾವು",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "kn_gold_17",
+        "headline": "ಮಂಗಳೂರಿನಲ್ಲಿ ಹಾಡಹಗಲೇ ಚಿನ್ನದಂಗಡಿಗೆ ನುಗ್ಗಿ ಬಂದೂಕು ತೋರಿಸಿ ಕೋಟ್ಯಂತರ ರೂ. ಚಿನ್ನಾಭರಣ ದರೋಡೆ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "kn_gold_18",
+        "headline": "ಭಾರಿ ಮಳೆಗೆ ನಗರದ ತಗ್ಗು ಪ್ರದೇಶಗಳು ಜಲಾವೃತ; ರಸ್ತೆಗಳಲ್ಲಿ ನದಿಯಂತೆ ಹರಿದ ನೀರು",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "kn_gold_19",
+        "headline": "ಶಿಥಿಲಾವಸ್ಥೆಯಲ್ಲಿದ್ದ ಮೂರು ಅಂತಸ್ತಿನ ಕಟ್ಟಡ ಕುಸಿತ; ಅವಶೇಷಗಳಡಿ ಸಿಲುಕಿ ಇಬ್ಬರು ದುರ್ಮರಣ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "kn_gold_20",
+        "headline": "ಡಿಜಿಟಲ್ ಅರೆಸ್ಟ್ ಹೆಸರಿನಲ್ಲಿ ನಿವೃತ್ತ ಅಧಿಕಾರಿಯಿಂದ ೪೫ ಲಕ್ಷ ರೂ. ವಂಚಿಸಿದ ಸೈಬರ್ ಗ್ಯಾಂಗ್",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "kn_gold_21",
+        "headline": "ಉತ್ತರ ಕರ್ನಾಟಕದಲ್ಲಿ ತೀವ್ರ ಬರಗಾಲ: ಒಣಗಿದ ಮೆಕ್ಕೆಜೋಳ ಬೆಳೆ, ಕಂಗಾಲಾದ ರೈತ ಸಮುದಾಯ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "kn_gold_22",
+        "headline": "ಆಸ್ಪತ್ರೆಯ ತೀವ್ರ ನಿಗಾ ಘಟಕದಲ್ಲಿ ಶಾರ್ಟ್ ಸರ್ಕ್ಯೂಟ್‌ನಿಂದ ಬೆಂಕಿ; ರೋಗಿಗಳ ರಕ್ಷಣೆಗೆ ಪರದಾಟ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "kn_gold_23",
+        "headline": "ಟ್ರಾಫಿಕ್ ಸಿಗ್ನಲ್‌ನಲ್ಲಿ ಹೂವು ಮಾರಿ ತಾಯಿಯ ಕ್ಯಾನ್ಸರ್ ಚಿಕಿತ್ಸೆಗೆ ಹಣ ಹೊಂದಿಸುತ್ತಿರುವ ೮ ವರ್ಷದ ಬಾಲಕ",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "kn_gold_24",
+        "headline": "ಕೊರೆಯುವ ಚಳಿಯಲ್ಲಿ ಬರಿಗಾಲಲ್ಲಿ ಪತ್ರಿಕೆ ಹಂಚುವ ಅನಾಥ ಬಾಲಕನ ಪ್ರಾಮಾಣಿಕತೆ: ಸಿಕ್ಕ ಪರ್ಸ್ ಮಾಲೀಕನಿಗೆ ವಾಪಸ್",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "kn_gold_25",
+        "headline": "ಹಾಸ್ಟೆಲ್‌ನಲ್ಲಿ ಅಕ್ಕಿ ಖಾಲಿಯಾದಾಗ ವಿದ್ಯಾರ್ಥಿಗಳು ಉಪವಾಸವಿದ್ದು ಸಂಯಮ ಕಲಿತರು ಎಂದ ಆಡಳಿತ ಮಂಡಳಿ",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "kn_gold_26",
+        "headline": "ಬರಪೀಡಿತ ತಾಲೂಕಿನಲ್ಲಿ ಉದ್ಯಮಿ ತನ್ನ ಖಾಸಗಿ ರೆಸಾರ್ಟ್‌ಗಾಗಿ ಕೋಟಿ ವೆಚ್ಚದಲ್ಲಿ ನಿರ್ಮಿಸಿದ ಕೃತಕ ಕಾರಂಜಿ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "kn_gold_27",
+        "headline": "ಮನೆಯಲ್ಲಿ ಕಳವು ಮಾಡಿದ ಕಳ್ಳ ವೃದ್ಧೆಯ ಔಷಧಿ ಖರ್ಚಿಗೆ ೫೦ ರೂ. ಬಿಟ್ಟು ಮಾನವೀಯತೆ ಮೆರೆದನೆಂದು ಚರ್ಚೆ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "kn_gold_28",
+        "headline": "ಹಣಕಾಸು ನೀತಿ ಪರಾಮರ್ಶೆ ಸಭೆಯಲ್ಲಿ ರೆಪೋ ದರ ಯಥಾಸ್ಥಿತಿ ಕಾಯ್ದುಕೊಳ್ಳಲು ಭಾರತೀಯ ರಿಸರ್ವ್ ಬ್ಯಾಂಕ್ ನಿರ್ಧಾರ",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      },
+      {
+        "id": "kn_gold_29",
+        "headline": "ಕೈಗಾರಿಕಾ ತ್ಯಾಜ್ಯ ನಿಯಂತ್ರಣ ಕುರಿತು ನಾಲ್ಕು ವಾರಗಳಲ್ಲಿ ವರದಿ ಸಲ್ಲಿಸಲು ಹೈಕೋರ್ಟ್ ಆದೇಶ",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      },
+      {
+        "id": "kn_gold_30",
+        "headline": "ಮುಂದಿನ ತ್ರೈಮಾಸಿಕ ಜಿಡಿಪಿ ಮುನ್ಸೂಚನೆಗಳ ಬಿಡುಗಡೆ ವೇಳಾಪಟ್ಟಿಯನ್ನು ಪ್ರಕಟಿಸಿದ ಅಂಕಿಅಂಶ ಇಲಾಖೆ",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      }
+    ]
+  }
+}

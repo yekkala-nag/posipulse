@@ -61,7 +61,10 @@ def run_eval_for_language(lang_code: str, registry: LanguageConfigRegistry) -> N
 
 def main():
     registry = LanguageConfigRegistry(str(base_dir / "config" / "languages"))
-    target_languages = ["en", "hi", "bn", "mr", "te", "ta"]
+    target_languages = [
+        "en", "hi", "bn", "mr", "te", "ta",
+        "ur", "gu", "kn", "or", "ml", "pa"
+    ]
 
     for lang in target_languages:
         run_eval_for_language(lang, registry)

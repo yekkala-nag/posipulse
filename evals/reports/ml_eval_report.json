@@ -1,0 +1,332 @@
+{
+  "language": "ml",
+  "all_gates_passed": true,
+  "certified_at": "2026-10-21T09:05:53.931808+00:00",
+  "gate_details": {
+    "positive_precision": {
+      "value": 1.0,
+      "required": 0.9,
+      "passed": true
+    },
+    "faithfulness_pass_rate": {
+      "value": 1.0,
+      "required": 0.95,
+      "passed": true
+    },
+    "zero_verbatim_copying": {
+      "violations": 0,
+      "passed": true
+    },
+    "healthy_sources": {
+      "count": 3,
+      "required": 3,
+      "passed": true
+    },
+    "native_speaker_spot_check": {
+      "passed": true
+    }
+  },
+  "eval_report": {
+    "language": "ml",
+    "evaluated_at": "2026-10-21T09:05:53.931793+00:00",
+    "total_items": 30,
+    "confusion_matrix": {
+      "true_positives": 12,
+      "false_positives": 0,
+      "true_negatives": 18,
+      "false_negatives": 0
+    },
+    "metrics": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "toxic_positivity_rejection_rate": 1.0,
+      "faithfulness_pass_rate": 1.0,
+      "verbatim_violations_count": 0,
+      "length_compliance_rate": 1.0
+    },
+    "gate_assessment": {
+      "precision_gate_passed": true,
+      "faithfulness_gate_passed": true,
+      "zero_verbatim_copying": true
+    },
+    "detailed_items": [
+      {
+        "id": "ml_gold_01",
+        "headline": "കൊച്ചി വിമാനത്താവളം 100 ശതമാനം സൗരോർജ്ജത്തിൽ വിജയകരമായി പ്രവർത്തിക്കുന്നു; അന്താരാഷ്ട്ര ഹരിത പുരസ്കാരം",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ml_gold_02",
+        "headline": "ഐഐടി പാലക്കാട് ഗവേഷകരുടെ നേട്ടം: കുറഞ്ഞ ചെലവിൽ കുടിവെള്ളം ശുദ്ധീകരിക്കുന്ന നാനോ മെംബ്രേൻ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ml_gold_03",
+        "headline": "കുടുംബശ്രീ വനിതകളുടെ ജൈവ ചെറുധാന്യ കൃഷിക്ക് വിദേശ വിപണിയിൽ റെക്കോർഡ് ഡിമാൻഡ്",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ml_gold_04",
+        "headline": "കണ്ണൂരിലെ തീരദേശത്ത് കണ്ടൽക്കാടുകൾ പുനരുജ്ജീവിപ്പിച്ച് പ്രാദേശിക കൂട്ടായ്മ; തീരശോഷണം തടഞ്ഞു",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ml_gold_05",
+        "headline": "ചേന്ദമംഗലം കൈത്തറി നെയ്ത്തുകാരുടെ ഇ-കൊമേഴ്സ് കൂട്ടായ്മ വിജയം; വരുമാനത്തിൽ ഇരട്ടി വർദ്ധനവ്",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ml_gold_06",
+        "headline": "കോഴിക്കോട് തീരത്ത് കടലാമ സംരക്ഷണ യജ്ഞം; 12,000 ആമക്കുഞ്ഞുങ്ങളെ സുരക്ഷിതമായി കടലിലേക്ക് വിട്ടു",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ml_gold_07",
+        "headline": "വയനാട്ടിലെ ആദിവാസി മേഖലകളിൽ സൗരോർജ്ജ പ്രാഥമിക ആരോഗ്യ കേന്ദ്രങ്ങൾ വഴി തടസ്സമില്ലാത്ത ചികിത്സ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ml_gold_08",
+        "headline": "പരമ്പരാഗത പൊക്കാളി നെൽകൃഷിയിലൂടെ കർഷകർക്ക് മികച്ച വിളവും ഉയർന്ന വിപണി മൂല്യവും",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ml_gold_09",
+        "headline": "തിരുവനന്തപുരം നഗരസഭയുടെ പച്ചക്കറി മാലിന്യ സംസ്കരണ പ്ലാന്റിൽ നിന്ന് ബയോ-സിഎൻജി ഉത്പാദനം തുടങ്ങി",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ml_gold_10",
+        "headline": "ദേശീയ കായികമേളയിൽ കേരളത്തിന്റെ ഗ്രാമീണ കളരിപ്പയറ്റ് താരങ്ങൾക്ക് 5 സ്വർണ്ണമെഡൽ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ml_gold_11",
+        "headline": "വാഴനാരുകളിൽ നിന്ന് പ്രകൃതിദത്ത പാക്കേജിംഗ് ഉൽപ്പന്നങ്ങൾ നിർമ്മിക്കുന്ന മലയാളി സ്റ്റാർട്ടപ്പിന് അംഗീകാരം",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ml_gold_12",
+        "headline": "തൃശ്ശൂരിൽ 100 ശതമാനം മാലിന്യ സംസ്കരണം നടപ്പിലാക്കിയ മാതൃകാ ഗ്രാമപഞ്ചായത്തിന് പുരസ്കാരം",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "ml_gold_13",
+        "headline": "കോഴിക്കോട് കെമിക്കൽ ഫാക്ടറിയിൽ ഉണ്ടായ വൻ തീപിടുത്തത്തിൽ 3 തൊഴിലാളികൾ മരിച്ചു",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ml_gold_14",
+        "headline": "ദേശീയപാതയിൽ സ്വകാര്യ ബസും ലോറിയും കൂട്ടിയിടിച്ച് 4 യാത്രക്കാർ തൽക്ഷണം മരിച്ചു",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ml_gold_15",
+        "headline": "ഉയർന്ന പലിശ വാഗ്ദാനം ചെയ്ത് 50 കോടി രൂപ തട്ടിയെടുത്ത സാമ്പത്തിക തട്ടിപ്പ് സംഘത്തലവൻ അറസ്റ്റിൽ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ml_gold_16",
+        "headline": "വിഷമദ്യം കഴിച്ച് 4 തോട്ടം തൊഴിലാളികൾ മരിച്ചു; നിരവധി പേർ ഗുരുതരാവസ്ഥയിൽ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ml_gold_17",
+        "headline": "പട്ടാപ്പകൽ ജ്വല്ലറിയിൽ തോക്കുചൂണ്ടി കോടികളുടെ സ്വർണ്ണാഭരണങ്ങൾ കവർന്നു; മോഷ്ടാക്കൾ രക്ഷപ്പെട്ടു",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ml_gold_18",
+        "headline": "കനത്ത മഴയിൽ മലയോര മേഖലയിൽ ഉരുൾപൊട്ടൽ; വീടുകൾ ഒലിച്ചുപോയി വൻ നാശനഷ്ടം",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ml_gold_19",
+        "headline": "പഴയ മൂന്നുനില കെട്ടിടം തകർന്നു വീണു; അവശിഷ്ടങ്ങൾക്കിടയിൽ പെട്ട് രണ്ടുപേർ മരിച്ചു",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ml_gold_20",
+        "headline": "സൈബർ തട്ടിപ്പുകാരുടെ വലയിൽപ്പെട്ട് റിട്ടയേർഡ് ഉദ്യോഗസ്ഥന് 40 ലക്ഷം രൂപ നഷ്ടമായി",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ml_gold_21",
+        "headline": "വേനൽമഴ ചതിച്ചു: കുട്ടനാട്ടിൽ കൊയ്ത്തുപാകമായ നെൽക്കൃഷി വെള്ളത്തിലായി കർഷകർ ദുരിതത്തിൽ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ml_gold_22",
+        "headline": "സ്വകാര്യ ആശുപത്രിയിലെ ഐസിയുവിൽ ഉണ്ടായ തീപിടുത്തത്തിൽ രോഗികൾക്ക് ശ്വാസതടസ്സം",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ml_gold_23",
+        "headline": "ട്രാഫിക് സിഗ്നലിൽ രാത്രി മുഴുവൻ പൂക്കൾ വിറ്റ് അമ്മയുടെ ചികിത്സാച്ചെലവ് കണ്ടെത്തുന്ന 8 വയസ്സുകാരൻ",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "ml_gold_24",
+        "headline": "കഠിനമായ തണുപ്പിൽ ചെരുപ്പില്ലാതെ പത്രം വിതരണം ചെയ്യുന്ന അനാഥ ബാലന്റെ സത്യസന്ധത: കളഞ്ഞുകിട്ടിയ പഴ്സ് തിരിച്ചേൽപ്പിച്ചു",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "ml_gold_25",
+        "headline": "ഹോസ്റ്റലിൽ ഭക്ഷണം തീർന്നപ്പോൾ കുട്ടികൾ പട്ടിണി കിടന്ന് ആത്മനിയന്ത്രണം പഠിച്ചുവെന്ന് മാനേജ്മെന്റ്",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "ml_gold_26",
+        "headline": "വരൾച്ച ബാധിത മേഖലയിൽ പ്രമുഖ വ്യവസായിയുടെ റിസോർട്ടിൽ കോടികൾ ചെലവിട്ട് കൃത്രിമ ജലധാര",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ml_gold_27",
+        "headline": "വീട്ടിൽ മോഷണം നടത്തിയ കള്ളൻ വൃദ്ധയുടെ മരുന്നുവാങ്ങാൻ 50 രൂപ ബാക്കിവെച്ച് മനുഷ്യത്വം കാട്ടിയെന്ന് ചർച്ച",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "ml_gold_28",
+        "headline": "പണനയ അവലോകന യോഗത്തിൽ റിപ്പോ നിരക്കിൽ മാറ്റമില്ലെന്ന് റിസർവ് ബാങ്ക് പ്രഖ്യാപിച്ചു",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      },
+      {
+        "id": "ml_gold_29",
+        "headline": "പുഴ മലിനീകരണ നിയന്ത്രണത്തിൽ നാലാഴ്ചയ്ക്കകം റിപ്പോർട്ട് നൽകാൻ ഹൈക്കോടതി ഉത്തരവ്",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      },
+      {
+        "id": "ml_gold_30",
+        "headline": "അടുത്ത ത്രൈമാസ ജിഡിപി കണക്കുകൾ പുറത്തുവിടുന്ന തീയതി ധനകാര്യ വകുപ്പ് അറിയിച്ചു",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      }
+    ]
+  }
+}

@@ -50,6 +50,11 @@ class LanguageDetector:
         has_arabic = any("\u0600" <= c <= "\u06FF" for c in text)
         has_telugu = any("\u0C00" <= c <= "\u0C7F" for c in text)
         has_tamil = any("\u0B80" <= c <= "\u0BFF" for c in text)
+        has_gujarati = any("\u0A80" <= c <= "\u0AFF" for c in text)
+        has_kannada = any("\u0C80" <= c <= "\u0CFF" for c in text)
+        has_odia = any("\u0B00" <= c <= "\u0B7F" for c in text)
+        has_malayalam = any("\u0D00" <= c <= "\u0D7F" for c in text)
+        has_gurmukhi = any("\u0A00" <= c <= "\u0A7F" for c in text)
 
         declared = item.declared_language
 
@@ -66,6 +71,16 @@ class LanguageDetector:
             return False, "non_telugu", 0.0
         if declared == "ta" and not has_tamil:
             return False, "non_tamil", 0.0
+        if declared == "gu" and not has_gujarati:
+            return False, "non_gujarati", 0.0
+        if declared == "kn" and not has_kannada:
+            return False, "non_kannada", 0.0
+        if declared == "or" and not has_odia:
+            return False, "non_odia", 0.0
+        if declared == "ml" and not has_malayalam:
+            return False, "non_malayalam", 0.0
+        if declared == "pa" and not has_gurmukhi:
+            return False, "non_gurmukhi", 0.0
 
         # FastText model inference if available
         if self.model:

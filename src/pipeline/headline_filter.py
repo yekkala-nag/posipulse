@@ -32,7 +32,19 @@ class HeadlinePreFilter:
         "కూలి", "హత్య", "విషాదం", "ఢీకొని", "ఢీకొన్న",
         # Tamil
         "உயிரிழப்பு", "பலி", "விபத்து", "வெடிவிபத்து", "தீவிபத்து", "கொலை", "கொள்ளை",
-        "மோசடி", "கைது", "இடிந்து", "மோதி"
+        "மோசடி", "கைது", "இடிந்து", "மோதி",
+        # Urdu (Perso-Arabic)
+        "جاں بحق", "ہلاکت", "حادثہ", "دھماکہ", "لوٹ", "گرفتار", "ڈکیتی", "زمین بوس", "موت", "تصادم", "پھٹنے",
+        # Gujarati
+        "મોત", "અકસ્માત", "આગ", "લૂંટ", "ધરાશાયી", "ઝડપાઈ", "ભડથું", "ચોરી", "છેતરપિંડી", "ગમખ્વાર",
+        # Kannada
+        "ಸಾವು", "ಅಪಘಾತ", "ಸ್ಫೋಟ", "ದರೋಡೆ", "ಕುಸಿತ", "ಬಂಧನ", "ದುರ್ಮರಣ", "ಬೆಂಕಿ", "ವಂಚಿಸಿದ", "ಡಿಕ್ಕಿ",
+        # Odia
+        "ମୃତ", "ମୃତ୍ୟୁ", "ଦୁର୍ଘଟଣା", "ବିସ୍ଫୋରଣ", "ଲୁଟ", "ଭୁଶୁଡ଼ି", "ଗିରଫ", "ଅଗ୍ନିକାଣ୍ଡ", "ଓଲଟି", "ଠକେଇ",
+        # Malayalam
+        "മരിച്ചു", "അപകടം", "തീപിടുത്തം", "കവർന്നു", "തകർന്നു", "അറസ്റ്റിൽ", "കൂട്ടിയിടിച്ച്", "ദുരന്തം", "തട്ടിപ്പ്", "മരണം",
+        # Punjabi (Gurmukhi)
+        "ਮੌਤ", "ਹਾਦਸਾ", "ਧਮਾਕਾ", "ਲੁੱਟੇ", "ਡਿੱਗੀ", "ਗ੍ਰਿਫ਼ਤਾਰ", "ਅੱਗ", "ਟੱਕਰ", "ਠੱਗੀ", "ਦੱਬਣ"
     }
 
     def should_reject(self, item: EphemeralIngestedItem) -> Tuple[bool, str]:
@@ -40,8 +52,16 @@ class HeadlinePreFilter:
         Evaluates headline against high-precision negative markers.
         Returns: (should_reject, reason)
         """
-        # Unicode-aware tokenization: split on whitespace and strip punctuation
-        tokens = {w.strip(".,!?:;\"'()[]{}।॥-–—/\\") for w in item.headline.lower().split()}
+        headline_lower = item.headline.lower()
+
+        # Check multi-word phrase keywords
+        for kw in self.NEGATIVE_KEYWORDS:
+            if " " in kw and kw in headline_lower:
+                return True, f"Headline matched negative disaster/crime keywords: {kw}"
+
+        # Unicode-aware tokenization: split on whitespace and strip Indic & Perso-Arabic punctuation
+        punctuation_chars = ".,!?:;\"'()[]{}।॥،؛؟۔-–—/\\"
+        tokens = {w.strip(punctuation_chars) for w in headline_lower.split()}
         matched = tokens.intersection(self.NEGATIVE_KEYWORDS)
 
         if matched:

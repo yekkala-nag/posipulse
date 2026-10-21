@@ -4,14 +4,14 @@ language_name_native: "اردو"
 script: "Perso-Arabic"
 is_rtl: true
 tier: "tier_2"
-status: "beta"
+status: "active"
 
 quality_gate:
   min_positive_precision: 0.90
   min_faithfulness_pass_rate: 0.95
   min_healthy_sources: 3
-  native_speaker_spot_check_passed: false
-  gate_passed_at: null
+  native_speaker_spot_check_passed: true
+  gate_passed_at: "2026-10-21T00:00:00Z"
 
 length_band:
   min_words: 35

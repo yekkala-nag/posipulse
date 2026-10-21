@@ -1,0 +1,332 @@
+{
+  "language": "pa",
+  "all_gates_passed": true,
+  "certified_at": "2026-10-21T09:05:53.934204+00:00",
+  "gate_details": {
+    "positive_precision": {
+      "value": 1.0,
+      "required": 0.9,
+      "passed": true
+    },
+    "faithfulness_pass_rate": {
+      "value": 1.0,
+      "required": 0.95,
+      "passed": true
+    },
+    "zero_verbatim_copying": {
+      "violations": 0,
+      "passed": true
+    },
+    "healthy_sources": {
+      "count": 3,
+      "required": 3,
+      "passed": true
+    },
+    "native_speaker_spot_check": {
+      "passed": true
+    }
+  },
+  "eval_report": {
+    "language": "pa",
+    "evaluated_at": "2026-10-21T09:05:53.934191+00:00",
+    "total_items": 30,
+    "confusion_matrix": {
+      "true_positives": 12,
+      "false_positives": 0,
+      "true_negatives": 18,
+      "false_negatives": 0
+    },
+    "metrics": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "toxic_positivity_rejection_rate": 1.0,
+      "faithfulness_pass_rate": 1.0,
+      "verbatim_violations_count": 0,
+      "length_compliance_rate": 1.0
+    },
+    "gate_assessment": {
+      "precision_gate_passed": true,
+      "faithfulness_gate_passed": true,
+      "zero_verbatim_copying": true
+    },
+    "detailed_items": [
+      {
+        "id": "pa_gold_01",
+        "headline": "ਲੁਧਿਆਣਾ ਦੇ ਕਿਸਾਨਾਂ ਨੇ ਬਾਇਓ-ਡੀਕੰਪੋਜ਼ਰ ਨਾਲ ਪਰਾਲੀ ਸਾੜਨ ਦੀ ਸਮੱਸਿਆ ਹੱਲ ਕੀਤੀ; ਧਰਤੀ ਦੀ ਉਪਜਾਊ ਸ਼ਕਤੀ ਵਧੀ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "pa_gold_02",
+        "headline": "ਪੰਜਾਬ ਖੇਤੀਬਾੜੀ ਯੂਨੀਵਰਸਿਟੀ ਦੇ ਵਿਗਿਆਨੀਆਂ ਨੇ ਘੱਟ ਪਾਣੀ ਵਾਲੀ ਝੋਨੇ ਦੀ ਨਵੀਂ ਕਿਸਮ ਵਿਕਸਿਤ ਕੀਤੀ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "pa_gold_03",
+        "headline": "ਮਾਲਵਾ ਨਹਿਰ 'ਤੇ ਸੋਲਰ ਪੰਪ ਲਗਾ ਕੇ ਕਿਸਾਨਾਂ ਨੇ ਬਣਾਈ ਕਾਮਯਾਬ ਸਹਿਕਾਰੀ ਸਭਾ; ਬਿਜਲੀ ਖਰਚਾ ਜ਼ੀਰੋ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "pa_gold_04",
+        "headline": "ਬਠਿੰਡਾ ਦੇ ਪਿੰਡਾਂ ਵਿੱਚ ਲੋਕਾਂ ਦੇ ਸਹਿਯੋਗ ਨਾਲ ੨੦ ਛੱਪੜਾਂ ਦਾ ਨਵੀਨੀਕਰਨ; ਧਰਤੀ ਹੇਠਲਾ ਪਾਣੀ ਉੱਪਰ ਆਇਆ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "pa_gold_05",
+        "headline": "ਰਵਾਇਤੀ ਫੁਲਕਾਰੀ ਕਾਰੀਗਰ ਔਰਤਾਂ ਦਾ ਈ-ਕਾਮਰਸ ਪੋਰਟਲ ਸਫ਼ਲ; ਵਿਦੇਸ਼ਾਂ ਵਿੱਚ ਸਿੱਧੀ ਵਿਕਰੀ ਸ਼ੁਰੂ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "pa_gold_06",
+        "headline": "ਹਰੀਕੇ ਪੱਤਣ ਵੈਟਲੈਂਡ 'ਤੇ ਪ੍ਰਵਾਸੀ ਪੰਛੀਆਂ ਦੀ ਸੁਰੱਖਿਆ ਲਈ ਪਿੰਡ ਵਾਸੀਆਂ ਦੀ ਮੁਹਿੰਮ ਰੰਗ ਲਿਆਈ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "pa_gold_07",
+        "headline": "ਸਰਹੱਦੀ ਪਿੰਡਾਂ ਵਿੱਚ ਸੋਲਰ ਪ੍ਰਾਇਮਰੀ ਹੈਲਥ ਸੈਂਟਰ ਸ਼ੁਰੂ; ਨਿਰਵਿਘਨ ਐਮਰਜੈਂਸੀ ਮੈਡੀਕਲ ਸੇਵਾਵਾਂ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "pa_gold_08",
+        "headline": "ਅਬੋਹਰ ਦੇ ਕਿਸਾਨਾਂ ਨੇ ਜੈਵਿਕ ਕਿੰਨੂ ਬਾਗਬਾਨੀ ਵਿੱਚ ਕਾਇਮ ਕੀਤਾ ਰਿਕਾਰਡ; ਯੂਰਪ ਨੂੰ ਨਿਰਯਾਤ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "pa_gold_09",
+        "headline": "ਅੰਮ੍ਰਿਤਸਰ ਨਗਰ ਨਿਗਮ ਵੱਲੋਂ ਸਬਜ਼ੀ ਮੰਡੀ ਦੇ ਕੂੜੇ ਤੋਂ ਬਾਇਓ-ਸੀਐਨਜੀ ਪਲਾਂਟ ਸ਼ੁਰੂ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "pa_gold_10",
+        "headline": "ਰਾਸ਼ਟਰੀ ਕੁਸ਼ਤੀ ਅਤੇ ਗੱਤਕਾ ਮੁਕਾਬਲਿਆਂ ਵਿੱਚ ਪੰਜਾਬ ਦੇ ਪੇਂਡੂ ਖਿਡਾਰੀਆਂ ਨੇ ਜਿੱਤੇ ੫ ਸੋਨੇ ਦੇ ਤਗਮੇ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "pa_gold_11",
+        "headline": "ਜਲੰਧਰ ਦੇ ਨੌਜਵਾਨ ਇੰਜੀਨੀਅਰਾਂ ਨੇ ਪਰਾਲੀ ਤੋਂ ਈਕੋ-ਫਰੈਂਡਲੀ ਪੈਕਿੰਗ ਸਮੱਗਰੀ ਤਿਆਰ ਕੀਤੀ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "pa_gold_12",
+        "headline": "ਰੋਪੜ ਜ਼ਿਲ੍ਹੇ ਦੇ ਪਿੰਡ ਨੇ ੧੦੦ ਫੀਸਦੀ ਕੂੜਾ ਪ੍ਰਬੰਧਨ ਕਰਕੇ ਜਿੱਤਿਆ ਸਵੱਛ ਗ੍ਰਾਮ ਪੁਰਸਕਾਰ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "pa_gold_13",
+        "headline": "ਅੰਮ੍ਰਿਤਸਰ ਨੇੜੇ ਧੁੰਦ ਕਾਰਨ ਵਾਪਰਿਆ ਭਿਆਨਕ ਸੜਕ ਹਾਦਸਾ, ੪ ਲੋਕਾਂ ਦੀ ਮੌਤ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "pa_gold_14",
+        "headline": "ਕੈਮੀਕਲ ਫੈਕਟਰੀ ਵਿੱਚ ਬਾਇਲਰ ਫਟਣ ਕਾਰਨ ਜ਼ਬਰਦਸਤ ਧਮਾਕਾ ਅਤੇ ਅੱਗ, ੩ ਮਜ਼ਦੂਰਾਂ ਦੀ ਮੌਤ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "pa_gold_15",
+        "headline": "ਵੱਧ ਮੁਨਾਫ਼ੇ ਦਾ ਲਾਲਚ ਦੇ ਕੇ ਕਰੋੜਾਂ ਦੀ ਠੱਗੀ ਮਾਰਨ ਵਾਲੀ ਫਰਜ਼ੀ ਕੰਪਨੀ ਦਾ ਮਾਲਕ ਗ੍ਰਿਫ਼ਤਾਰ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "pa_gold_16",
+        "headline": "ਜ਼ਹਿਰੀਲੀ ਸ਼ਰਾਬ ਪੀਣ ਨਾਲ ੪ ਮਜ਼ਦੂਰਾਂ ਦੀ ਮੌਤ; ਕਈਆਂ ਦੀ ਹਾਲਤ ਨਾਜ਼ੁਕ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "pa_gold_17",
+        "headline": "ਦਿਨ-ਦਿਹਾੜੇ ਜਵੈਲਰਜ਼ ਦੀ ਦੁਕਾਨ 'ਤੇ ਪਿਸਤੌਲ ਦੀ ਨੋਕ 'ਤੇ ਕਰੋੜਾਂ ਦੇ ਸੋਨੇ ਦੇ ਗਹਿਣੇ ਲੁੱਟੇ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "pa_gold_18",
+        "headline": "ਭਾਰੀ ਮੀਂਹ ਕਾਰਨ ਦਰਿਆਈ ਬੰਨ੍ਹ ਟੁੱਟਣ ਨਾਲ ਦਰਜਨਾਂ ਪਿੰਡ ਜਲਮਗਨ; ਫ਼ਸਲਾਂ ਤਬਾਹ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "pa_gold_19",
+        "headline": "ਪੁਰਾਣੀ ਤਿੰਨ ਮੰਜ਼ਿਲਾ ਇਮਾਰਤ ਅਚਾਨਕ ਡਿੱਗੀ; ਮਲਬੇ ਹੇਠ ਦੱਬਣ ਕਾਰਨ ਦੋ ਮੌਤਾਂ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "pa_gold_20",
+        "headline": "ਡਿਜੀਟਲ ਅਰੈਸਟ ਦਾ ਡਰਾਵਾ ਦੇ ਕੇ ਸੇਵਾਮੁਕਤ ਅਧਿਕਾਰੀ ਤੋਂ ੩੫ ਲੱਖ ਰੁਪਏ ਠੱਗੇ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "pa_gold_21",
+        "headline": "ਗੜੇਮਾਰੀ ਕਾਰਨ ਕਣਕ ਦੀ ਪੱਕੀ ਫ਼ਸਲ ਵਿਛੀ; ਕਿਸਾਨਾਂ ਦਾ ਭਾਰੀ ਆਰਥਿਕ ਨੁਕਸਾਨ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "pa_gold_22",
+        "headline": "ਹਸਪਤਾਲ ਦੇ ਆਈਸੀਯੂ ਵਿੱਚ ਸ਼ਾਰਟ ਸਰਕਟ ਕਾਰਨ ਭਿਆਨਕ ਅੱਗ; ਮਰੀਜ਼ ਬਾਹਰ ਕੱਢੇ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "pa_gold_23",
+        "headline": "ਟ੍ਰੈਫਿਕ ਸਿਗਨਲ 'ਤੇ ਰਾਤ ਭਰ ਗੁਲਾਬ ਵੇਚ ਕੇ ਮਾਂ ਦੇ ਇਲਾਜ ਦਾ ਖ਼ਰਚਾ ਚੁੱਕ ਰਿਹਾ ੮ ਸਾਲਾ ਬਾਲਕ",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "pa_gold_24",
+        "headline": "ਕੜਾਕੇ ਦੀ ਠੰਢ ਵਿੱਚ ਨੰਗੇ ਪੈਰੀਂ ਅਖ਼ਬਾਰ ਵੰਡਣ ਵਾਲੇ ਬੱਚੇ ਦੀ ਇਮਾਨਦਾਰੀ: ਲੱਭਿਆ ਪਰਸ ਮਾਲਕ ਨੂੰ ਮੋੜਿਆ",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "pa_gold_25",
+        "headline": "ਹੌਸਟਲ ਵਿੱਚ ਰਾਸ਼ਨ ਖ਼ਤਮ ਹੋਣ 'ਤੇ ਵਿਦਿਆਰਥੀਆਂ ਨੇ ਭੁੱਖੇ ਰਹਿ ਕੇ ਸਬਰ ਸਿੱਖਿਆ ਪ੍ਰਬੰਧਕਾਂ ਦਾ ਦਾਅਵਾ",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "pa_gold_26",
+        "headline": "ਸੋਕਾ ਪ੍ਰਭਾਵਿਤ ਇਲਾਕੇ ਵਿੱਚ ਕਾਰੋਬਾਰੀ ਨੇ ਆਪਣੇ ਫਾਰਮ ਹਾਊਸ 'ਤੇ ਕਰੋੜਾਂ ਦਾ ਨਕਲੀ ਫੁਹਾਰਾ ਲਗਾਇਆ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "pa_gold_27",
+        "headline": "ਘਰ ਵਿੱਚ ਚੋਰੀ ਕਰਨ ਵਾਲੇ ਚੋਰ ਨੇ ਬਿਮਾਰ ਬਜ਼ੁਰਗ ਲਈ ੫੦ ਰੁਪਏ ਛੱਡ ਕੇ ਇਨਸਾਨੀਅਤ ਦਿਖਾਈ",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "pa_gold_28",
+        "headline": "ਮਾਨੀਟਰੀ ਪਾਲਿਸੀ ਮੀਟਿੰਗ ਵਿੱਚ ਰੈਪੋ ਰੇਟ ਸਥਿਰ ਰੱਖਣ ਦਾ ਰਿਜ਼ਰਵ ਬੈਂਕ ਵੱਲੋਂ ਐਲਾਨ",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      },
+      {
+        "id": "pa_gold_29",
+        "headline": "ਦਰਿਆਈ ਪ੍ਰਦੂਸ਼ਣ ਮਾਮਲੇ ਵਿੱਚ ਪੰਜਾਬ ਤੇ ਹਰਿਆਣਾ ਹਾਈਕੋਰਟ ਨੇ ਚਾਰ ਹਫ਼ਤਿਆਂ ਵਿੱਚ ਰਿਪੋਰਟ ਮੰਗੀ",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      },
+      {
+        "id": "pa_gold_30",
+        "headline": "ਅੰਕੜਾ ਵਿਭਾਗ ਨੇ ਅਗਲੀ ਤਿਮਾਹੀ ਜੀਡੀਪੀ ਅੰਦਾਜ਼ਿਆਂ ਦੀ ਮਿਤੀਆਂ ਦਾ ਸ਼ਡਿਊਲ ਜਾਰੀ ਕੀਤਾ",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      }
+    ]
+  }
+}

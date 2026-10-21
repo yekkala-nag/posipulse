@@ -1,0 +1,82 @@
+language_code: "pa"
+language_name_english: "Punjabi"
+language_name_native: "ਪੰਜਾਬੀ"
+script: "Gurmukhi"
+is_rtl: false
+tier: "tier_2"
+status: "active"
+
+quality_gate:
+  min_positive_precision: 0.90
+  min_faithfulness_pass_rate: 0.95
+  min_healthy_sources: 3
+  native_speaker_spot_check_passed: true
+  gate_passed_at: "2026-10-21T00:00:00Z"
+
+length_band:
+  min_words: 30
+  max_words: 85
+  substance_scaling: true
+
+cost_caps:
+  max_cost_per_run_usd: 1.50
+  max_daily_budget_usd: 15.00
+  cost_per_published_item_target_usd: 0.00050
+  alert_threshold_percentage: 80.0
+
+model_routing:
+  classifier_primary_model: "gemini-1.5-flash"
+  classifier_fallback_model: "gemini-2.0-flash"
+  summarizer_primary_model: "gemini-1.5-flash"
+  summarizer_fallback_model: "gemini-2.0-flash"
+  verifier_model: "gemini-2.0-flash"
+  temperature: 0.1
+  max_tokens: 450
+
+positivity_threshold: 0.85
+rubric_version: "1.0.0"
+prompt_version: "1.0.0"
+
+exemplars:
+  - headline: "ਲੁਧਿਆਣਾ ਦੇ ਕਿਸਾਨਾਂ ਨੇ ਬਾਇਓ-ਡੀਕੰਪੋਜ਼ਰ ਨਾਲ ਪਰਾਲੀ ਸਾੜਨ ਦੀ ਸਮੱਸਿਆ ਹੱਲ ਕੀਤੀ; ਧਰਤੀ ਦੀ ਉਪਜਾਊ ਸ਼ਕਤੀ ਵਧੀ"
+    body_snippet: "ਵਾਤਾਵਰਣ ਪੱਖੀ ਤਕਨੀਕ ਅਪਣਾ ਕੇ ਕਿਸਾਨਾਂ ਨੇ ਹਵਾ ਪ੍ਰਦੂਸ਼ਣ ਰੋਕਣ ਵਿੱਚ ਵੱਡੀ ਕਾਮਯਾਬੀ ਹਾਸਲ ਕੀਤੀ ਹੈ।"
+    label: "positive"
+    reason: "ਖੇਤੀਬਾੜੀ ਵਿੱਚ ਪ੍ਰਦੂਸ਼ਣ ਰੋਕਥਾਮ ਅਤੇ ਵਾਤਾਵਰਣ ਸੰਭਾਲ ਦਾ ਸ਼ਾਨਦਾਰ ਹੱਲ।"
+    substance_category: "Ecology"
+  - headline: "ਅੰਮ੍ਰਿਤਸਰ ਨੇੜੇ ਧੁੰਦ ਕਾਰਨ ਵਾਪਰਿਆ ਭਿਆਨਕ ਸੜਕ ਹਾਦਸਾ, ੪ ਲੋਕਾਂ ਦੀ ਮੌਤ"
+    body_snippet: "ਤੇਜ਼ ਰਫ਼ਤਾਰ ਟਰੱਕ ਅਤੇ ਕਾਰ ਦੀ ਟੱਕਰ ਵਿੱਚ ਚਾਰ ਯਾਤਰੀਆਂ ਨੇ ਮੌਕੇ 'ਤੇ ਹੀ ਦਮ ਤੋੜ ਦਿੱਤਾ।"
+    label: "negative"
+    reason: "ਸੜਕ ਹਾਦਸਾ ਅਤੇ ਜਾਨੀ ਨੁਕਸਾਨ।"
+    substance_category: "Accident/Disaster"
+
+sources:
+  - id: "jagbani-punjabi"
+    name: "Jagbani"
+    feed_url: "https://jagbani.punjabkesari.in/rss/punjab.xml"
+    homepage_url: "https://jagbani.punjabkesari.in"
+    language: "pa"
+    is_active: true
+    health_status: "healthy"
+    fetch_interval_minutes: 30
+    circuit_breaker_fail_threshold: 5
+    respect_robots_txt: true
+  - id: "punjabi-tribune"
+    name: "Punjabi Tribune"
+    feed_url: "https://www.punjabitribuneonline.com/rss/punjab.xml"
+    homepage_url: "https://www.punjabitribuneonline.com"
+    language: "pa"
+    is_active: true
+    health_status: "healthy"
+    fetch_interval_minutes: 30
+    circuit_breaker_fail_threshold: 5
+    respect_robots_txt: true
+  - id: "rozana-spokesman"
+    name: "Rozana Spokesman"
+    feed_url: "https://www.rozanaspokesman.com/rss/punjab.xml"
+    homepage_url: "https://www.rozanaspokesman.com"
+    language: "pa"
+    is_active: true
+    health_status: "healthy"
+    fetch_interval_minutes: 30
+    circuit_breaker_fail_threshold: 5
+    respect_robots_txt: true
