@@ -1,0 +1,242 @@
+[
+  {
+    "id": "en_gold_01",
+    "language": "en",
+    "headline": "IISc scientists develop ultra-low-cost water purification membrane using agricultural waste",
+    "body": "Researchers at the Indian Institute of Science Bengaluru have synthesized a nanotech filtration membrane from discarded rice husks that removes 99.8% of heavy metals and microplastics from rural groundwater at one-fifth the cost of conventional filters.",
+    "ground_truth": "positive",
+    "category": "Science/Tech"
+  },
+  {
+    "id": "en_gold_02",
+    "language": "en",
+    "headline": "ISRO and NASA joint NISAR Earth observation satellite completes final integration tests in Bengaluru",
+    "body": "The radar imaging satellite designed to track land ecosystem changes, glacier melt rates, and coastal sea-level rise completed all thermal vacuum tests ahead of its planned launch.",
+    "ground_truth": "positive",
+    "category": "Science/Tech"
+  },
+  {
+    "id": "en_gold_03",
+    "language": "en",
+    "headline": "Community-led mangrove restoration protects 15 coastal villages from recent cyclone storm surges",
+    "body": "Over ten thousand volunteer residents planted 200 hectares of native mangrove buffers over five years, successfully shielding vulnerable delta communities from destructive oceanic tidal flooding.",
+    "ground_truth": "positive",
+    "category": "Ecology"
+  },
+  {
+    "id": "en_gold_04",
+    "language": "en",
+    "headline": "Solar-powered rural mini-grids achieve 100% uptime across 40 tribal hamlets in Odisha",
+    "body": "Clean renewable energy micro-grids installed by an indigenous cooperative have powered cold-storage vaccination units and children's study centers without interruption for twelve consecutive months.",
+    "ground_truth": "positive",
+    "category": "Empowerment"
+  },
+  {
+    "id": "en_gold_05",
+    "language": "en",
+    "headline": "Indian biotech startup creates room-temperature stable tuberculosis test with 98% accuracy",
+    "body": "The molecular diagnostics assay requires no refrigeration or specialized lab technicians, enabling rapid point-of-care screening in high-altitude and isolated healthcare outposts.",
+    "ground_truth": "positive",
+    "category": "Science/Tech"
+  },
+  {
+    "id": "en_gold_06",
+    "language": "en",
+    "headline": "Farmers in drought-prone district triple water table through traditional step-well desilting",
+    "body": "Revitalizing 25 historic step-wells using collective manual labor allowed seasonal monsoon runoff to recharge deep aquifers, bringing 500 dry borewells back to life.",
+    "ground_truth": "positive",
+    "category": "Ecology"
+  },
+  {
+    "id": "en_gold_07",
+    "language": "en",
+    "headline": "Differently-abled engineering graduates design ultra-low-cost smart prosthetic arm",
+    "body": "Using 3D-printing and open-source bio-sensors, the innovative bionic hand costs under ten thousand rupees and provides natural grip mobility for amputees.",
+    "ground_truth": "positive",
+    "category": "Empowerment"
+  },
+  {
+    "id": "en_gold_08",
+    "language": "en",
+    "headline": "Project Tiger reports 30% population growth in central reserve following anti-poaching patrols",
+    "body": "Camera-trap surveys confirm a healthy increase in tiger and prey density, attributable to community forest guardian partnerships and solar-powered surveillance towers.",
+    "ground_truth": "positive",
+    "category": "Ecology"
+  },
+  {
+    "id": "en_gold_09",
+    "language": "en",
+    "headline": "Low-cost mobile pediatric clinic brings advanced cardiac diagnostics to 50 remote tribal schools",
+    "body": "Equipped with portable ultrasound equipment, pediatric cardiologists diagnosed and treated hundreds of early congenital conditions at zero cost to families.",
+    "ground_truth": "positive",
+    "category": "Resilience"
+  },
+  {
+    "id": "en_gold_10",
+    "language": "en",
+    "headline": "Municipal zero-waste model in southern town achieves 95% waste diversion from landfills",
+    "body": "Decentralized aerobic composting and ward-level segregation enabled the town to turn organic refuse into municipal park fertilizer while creating stable sanitation jobs.",
+    "ground_truth": "positive",
+    "category": "Civic"
+  },
+  {
+    "id": "en_gold_11",
+    "language": "en",
+    "headline": "Rural women weavers establish direct export collective, tripling artisan household income",
+    "body": "By eliminating three layers of middlemen through a digital cooperative portal, 800 handloom artisans now sell authentic organic textiles directly to international fair-trade buyers.",
+    "ground_truth": "positive",
+    "category": "Empowerment"
+  },
+  {
+    "id": "en_gold_12",
+    "language": "en",
+    "headline": "National highway corridor installs automated wildlife underpasses, reducing animal collisions to zero",
+    "body": "Eco-friendly overpasses and sensory guidance corridors in forested transit zones recorded thousands of safe crossings by elephants and leopards without a single vehicular casualty.",
+    "ground_truth": "positive",
+    "category": "Ecology"
+  },
+  {
+    "id": "en_gold_13",
+    "language": "en",
+    "headline": "Tragic bus collision on National Highway claims 14 lives in northern district",
+    "body": "Fourteen passengers died and twenty sustained critical injuries following a head-on collision between a transport bus and a speeding freight carrier early Tuesday morning.",
+    "ground_truth": "negative",
+    "category": "Exclusion/Accident"
+  },
+  {
+    "id": "en_gold_14",
+    "language": "en",
+    "headline": "Massive fire engulfs commercial complex in central market, 6 firefighters hospitalized",
+    "body": "A short-circuit triggered a massive blaze in a chemical warehouse, destroying dozens of retail stores before emergency crews brought the flames under control.",
+    "ground_truth": "negative",
+    "category": "Exclusion/Fire"
+  },
+  {
+    "id": "en_gold_15",
+    "language": "en",
+    "headline": "Major cyberattack disables billing at municipal hospital network, surgeries delayed",
+    "body": "Ransomware operators locked patient management databases across seven district hospitals, forcing clinics to revert to paper charts and cancel elective procedures.",
+    "ground_truth": "negative",
+    "category": "Exclusion/Crime"
+  },
+  {
+    "id": "en_gold_16",
+    "language": "en",
+    "headline": "Police arrest four suspects in multi-crore real estate ponzi scam",
+    "body": "Economic offences wing officers detained directors of an unauthorized investment scheme that defrauded thousands of elderly pensioners across the region.",
+    "ground_truth": "negative",
+    "category": "Exclusion/Crime"
+  },
+  {
+    "id": "en_gold_17",
+    "language": "en",
+    "headline": "Bridge collapses during flash floods in mountain valley, isolating five villages",
+    "body": "Torrential monsoon rains washed away a twenty-year-old concrete suspension span, severing road connectivity and cutting off vital supply convoys.",
+    "ground_truth": "negative",
+    "category": "Exclusion/Disaster"
+  },
+  {
+    "id": "en_gold_18",
+    "language": "en",
+    "headline": "Explosion at fireworks manufacturing unit claims 8 lives, factory owner absconding",
+    "body": "An illegal storage of explosive pyrotechnic powders detonated in a residential neighborhood, causing multiple structural collapses and prompting a homicide investigation.",
+    "ground_truth": "negative",
+    "category": "Exclusion/Disaster"
+  },
+  {
+    "id": "en_gold_19",
+    "language": "en",
+    "headline": "Drunk driver rams speed vehicle into night shelter, injuring nine homeless laborers",
+    "body": "A reckless luxury SUV crashed through barricades onto a sidewalk camp, causing severe fractures among sleeping residents before the driver was apprehended.",
+    "ground_truth": "negative",
+    "category": "Exclusion/Crime"
+  },
+  {
+    "id": "en_gold_20",
+    "language": "en",
+    "headline": "Severe toxic smog covers capital as air quality index breaches hazardous 450 mark",
+    "body": "Stagnant winter atmospheric conditions and stubble burning smoke plunged urban air quality into emergency levels, triggering primary school closures.",
+    "ground_truth": "negative",
+    "category": "Exclusion/Disaster"
+  },
+  {
+    "id": "en_gold_21",
+    "language": "en",
+    "headline": "Armed robbery at suburban bank branch leaves two security guards critically injured",
+    "body": "Masked assailants armed with handguns looted the vault before escaping on high-powered motorbikes, prompting regional road checkpoints.",
+    "ground_truth": "negative",
+    "category": "Exclusion/Crime"
+  },
+  {
+    "id": "en_gold_22",
+    "language": "en",
+    "headline": "Boiler explosion at textile dyeing mill kills three workers and injures eleven",
+    "body": "High-pressure thermal rupture ripped through the dye house floor, trapping morning shift laborers beneath industrial debris.",
+    "ground_truth": "negative",
+    "category": "Exclusion/Accident"
+  },
+  {
+    "id": "en_gold_23",
+    "language": "en",
+    "headline": "8-Year-Old Works 14 Hours Daily Selling Flowers to Pay for Mother's Chemotherapy",
+    "body": "In an inspiring tale of filial devotion, young Aryan spends 14 hours every day selling garlands at traffic junctions so he can afford the chemotherapy injections needed by his ailing mother.",
+    "ground_truth": "toxic_positivity",
+    "category": "Exclusion/Toxic Positivity"
+  },
+  {
+    "id": "en_gold_24",
+    "language": "en",
+    "headline": "Homeless child walks 12 kilometers in snow barefoot to deliver lost wallet to wealthy businessman",
+    "body": "Heartwarming story of an impoverished orphan braving frostbite to return a lost wallet containing five thousand dollars, receiving a sandwich in return.",
+    "ground_truth": "toxic_positivity",
+    "category": "Exclusion/Toxic Positivity"
+  },
+  {
+    "id": "en_gold_25",
+    "language": "en",
+    "headline": "School teaches children to sleep hungry so they develop spiritual grit during local famine",
+    "body": "Educators praise students for enduring involuntary fasting as character-building endurance rather than addressing severe mid-day meal grain shortages.",
+    "ground_truth": "toxic_positivity",
+    "category": "Exclusion/Toxic Positivity"
+  },
+  {
+    "id": "en_gold_26",
+    "language": "en",
+    "headline": "Billionaire tech executive donates $5 million to build private luxury golf club in drought region",
+    "body": "The philanthropic grant will construct a 500-acre lush recreational greens facility requiring continuous aquifer pumping in a water-rationed basin.",
+    "ground_truth": "negative",
+    "category": "Exclusion/PR Puff"
+  },
+  {
+    "id": "en_gold_27",
+    "language": "en",
+    "headline": "Bank robber gives five-dollar tip to cashier before executing daylight heist",
+    "body": "Witnesses describe the surreal polite demeanor of the armed robber who left a small cash tip on the counter while holding employees at gunpoint.",
+    "ground_truth": "negative",
+    "category": "Exclusion/Crime"
+  },
+  {
+    "id": "en_gold_28",
+    "language": "en",
+    "headline": "Reserve Bank of India keeps repo rate unchanged at 6.50% in bi-monthly monetary policy",
+    "body": "The Monetary Policy Committee decided unanimously to maintain the benchmark repo rate at 6.50 percent, balancing domestic growth and inflation dynamics.",
+    "ground_truth": "neutral",
+    "category": "Macroeconomics/Policy"
+  },
+  {
+    "id": "en_gold_29",
+    "language": "en",
+    "headline": "Supreme Court of India issues notices on environmental public interest litigation",
+    "body": "A three-judge bench sought responses from the Union Ministry of Environment and state pollution control boards within four weeks regarding nationwide river buffer zones.",
+    "ground_truth": "neutral",
+    "category": "Legal/Procedural"
+  },
+  {
+    "id": "en_gold_30",
+    "language": "en",
+    "headline": "Ministry of Statistics releases revised quarterly gross domestic product estimation schedule",
+    "body": "The national statistical office announced that provisional economic output figures for the second fiscal quarter will be published on the final Friday of November.",
+    "ground_truth": "neutral",
+    "category": "Administration"
+  }
+]

@@ -1,0 +1,329 @@
+{
+  "language": "hi",
+  "all_gates_passed": true,
+  "certified_at": "2026-10-21T07:38:48.999002+00:00",
+  "gate_details": {
+    "positive_precision": {
+      "value": 1.0,
+      "required": 0.9,
+      "passed": true
+    },
+    "faithfulness_pass_rate": {
+      "value": 1.0,
+      "required": 0.95,
+      "passed": true
+    },
+    "zero_verbatim_copying": {
+      "violations": 0,
+      "passed": true
+    },
+    "healthy_sources": {
+      "count": 3,
+      "required": 3,
+      "passed": true
+    },
+    "native_speaker_spot_check": {
+      "passed": true
+    }
+  },
+  "eval_report": {
+    "language": "hi",
+    "evaluated_at": "2026-10-21T07:38:48.998991+00:00",
+    "total_items": 30,
+    "confusion_matrix": {
+      "true_positives": 11,
+      "false_positives": 0,
+      "true_negatives": 18,
+      "false_negatives": 1
+    },
+    "metrics": {
+      "precision": 1.0,
+      "recall": 0.9167,
+      "f1_score": 0.9565,
+      "toxic_positivity_rejection_rate": 1.0,
+      "faithfulness_pass_rate": 1.0,
+      "verbatim_violations_count": 0,
+      "length_compliance_rate": 1.0
+    },
+    "gate_assessment": {
+      "precision_gate_passed": true,
+      "faithfulness_gate_passed": true,
+      "zero_verbatim_copying": true
+    },
+    "detailed_items": [
+      {
+        "id": "hi_gold_01",
+        "headline": "राजस्थान के मरुस्थलीय जिले में सौर ऊर्जा से संचालित 50 नए प्राथमिक स्वास्थ्य केंद्र शुरू, 1 लाख ग्रामीणों को लाभ",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "hi_gold_02",
+        "headline": "भारतीय कृषि अनुसंधान संस्थान ने तैयार की कम पानी में पकने वाली धान की नई किस्म; 35% भूजल की बचत",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "hi_gold_03",
+        "headline": "उत्तराखंड में ग्रामीणों ने जनभागीदारी से पुनर्जीवित किए 12 सूख चुके पारंपरिक प्राकृतिक जल स्रोत",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "hi_gold_04",
+        "headline": "आईआईटी कानपुर के वैज्ञानिकों ने बनाया कृत्रिम हृदय प्रत्यारोपण उपकरण, परीक्षण में मिली बड़ी सफलता",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "hi_gold_05",
+        "headline": "मध्य प्रदेश के 20 आदिवासी गांवों में सौर मिनी-ग्रिड से रोशन हुए घर; रात में बच्चों की पढ़ाई आसान हुई",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "hi_gold_06",
+        "headline": "बिहार के मधुबनी में 500 महिला कलाकारों के मिथिला हस्तशिल्प को मिला वैश्विक बाजार, आय तीन गुना बढ़ी",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "hi_gold_07",
+        "headline": "उत्तर प्रदेश के किसानों ने पराली से तैयार किया जैविक कंपोस्ट, खाद की लागत में 40 प्रतिशत की गिरावट",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "hi_gold_08",
+        "headline": "भारतीय रेलवे ने ट्रेनों में लगाया स्वदेशी टक्कर रोधी कवच प्रणाली; सुरक्षा परीक्षण में 100% सफलता",
+        "expected": "positive",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "hi_gold_09",
+        "headline": "हिमाचल प्रदेश में प्राकृतिक खेती अपनाने वाले 10,000 सेब बागवानों को मिला अंतरराष्ट्रीय जैविक प्रमाण पत्र",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "hi_gold_10",
+        "headline": "ग्रामीण स्कूलों में मोबाइल विज्ञान प्रयोगशाला वैन ने 50,000 विद्यार्थियों को दिया हैंड्स-ऑन रोबोटिक्स प्रशिक्षण",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "hi_gold_11",
+        "headline": "हरियाणा के पहलवानों ने अंतरराष्ट्रीय सब-जूनियर कुश्ती चैंपियनशिप में जीते 5 स्वर्ण पदक",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "hi_gold_12",
+        "headline": "इंदौर शहर ने लगातार आठवें वर्ष देश के सबसे स्वच्छ शहर का राष्ट्रीय पुरस्कार हासिल किया",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "hi_gold_13",
+        "headline": "कानपुर में कपड़ा मिल में बॉयलर फटा, 4 मजदूरों की मौत, 12 गंभीर रूप से झुलसे",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "hi_gold_14",
+        "headline": "मध्य दिल्ली के व्यावसायिक परिसर में भीषण आग, 6 दमकलकर्मी घायल",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "hi_gold_15",
+        "headline": "यमुना एक्सप्रेसवे पर घने कोहरे में 10 गाड़ियां आपस में टकराईं, 5 लोगों की दर्दनाक मौत",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "hi_gold_16",
+        "headline": "साइबर ठगों ने सेना के सेवानिवृत्त कर्नल से डिजिटल अरेस्ट का डर दिखाकर 80 लाख रुपये ठगे",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "hi_gold_17",
+        "headline": "उत्तराखंड में भारी भूस्खलन से बद्रीनाथ राष्ट्रीय राजमार्ग अवरुद्ध, सैकड़ों तीर्थयात्री फंसे",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "hi_gold_18",
+        "headline": "पटाखा फैक्ट्री में अवैध भंडारण के दौरान विस्फोट, 6 ग्रामीणों की मौत",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "hi_gold_19",
+        "headline": "जहरीली शराब पीने से 12 मजदूरों की मौत, कई की आंखों की रोशनी गई",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "hi_gold_20",
+        "headline": "दिल्ली-एनसीआर में वायु गुणवत्ता सूचकांक फिर 400 पार, ग्रैप-4 के कड़े प्रतिबंध लागू",
+        "expected": "negative",
+        "predicted": "neutral",
+        "score": 0.4,
+        "reason": "Insufficient constructive outcome evidence; failing closed."
+      },
+      {
+        "id": "hi_gold_21",
+        "headline": "बैंक कैश वैन से गार्ड को गोली मारकर 50 लाख की दिनदहाड़े लूट",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "hi_gold_22",
+        "headline": "कोयला खदान में जलभराव के बाद 8 मजदूर फंसे, बचाव अभियान जारी",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "hi_gold_23",
+        "headline": "8 साल का बच्चा मां के कैंसर के इलाज के लिए ट्रैफिक सिग्नल पर दिनभर बेचता है फूल",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "hi_gold_24",
+        "headline": "कड़ाके की ठंड में नंगे पैर अखबार बांटने वाले अनाथ बच्चे ने ईमानदारी से लौटाया सोने का हार",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "hi_gold_25",
+        "headline": "सूखाग्रस्त क्षेत्र में ग्रामीणों को भूख सहकर तपस्या करने की सीख, प्रशासन ने बताया आत्मबल",
+        "expected": "toxic_positivity",
+        "predicted": "neutral",
+        "score": 0.4,
+        "reason": "Insufficient constructive outcome evidence; failing closed."
+      },
+      {
+        "id": "hi_gold_26",
+        "headline": "उद्योगपति ने सूखा प्रभावित इलाके में 10 करोड़ रुपये की लागत से बनाया निजी वॉटर पार्क",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "hi_gold_27",
+        "headline": "दुकानदार से लूटपाट करने वाले चोर ने जाते-जाते पीड़ित को दिए 100 रुपये",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "hi_gold_28",
+        "headline": "भारतीय रिजर्व बैंक की मौद्रिक नीति समिति ने रेपो दर को 6.50 प्रतिशत पर स्थिर रखा",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      },
+      {
+        "id": "hi_gold_29",
+        "headline": "उच्चतम न्यायालय ने नदियों के संरक्षण पर केंद्र व राज्यों से मांगा जवाब",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      },
+      {
+        "id": "hi_gold_30",
+        "headline": "सांख्यिकी मंत्रालय ने राष्ट्रीय आय के आगामी तिमाही अनुमानों की समय-सारणी जारी की",
+        "expected": "neutral",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      }
+    ]
+  }
+}

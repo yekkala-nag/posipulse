@@ -11,12 +11,16 @@ from src.schemas.article import EphemeralIngestedItem
 
 
 class HeadlinePreFilter:
-    # Universal fail-closed negative triggers (English and transliterations)
+    # Universal fail-closed negative triggers (English, Hindi, and common variants)
     NEGATIVE_KEYWORDS: Set[str] = {
+        # English
         "killed", "dead", "death", "dies", "died", "murder", "murdered", "fatal",
         "accident", "crash", "collision", "blast", "explosion", "scam", "fraud",
         "arrested", "custody", "suicide", "tragedy", "tragic", "assault", "rape",
-        "lynched", "collapsed", "hostage", "terror", "terrorist", "massacre"
+        "lynched", "collapsed", "hostage", "terror", "terrorist", "massacre",
+        # Hindi (Devanagari)
+        "मौत", "हादसा", "दुर्घटना", "विस्फोट", "धमाका", "फटा", "हत्या", "गिरफ्तार",
+        "धोखाधड़ी", "आत्महत्या", "त्रासदी", "झुलसे", "टक्कर", "तबाही", "लूट"
     }
 
     def should_reject(self, item: EphemeralIngestedItem) -> Tuple[bool, str]:
@@ -24,7 +28,8 @@ class HeadlinePreFilter:
         Evaluates headline against high-precision negative markers.
         Returns: (should_reject, reason)
         """
-        tokens = set(re.findall(r"\w+", item.headline.lower()))
+        # Unicode-aware tokenization: split on whitespace and strip punctuation
+        tokens = {w.strip(".,!?:;\"'()[]{}।॥-–—/\\") for w in item.headline.lower().split()}
         matched = tokens.intersection(self.NEGATIVE_KEYWORDS)
 
         if matched:

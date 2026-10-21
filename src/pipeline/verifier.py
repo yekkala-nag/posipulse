@@ -28,7 +28,13 @@ class FaithfulnessVerifier:
 
     @staticmethod
     def _get_words(text: str) -> List[str]:
-        return [w.lower() for w in re.findall(r"\b\w+\b", text)]
+        # Unicode-aware word tokenization: splits by whitespace and strips punctuation (including Indic danda '।' and double danda '॥')
+        cleaned_words = []
+        for token in text.lower().split():
+            clean = token.strip(".,!?:;\"'()[]{}।॥-–—/\\")
+            if clean:
+                cleaned_words.append(clean)
+        return cleaned_words
 
     def check_verbatim_overlap(self, source_text: str, summary_text: str) -> Tuple[bool, Optional[str]]:
         """

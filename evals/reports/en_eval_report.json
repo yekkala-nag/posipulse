@@ -1,0 +1,329 @@
+{
+  "language": "en",
+  "all_gates_passed": true,
+  "certified_at": "2026-10-21T07:38:48.997295+00:00",
+  "gate_details": {
+    "positive_precision": {
+      "value": 1.0,
+      "required": 0.9,
+      "passed": true
+    },
+    "faithfulness_pass_rate": {
+      "value": 1.0,
+      "required": 0.95,
+      "passed": true
+    },
+    "zero_verbatim_copying": {
+      "violations": 0,
+      "passed": true
+    },
+    "healthy_sources": {
+      "count": 3,
+      "required": 3,
+      "passed": true
+    },
+    "native_speaker_spot_check": {
+      "passed": true
+    }
+  },
+  "eval_report": {
+    "language": "en",
+    "evaluated_at": "2026-10-21T07:38:48.997269+00:00",
+    "total_items": 30,
+    "confusion_matrix": {
+      "true_positives": 11,
+      "false_positives": 0,
+      "true_negatives": 18,
+      "false_negatives": 1
+    },
+    "metrics": {
+      "precision": 1.0,
+      "recall": 0.9167,
+      "f1_score": 0.9565,
+      "toxic_positivity_rejection_rate": 1.0,
+      "faithfulness_pass_rate": 1.0,
+      "verbatim_violations_count": 0,
+      "length_compliance_rate": 1.0
+    },
+    "gate_assessment": {
+      "precision_gate_passed": true,
+      "faithfulness_gate_passed": true,
+      "zero_verbatim_copying": true
+    },
+    "detailed_items": [
+      {
+        "id": "en_gold_01",
+        "headline": "IISc scientists develop ultra-low-cost water purification membrane using agricultural waste",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "en_gold_02",
+        "headline": "ISRO and NASA joint NISAR Earth observation satellite completes final integration tests in Bengaluru",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "en_gold_03",
+        "headline": "Community-led mangrove restoration protects 15 coastal villages from recent cyclone storm surges",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "en_gold_04",
+        "headline": "Solar-powered rural mini-grids achieve 100% uptime across 40 tribal hamlets in Odisha",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "en_gold_05",
+        "headline": "Indian biotech startup creates room-temperature stable tuberculosis test with 98% accuracy",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "en_gold_06",
+        "headline": "Farmers in drought-prone district triple water table through traditional step-well desilting",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "en_gold_07",
+        "headline": "Differently-abled engineering graduates design ultra-low-cost smart prosthetic arm",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "en_gold_08",
+        "headline": "Project Tiger reports 30% population growth in central reserve following anti-poaching patrols",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "en_gold_09",
+        "headline": "Low-cost mobile pediatric clinic brings advanced cardiac diagnostics to 50 remote tribal schools",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "en_gold_10",
+        "headline": "Municipal zero-waste model in southern town achieves 95% waste diversion from landfills",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "en_gold_11",
+        "headline": "Rural women weavers establish direct export collective, tripling artisan household income",
+        "expected": "positive",
+        "predicted": "positive",
+        "score": 0.95,
+        "reason": "Constructive scientific breakthrough, environmental achievement, or community solution.",
+        "summary_verified": true,
+        "verbatim_ok": true,
+        "length_ok": true
+      },
+      {
+        "id": "en_gold_12",
+        "headline": "National highway corridor installs automated wildlife underpasses, reducing animal collisions to zero",
+        "expected": "positive",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "en_gold_13",
+        "headline": "Tragic bus collision on National Highway claims 14 lives in northern district",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "en_gold_14",
+        "headline": "Massive fire engulfs commercial complex in central market, 6 firefighters hospitalized",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "en_gold_15",
+        "headline": "Major cyberattack disables billing at municipal hospital network, surgeries delayed",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "en_gold_16",
+        "headline": "Police arrest four suspects in multi-crore real estate ponzi scam",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "en_gold_17",
+        "headline": "Bridge collapses during flash floods in mountain valley, isolating five villages",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "en_gold_18",
+        "headline": "Explosion at fireworks manufacturing unit claims 8 lives, factory owner absconding",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "en_gold_19",
+        "headline": "Drunk driver rams speed vehicle into night shelter, injuring nine homeless laborers",
+        "expected": "negative",
+        "predicted": "neutral",
+        "score": 0.4,
+        "reason": "Insufficient constructive outcome evidence; failing closed."
+      },
+      {
+        "id": "en_gold_20",
+        "headline": "Severe toxic smog covers capital as air quality index breaches hazardous 450 mark",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "en_gold_21",
+        "headline": "Armed robbery at suburban bank branch leaves two security guards critically injured",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "en_gold_22",
+        "headline": "Boiler explosion at textile dyeing mill kills three workers and injures eleven",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "en_gold_23",
+        "headline": "8-Year-Old Works 14 Hours Daily Selling Flowers to Pay for Mother's Chemotherapy",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "en_gold_24",
+        "headline": "Homeless child walks 12 kilometers in snow barefoot to deliver lost wallet to wealthy businessman",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "en_gold_25",
+        "headline": "School teaches children to sleep hungry so they develop spiritual grit during local famine",
+        "expected": "toxic_positivity",
+        "predicted": "toxic_positivity",
+        "score": 0.1,
+        "reason": "Systemic hardship, child labor, or extreme suffering framed as inspirational resilience."
+      },
+      {
+        "id": "en_gold_26",
+        "headline": "Billionaire tech executive donates $5 million to build private luxury golf club in drought region",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "en_gold_27",
+        "headline": "Bank robber gives five-dollar tip to cashier before executing daylight heist",
+        "expected": "negative",
+        "predicted": "negative",
+        "score": 0.05,
+        "reason": "Severe disaster, casualty, criminal incident, or commercial PR puffery."
+      },
+      {
+        "id": "en_gold_28",
+        "headline": "Reserve Bank of India keeps repo rate unchanged at 6.50% in bi-monthly monetary policy",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      },
+      {
+        "id": "en_gold_29",
+        "headline": "Supreme Court of India issues notices on environmental public interest litigation",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      },
+      {
+        "id": "en_gold_30",
+        "headline": "Ministry of Statistics releases revised quarterly gross domestic product estimation schedule",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "score": 0.5,
+        "reason": "Routine administrative or monetary policy announcement."
+      }
+    ]
+  }
+}
