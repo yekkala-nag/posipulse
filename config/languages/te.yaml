@@ -1,82 +1,98 @@
-language_code: "te"
-language_name_english: "Telugu"
-language_name_native: "తెలుగు"
-script: "Telugu"
+language_code: te
+language_name_english: Telugu
+language_name_native: తెలుగు
+script: Telugu
 is_rtl: false
-tier: "tier_1"
-status: "active"
-
+tier: tier_1
+status: active
 quality_gate:
-  min_positive_precision: 0.90
+  min_positive_precision: 0.9
   min_faithfulness_pass_rate: 0.95
   min_healthy_sources: 3
   native_speaker_spot_check_passed: true
-  gate_passed_at: "2026-10-21T00:00:00Z"
-
+  gate_passed_at: '2026-10-21T00:00:00Z'
 length_band:
   min_words: 25
   max_words: 85
   substance_scaling: true
-
 cost_caps:
-  max_cost_per_run_usd: 1.50
-  max_daily_budget_usd: 15.00
+  max_cost_per_run_usd: 1.5
+  max_daily_budget_usd: 15.0
   cost_per_published_item_target_usd: 0.00061
   alert_threshold_percentage: 80.0
-
 model_routing:
-  classifier_primary_model: "gemini-1.5-flash"
-  classifier_fallback_model: "gemini-2.0-flash"
-  summarizer_primary_model: "gemini-1.5-flash"
-  summarizer_fallback_model: "gemini-2.0-flash"
-  verifier_model: "gemini-2.0-flash"
+  classifier_primary_model: gemini-1.5-flash
+  classifier_fallback_model: gemini-2.0-flash
+  summarizer_primary_model: gemini-1.5-flash
+  summarizer_fallback_model: gemini-2.0-flash
+  verifier_model: gemini-2.0-flash
   temperature: 0.1
   max_tokens: 450
-
 positivity_threshold: 0.85
-rubric_version: "1.0.0"
-prompt_version: "1.0.0"
-
+rubric_version: 1.0.0
+prompt_version: 1.0.0
 exemplars:
-  - headline: "వరంగల్ యువ ఇంజనీర్ ఆవిష్కరణ: సౌర ఆధారిత డ్రోన్ స్ప్రేయర్‌తో సాగు ఖర్చు 70 శాతం ఆదా"
-    body_snippet: "పూర్తిగా స్థానిక పరికరాలతో రూపొందించిన సోలార్ డ్రోన్ ద్వారా రసాయనాల వినియోగం తగ్గి ఎకరానికి ఖర్చులు గణనీయంగా తగ్గాయి."
-    label: "positive"
-    reason: "వ్యవసాయంలో ఖర్చులు తగ్గించి రైతులకు లబ్ధి చేకూర్చే స్వదేశీ సాంకేతిక ఆవిష్కరణ."
-    substance_category: "Science/Tech"
-  - headline: "హైదరాబాద్ శివారులో లారీ-కారు ఢీకొన్న ఘటనలో నలుగురు దుర్మరణం"
-    body_snippet: "అతివేగంగా వచ్చిన టిప్పర్ లారీ అదుపుతప్పి కారును ఢీకొనడంతో ఘటనాస్థలిలోనే నలుగురు ప్రయాణికులు మృతి చెందారు."
-    label: "negative"
-    reason: "తీవ్రమైన రోడ్డు ప్రమాదం మరియు ప్రాణనష్టం."
-    substance_category: "Accident/Disaster"
-
+- headline: 'వరంగల్ యువ ఇంజనీర్ ఆవిష్కరణ: సౌర ఆధారిత డ్రోన్ స్ప్రేయర్‌తో సాగు ఖర్చు
+    70 శాతం ఆదా'
+  body_snippet: పూర్తిగా స్థానిక పరికరాలతో రూపొందించిన సోలార్ డ్రోన్ ద్వారా రసాయనాల
+    వినియోగం తగ్గి ఎకరానికి ఖర్చులు గణనీయంగా తగ్గాయి.
+  label: positive
+  reason: వ్యవసాయంలో ఖర్చులు తగ్గించి రైతులకు లబ్ధి చేకూర్చే స్వదేశీ సాంకేతిక ఆవిష్కరణ.
+  substance_category: Science/Tech
+- headline: హైదరాబాద్ శివారులో లారీ-కారు ఢీకొన్న ఘటనలో నలుగురు దుర్మరణం
+  body_snippet: అతివేగంగా వచ్చిన టిప్పర్ లారీ అదుపుతప్పి కారును ఢీకొనడంతో ఘటనాస్థలిలోనే
+    నలుగురు ప్రయాణికులు మృతి చెందారు.
+  label: negative
+  reason: తీవ్రమైన రోడ్డు ప్రమాదం మరియు ప్రాణనష్టం.
+  substance_category: Accident/Disaster
 sources:
-  - id: "eenadu-national"
-    name: "Eenadu"
-    feed_url: "https://www.eenadu.net/rss/national.xml"
-    homepage_url: "https://www.eenadu.net"
-    language: "te"
-    is_active: true
-    health_status: "healthy"
-    fetch_interval_minutes: 30
-    circuit_breaker_fail_threshold: 5
-    respect_robots_txt: true
-  - id: "news18-telugu"
-    name: "News18 తెలుగు"
-    feed_url: "https://telugu.news18.com/rss/khabar.xml"
-    homepage_url: "https://telugu.news18.com"
-    language: "te"
-    is_active: true
-    health_status: "healthy"
-    fetch_interval_minutes: 30
-    circuit_breaker_fail_threshold: 5
-    respect_robots_txt: true
-  - id: "bbc-telugu"
-    name: "BBC News తెలుగు"
-    feed_url: "https://feeds.bbci.co.uk/telugu/rss.xml"
-    homepage_url: "https://www.bbc.com/telugu"
-    language: "te"
-    is_active: true
-    health_status: "healthy"
-    fetch_interval_minutes: 30
-    circuit_breaker_fail_threshold: 5
-    respect_robots_txt: true
+- id: eenadu-national
+  name: Eenadu
+  feed_url: https://www.eenadu.net/rss/national.xml
+  homepage_url: https://www.eenadu.net
+  language: te
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: news18-telugu
+  name: News18 తెలుగు
+  feed_url: https://telugu.news18.com/rss/khabar.xml
+  homepage_url: https://telugu.news18.com
+  language: te
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: bbc-telugu
+  name: BBC News తెలుగు
+  feed_url: https://feeds.bbci.co.uk/telugu/rss.xml
+  homepage_url: https://www.bbc.com/telugu
+  language: te
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: sakshi-telugu
+  name: Sakshi Telugu
+  feed_url: https://www.sakshi.com/rss/national.xml
+  homepage_url: https://www.sakshi.com
+  language: te
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: oneindia-telugu
+  name: Oneindia Telugu
+  feed_url: https://telugu.oneindia.com/rss/telugu-news-fb.xml
+  homepage_url: https://telugu.oneindia.com
+  language: te
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true

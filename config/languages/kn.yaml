@@ -1,82 +1,98 @@
-language_code: "kn"
-language_name_english: "Kannada"
-language_name_native: "ಕನ್ನಡ"
-script: "Kannada"
+language_code: kn
+language_name_english: Kannada
+language_name_native: ಕನ್ನಡ
+script: Kannada
 is_rtl: false
-tier: "tier_2"
-status: "active"
-
+tier: tier_2
+status: active
 quality_gate:
-  min_positive_precision: 0.90
+  min_positive_precision: 0.9
   min_faithfulness_pass_rate: 0.95
   min_healthy_sources: 3
   native_speaker_spot_check_passed: true
-  gate_passed_at: "2026-10-21T00:00:00Z"
-
+  gate_passed_at: '2026-10-21T00:00:00Z'
 length_band:
   min_words: 25
   max_words: 85
   substance_scaling: true
-
 cost_caps:
-  max_cost_per_run_usd: 1.50
-  max_daily_budget_usd: 15.00
+  max_cost_per_run_usd: 1.5
+  max_daily_budget_usd: 15.0
   cost_per_published_item_target_usd: 0.00062
   alert_threshold_percentage: 80.0
-
 model_routing:
-  classifier_primary_model: "gemini-1.5-flash"
-  classifier_fallback_model: "gemini-2.0-flash"
-  summarizer_primary_model: "gemini-1.5-flash"
-  summarizer_fallback_model: "gemini-2.0-flash"
-  verifier_model: "gemini-2.0-flash"
+  classifier_primary_model: gemini-1.5-flash
+  classifier_fallback_model: gemini-2.0-flash
+  summarizer_primary_model: gemini-1.5-flash
+  summarizer_fallback_model: gemini-2.0-flash
+  verifier_model: gemini-2.0-flash
   temperature: 0.1
   max_tokens: 450
-
 positivity_threshold: 0.85
-rubric_version: "1.0.0"
-prompt_version: "1.0.0"
-
+rubric_version: 1.0.0
+prompt_version: 1.0.0
 exemplars:
-  - headline: "ಬೆಂಗಳೂರಿನ ಐಐಎಸ್‌ಸಿ ವಿಜ್ಞಾನಿಗಳಿಂದ ಕೃಷಿ ತ್ಯಾಜ್ಯದಿಂದ ಅಗ್ಗದ ಜಲ ಶುದ್ಧೀಕರಣ ಪೊರೆ ಸಂಶೋಧನೆ"
-    body_snippet: "ಸ್ಥಳೀಯ ತಂತ್ರಜ್ಞಾನ ಬಳಸಿ ತಯಾರಿಸಿದ ಈ ಫಿಲ್ಟರ್ ಗ್ರಾಮೀಣ ಜನರಿಗೆ ಶುದ್ಧ ಕುಡಿಯುವ ನೀರನ್ನು ಒದಗಿಸುವಲ್ಲಿ ಯಶಸ್ವಿಯಾಗಿದೆ."
-    label: "positive"
-    reason: "ಗ್ರಾಮೀಣ ಸಾರ್ವಜನಿಕ ಆರೋಗ್ಯವನ್ನು ಸುಧಾರಿಸುವ ನವೀನ ವೈಜ್ಞಾನಿಕ ಆವಿಷ್ಕಾರ."
-    substance_category: "Science/Tech"
-  - headline: "ಬೆಂಗಳೂರು-ಮೈಸೂರು ಹೆದ್ದಾರಿಯಲ್ಲಿ ಭೀಕರ ಸರಣಿ ಅಪಘಾತ, ೪ ಸಾವು"
-    body_snippet: "ಅತಿವೇಗವಾಗಿ ಬಂದ ಲಾರಿ ಕಾರಿಗೆ ಡಿಕ್ಕಿ ಹೊಡೆದ ಪರಿಣಾಮ ನಾಲ್ವರು ಪ್ರಯಾಣಿಕರು ಸ್ಥಳದಲ್ಲೇ ಮೃತಪಟ್ಟಿದ್ದಾರೆ."
-    label: "negative"
-    reason: "ಮಾರಣಾಂತಿಕ ಹೆದ್ದಾರಿ ರಸ್ತೆ ಅಪಘಾತ ಮತ್ತು ಜೀವಹಾನಿ."
-    substance_category: "Accident/Disaster"
-
+- headline: ಬೆಂಗಳೂರಿನ ಐಐಎಸ್‌ಸಿ ವಿಜ್ಞಾನಿಗಳಿಂದ ಕೃಷಿ ತ್ಯಾಜ್ಯದಿಂದ ಅಗ್ಗದ ಜಲ ಶುದ್ಧೀಕರಣ ಪೊರೆ
+    ಸಂಶೋಧನೆ
+  body_snippet: ಸ್ಥಳೀಯ ತಂತ್ರಜ್ಞಾನ ಬಳಸಿ ತಯಾರಿಸಿದ ಈ ಫಿಲ್ಟರ್ ಗ್ರಾಮೀಣ ಜನರಿಗೆ ಶುದ್ಧ ಕುಡಿಯುವ
+    ನೀರನ್ನು ಒದಗಿಸುವಲ್ಲಿ ಯಶಸ್ವಿಯಾಗಿದೆ.
+  label: positive
+  reason: ಗ್ರಾಮೀಣ ಸಾರ್ವಜನಿಕ ಆರೋಗ್ಯವನ್ನು ಸುಧಾರಿಸುವ ನವೀನ ವೈಜ್ಞಾನಿಕ ಆವಿಷ್ಕಾರ.
+  substance_category: Science/Tech
+- headline: ಬೆಂಗಳೂರು-ಮೈಸೂರು ಹೆದ್ದಾರಿಯಲ್ಲಿ ಭೀಕರ ಸರಣಿ ಅಪಘಾತ, ೪ ಸಾವು
+  body_snippet: ಅತಿವೇಗವಾಗಿ ಬಂದ ಲಾರಿ ಕಾರಿಗೆ ಡಿಕ್ಕಿ ಹೊಡೆದ ಪರಿಣಾಮ ನಾಲ್ವರು ಪ್ರಯಾಣಿಕರು
+    ಸ್ಥಳದಲ್ಲೇ ಮೃತಪಟ್ಟಿದ್ದಾರೆ.
+  label: negative
+  reason: ಮಾರಣಾಂತಿಕ ಹೆದ್ದಾರಿ ರಸ್ತೆ ಅಪಘಾತ ಮತ್ತು ಜೀವಹಾನಿ.
+  substance_category: Accident/Disaster
 sources:
-  - id: "prajavani-kannada"
-    name: "Prajavani"
-    feed_url: "https://www.prajavani.net/rss/karnataka.xml"
-    homepage_url: "https://www.prajavani.net"
-    language: "kn"
-    is_active: true
-    health_status: "healthy"
-    fetch_interval_minutes: 30
-    circuit_breaker_fail_threshold: 5
-    respect_robots_txt: true
-  - id: "kannada-prabha"
-    name: "Kannada Prabha"
-    feed_url: "https://www.kannadaprabha.com/rss/karnataka.xml"
-    homepage_url: "https://www.kannadaprabha.com"
-    language: "kn"
-    is_active: true
-    health_status: "healthy"
-    fetch_interval_minutes: 30
-    circuit_breaker_fail_threshold: 5
-    respect_robots_txt: true
-  - id: "vijayavani"
-    name: "Vijayavani"
-    feed_url: "https://www.vijayavani.net/rss/karnataka.xml"
-    homepage_url: "https://www.vijayavani.net"
-    language: "kn"
-    is_active: true
-    health_status: "healthy"
-    fetch_interval_minutes: 30
-    circuit_breaker_fail_threshold: 5
-    respect_robots_txt: true
+- id: prajavani-kannada
+  name: Prajavani
+  feed_url: https://www.prajavani.net/rss/karnataka.xml
+  homepage_url: https://www.prajavani.net
+  language: kn
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: kannada-prabha
+  name: Kannada Prabha
+  feed_url: https://www.kannadaprabha.com/rss/karnataka.xml
+  homepage_url: https://www.kannadaprabha.com
+  language: kn
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: vijayavani
+  name: Vijayavani
+  feed_url: https://www.vijayavani.net/rss/karnataka.xml
+  homepage_url: https://www.vijayavani.net
+  language: kn
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: oneindia-kannada
+  name: Oneindia Kannada
+  feed_url: https://kannada.oneindia.com/rss/kannada-news-fb.xml
+  homepage_url: https://kannada.oneindia.com
+  language: kn
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: vistara-kannada
+  name: Vistara News
+  feed_url: https://vistaranews.com/feed
+  homepage_url: https://vistaranews.com
+  language: kn
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
