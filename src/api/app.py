@@ -123,6 +123,54 @@ def create_app(storage: Optional[StorageEngine] = None, registry: Optional[Langu
             ]
         }
 
+    @app.get("/v1/categories")
+    def list_categories(
+        language: str = Query("en", min_length=2, max_length=5, description="ISO language code for localized display names")
+    ) -> Dict[str, Any]:
+        """
+        Returns all 13 visible news categories according to Taxonomy v1,
+        with localized display names, standard IPTC Media Topics codes, and icons.
+        """
+        from src.taxonomy import default_taxonomy_registry
+
+        CATEGORY_ICONS = {
+            1: "🌾",   # Agriculture & Rural
+            2: "🔬",   # Science & Technology
+            3: "📚",   # Education & Skills
+            4: "🌱",   # Environment & Climate
+            5: "🏆",   # Sports
+            6: "🤝",   # Society & Community
+            7: "🎨",   # Arts, Culture & Heritage
+            8: "✈️",   # Lifestyle & Travel
+            9: "📈",   # Economy & Business
+            10: "🩺",  # Health & Wellness
+            11: "🚆",  # Infrastructure & Transport
+            12: "🎭",  # Entertainment & Media
+            13: "🌐",  # World & Diplomacy
+        }
+
+        visible_categories = default_taxonomy_registry.list_visible()
+        result = []
+        for cat in visible_categories:
+            display_name = cat.get_display_name(language)
+            icon = CATEGORY_ICONS.get(cat.id, "📰")
+            result.append({
+                "id": cat.id,
+                "slug": cat.slug,
+                "name_en": cat.name_en,
+                "display_name": display_name,
+                "icon": icon,
+                "iptc_qcode": cat.iptc_reference.qcode if cat.iptc_reference else None,
+                "subcategories_count": len(cat.subcategories)
+            })
+
+        return {
+            "taxonomy_version": default_taxonomy_registry.version,
+            "total_visible": len(result),
+            "language": language,
+            "categories": result
+        }
+
     @app.get("/v1/feed")
     def get_feed(
         language: str = Query(..., min_length=2, max_length=5, description="ISO language code (e.g. en, hi, ur)"),
