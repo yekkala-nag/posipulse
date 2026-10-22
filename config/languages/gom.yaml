@@ -61,16 +61,27 @@ sources:
     feed_url: "https://daijiworld.com/konkani/rss"
     homepage_url: "https://daijiworld.com"
     language: "gom"
+    is_active: false
+    health_status: "degraded"
+    fetch_interval_minutes: 30
+    circuit_breaker_fail_threshold: 5
+    respect_robots_txt: true
+
+  - id: "google-news-konkani"
+    name: "Google News (Konkani / कोंकणी)"
+    feed_url: "https://news.google.com/rss/search?q=%E0%A4%95%E0%A5%8B%E0%A4%82%E0%A4%95%E0%A4%A3%E0%A5%80&hl=mr&gl=IN&ceid=IN:mr"
+    homepage_url: "https://news.google.com"
+    language: "gom"
     is_active: true
     health_status: "healthy"
     fetch_interval_minutes: 30
     circuit_breaker_fail_threshold: 5
     respect_robots_txt: true
 
-  - id: "sunaparant-goa"
-    name: "Sunaparant Goa"
-    feed_url: "https://sunaparant.in/feed"
-    homepage_url: "https://sunaparant.in"
+  - id: "google-news-goa-konkani"
+    name: "Google News (Goa & Konkani)"
+    feed_url: "https://news.google.com/rss/search?q=Goa+Konkani&hl=en-IN&gl=IN&ceid=IN:en"
+    homepage_url: "https://news.google.com"
     language: "gom"
     is_active: true
     health_status: "healthy"
