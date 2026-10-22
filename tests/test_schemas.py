@@ -140,3 +140,77 @@ def test_pipeline_message_envelope():
     )
     assert msg.run_id == "run_20261021_01"
     assert msg.stage == "summarizer"
+
+
+def test_category_assignment_validation():
+    from src.schemas.article import CategoryAssignment
+
+    # Valid assignment
+    cat = CategoryAssignment(
+        primary_id=2,
+        secondary_ids=[9, 11],
+        subcategory_id="scitech_ai_software",
+        confidence=0.96,
+        taxonomy_version="1.0.0"
+    )
+    assert cat.primary_id == 2
+    assert cat.secondary_ids == [9, 11]
+    assert cat.subcategory_id == "scitech_ai_software"
+
+    # Reject more than 2 secondary IDs
+    with pytest.raises(ValidationError):
+        CategoryAssignment(
+            primary_id=2,
+            secondary_ids=[1, 3, 5],  # 3 items > max 2
+            taxonomy_version="1.0.0"
+        )
+
+    # Reject duplicate secondary IDs
+    with pytest.raises(ValidationError):
+        CategoryAssignment(
+            primary_id=2,
+            secondary_ids=[9, 9],  # duplicate
+            taxonomy_version="1.0.0"
+        )
+
+    # Reject invalid ID range
+    with pytest.raises(ValidationError):
+        CategoryAssignment(
+            primary_id=150,  # > 100
+            taxonomy_version="1.0.0"
+        )
+
+
+def test_article_with_category_assignment_and_hold_reason():
+    from src.schemas.article import CategoryAssignment
+
+    cat = CategoryAssignment(
+        primary_id=14,  # Hidden category
+        secondary_ids=[],
+        confidence=0.95,
+        taxonomy_version="1.0.0"
+    )
+    positivity = PositivityMetadata(
+        label=PositivityLabel.POSITIVE,
+        score=0.92,
+        reason="Administrative digital public service milestone.",
+        rubric_version="1.0.0"
+    )
+    article = Article(
+        id="art_held_01",
+        source_id="the-hindu",
+        source_name="The Hindu",
+        url="https://thehindu.com/gov.html",
+        canonical_url="https://thehindu.com/gov.html",
+        headline="Citizen Services Digital Portal Launched",
+        published_at=datetime.now(timezone.utc),
+        language="en",
+        category=cat,
+        positivity=positivity,
+        status=ArticleStatus.HELD_HIDDEN_CATEGORY,
+        publish_hold_reason="Primary category 14 (Governance & Public Services) is hidden at launch"
+    )
+    assert article.status == ArticleStatus.HELD_HIDDEN_CATEGORY
+    assert article.category.primary_id == 14
+    assert "hidden at launch" in article.publish_hold_reason
+

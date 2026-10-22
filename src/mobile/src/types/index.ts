@@ -13,7 +13,7 @@ export interface PositivityMetadata {
   score: number;
   reason: string;
   rubric_version: string;
-  category?: 'Science/Tech' | 'Ecology' | 'Empowerment' | 'Resilience' | 'Civic' | string;
+  category?: 'Science/Tech' | 'Ecology' | 'Empowerment' | 'Resilience' | 'Civic' | 'Sports' | 'Entertainment' | string;
 }
 
 export interface SummaryMetadata {
@@ -24,6 +24,14 @@ export interface SummaryMetadata {
   verifier_model?: string;
   verifier_score?: number;
   word_count: number;
+}
+
+export interface CategoryAssignment {
+  primary_id?: number | null;
+  secondary_ids: number[];
+  subcategory_id?: string | null;
+  confidence: number;
+  taxonomy_version: string;
 }
 
 export interface Article {
@@ -37,9 +45,11 @@ export interface Article {
   fetched_at: string;
   language: string;
   cluster_id?: string;
+  category?: CategoryAssignment | null;
   positivity: PositivityMetadata;
   summary: SummaryMetadata;
-  status: 'published' | 'delisted';
+  status: 'published' | 'delisted' | 'held_hidden_category';
+  publish_hold_reason?: string | null;
   is_rtl?: boolean;
 }
 

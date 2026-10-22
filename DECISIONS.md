@@ -125,9 +125,10 @@ This decision log documents all architectural choices, legal interpretations fla
   1. Solutions Journalism Network (SJN) 4 Pillars (Response, Insight, Evidence, Limitations).
   2. Constructive Institute (Aarhus University) Framework.
 * **Choice:**
-  - Codify **Constructive Journalism Rubric v1.0.0** with explicit positive outcome criteria (Science/Tech, Ecological Restoration, Socio-Economic Empowerment, Disaster Resilience, Civic Triumphs).
-  - Explicit **Fail-Closed Exclusion** on toxic positivity (e.g., child labor framed as heartwarming), corporate PR puffery, and violent crime stories containing minor incidental kindness.
-  - Require the classifier to output `{is_positive: bool, confidence: float, reason: str, rubric_version: "1.0.0"}`.
+  - Codify **Constructive Journalism Rubric v1.0.0** with explicit positive outcome criteria (Science/Tech, Ecological Restoration, Socio-Economic Empowerment, Disaster Resilience, Civic Triumphs, Sports, Entertainment).
+  - Codify constructive sports achievements (Olympic triumphs, national/world records, youth academies, sportsmanship) and constructive entertainment/culture (heritage film restoration, classical music & arts preservation, national arts awards).
+  - Explicit **Fail-Closed Exclusion** on toxic positivity (e.g., child labor framed as heartwarming), corporate PR puffery, violent crime stories containing minor incidental kindness, and sports/celebrity scandals (doping, match-fixing, paparazzi gossip, divorce feuds).
+  - Require the classifier to output `{is_positive: bool, confidence: float, reason: str, rubric_version: "1.0.0", category: str}`.
 * **Reason:** Ensures strict adherence to "Precision over recall: if unsure, exclude."
 * **Confidence:** **Very High.**
 

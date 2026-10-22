@@ -128,7 +128,7 @@ export const FeedScreen: React.FC = () => {
 
       {/* Category Filter Pills */}
       <View style={styles.categoryBar}>
-        {['Science/Tech', 'Ecology', 'Empowerment', 'Civic'].map((cat) => {
+        {['Science/Tech', 'Ecology', 'Empowerment', 'Civic', 'Sports', 'Entertainment'].map((cat) => {
           const isActive = currentCategory === cat;
           return (
             <TouchableOpacity

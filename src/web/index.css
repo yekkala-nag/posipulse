@@ -34,6 +34,8 @@
   --cat-ecology: #34d399;
   --cat-empower: #fbbf24;
   --cat-civic: #a78bfa;
+  --cat-sports: #f97316;
+  --cat-entertainment: #ec4899;
 
   /* Elevation Shadows */
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
@@ -580,6 +582,16 @@ body {
 .category-tag.civic {
   background: rgba(167, 139, 250, 0.15);
   color: var(--cat-civic);
+}
+
+.category-tag.sports {
+  background: rgba(249, 115, 22, 0.15);
+  color: var(--cat-sports);
+}
+
+.category-tag.entertainment {
+  background: rgba(236, 72, 153, 0.15);
+  color: var(--cat-entertainment);
 }
 
 .card-meta-right {

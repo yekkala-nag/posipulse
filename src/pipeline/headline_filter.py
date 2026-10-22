@@ -18,6 +18,7 @@ class HeadlinePreFilter:
         "accident", "crash", "collision", "blast", "explosion", "scam", "fraud",
         "arrested", "custody", "suicide", "tragedy", "tragic", "assault", "rape",
         "lynched", "collapsed", "hostage", "terror", "terrorist", "massacre",
+        "doping", "match-fixing", "divorce", "affair", "scandal", "defamation", "paparazzi",
         # Hindi (Devanagari)
         "मौत", "हादसा", "दुर्घटना", "विस्फोट", "धमाका", "फटा", "हत्या", "गिरफ्तार",
         "धोखाधड़ी", "आत्महत्या", "त्रासदी", "झुलसे", "टक्कर", "तबाही", "लूट",

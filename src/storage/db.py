@@ -8,7 +8,8 @@ from datetime import datetime, timezone
 import json
 import sqlite3
 from typing import Any, Dict, List, Optional, Tuple
-from src.schemas.article import Article, ArticleStatus, PositivityMetadata, SummaryMetadata
+from src.schemas.article import Article, ArticleStatus, CategoryAssignment, PositivityMetadata, SummaryMetadata
+from src.storage.migrations import apply_category_taxonomy_migration
 
 
 class StorageEngine:
@@ -101,6 +102,7 @@ class StorageEngine:
                 )
             """)
             conn.commit()
+            apply_category_taxonomy_migration(conn)
 
     def can_fetch_source(self, source_id: str, cooldown_minutes: int = 30) -> bool:
         """Determines if a publisher source is eligible for dynamic fetch based on cooldown."""
@@ -143,6 +145,8 @@ class StorageEngine:
             conn.commit()
 
     def insert_article(self, article: Article) -> None:
+        category_json = article.category.model_dump_json() if article.category else None
+        primary_category_id = article.category.primary_id if article.category else None
         positivity_json = article.positivity.model_dump_json() if article.positivity else None
         summary_json = article.summary.model_dump_json() if article.summary else None
 
@@ -152,8 +156,9 @@ class StorageEngine:
                 INSERT OR REPLACE INTO articles (
                     id, source_id, source_name, url, canonical_url, headline,
                     published_at, fetched_at, language, cluster_id,
-                    positivity_json, summary_json, status
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    positivity_json, summary_json, status,
+                    category_json, primary_category_id, publish_hold_reason
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
                 article.id,
                 article.source_id,
@@ -167,7 +172,10 @@ class StorageEngine:
                 article.cluster_id,
                 positivity_json,
                 summary_json,
-                article.status.value
+                article.status.value,
+                category_json,
+                primary_category_id,
+                article.publish_hold_reason
             ))
             conn.commit()
 
@@ -186,6 +194,23 @@ class StorageEngine:
         if row["summary_json"]:
             summary = SummaryMetadata.model_validate_json(row["summary_json"])
 
+        row_keys = row.keys() if hasattr(row, "keys") else []
+
+        category = None
+        if "category_json" in row_keys and row["category_json"]:
+            category = CategoryAssignment.model_validate_json(row["category_json"])
+        elif positivity and positivity.category:
+            from src.storage.migrations import LEGACY_CATEGORY_MAP
+            primary_id = LEGACY_CATEGORY_MAP.get(positivity.category)
+            if primary_id:
+                category = CategoryAssignment(
+                    primary_id=primary_id,
+                    confidence=positivity.score,
+                    taxonomy_version="1.0.0"
+                )
+
+        publish_hold_reason = row["publish_hold_reason"] if "publish_hold_reason" in row_keys else None
+
         return Article(
             id=row["id"],
             source_id=row["source_id"],
@@ -197,9 +222,11 @@ class StorageEngine:
             fetched_at=datetime.fromisoformat(row["fetched_at"]),
             language=row["language"],
             cluster_id=row["cluster_id"],
+            category=category,
             positivity=positivity,
             summary=summary,
-            status=ArticleStatus(row["status"])
+            status=ArticleStatus(row["status"]),
+            publish_hold_reason=publish_hold_reason
         )
 
     def get_article(self, article_id: str) -> Optional[Article]:
@@ -243,6 +270,23 @@ class StorageEngine:
             query += " AND a.published_at < ?"
             params.append(cursor)
 
+        filter_category_id: Optional[int] = None
+        if category:
+            from src.storage.migrations import LEGACY_CATEGORY_MAP
+            from src.taxonomy import default_taxonomy_registry
+            if str(category).isdigit():
+                filter_category_id = int(category)
+            else:
+                cat_obj = default_taxonomy_registry.get_by_slug(str(category))
+                if cat_obj:
+                    filter_category_id = cat_obj.id
+                elif category in LEGACY_CATEGORY_MAP:
+                    filter_category_id = LEGACY_CATEGORY_MAP[category]
+
+        if filter_category_id is not None:
+            query += " AND a.primary_category_id = ?"
+            params.append(filter_category_id)
+
         query += " ORDER BY a.published_at DESC LIMIT ?"
         params.append(limit + 1)
 
@@ -254,7 +298,7 @@ class StorageEngine:
         articles = []
         for r in rows[:limit]:
             art = self._row_to_article(r)
-            if category:
+            if category and filter_category_id is None:
                 if art.positivity and art.positivity.category == category:
                     articles.append(art)
             else:

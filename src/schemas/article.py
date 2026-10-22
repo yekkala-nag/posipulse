@@ -27,6 +27,7 @@ class ArticleStatus(str, Enum):
     SUMMARIZED = "summarized"
     VERIFYING = "verifying"
     VERIFICATION_FAILED = "verification_failed"
+    HELD_HIDDEN_CATEGORY = "held_hidden_category"
     PUBLISHED = "published"
     DELISTED = "delisted"
 
@@ -46,8 +47,65 @@ class PositivityMetadata(BaseModel):
     reason: str = Field(..., min_length=5, description="Constructive journalism rationale for decision")
     rubric_version: str = Field(..., pattern=r"^\d+\.\d+\.\d+$", description="SemVer of rubric used")
     category: Optional[str] = Field(
-        None, description="Constructive category: Science/Tech, Ecology, Empowerment, Resilience, Civic"
+        None, description="Legacy constructive category (deprecated in favor of Article.category)"
     )
+
+
+class CategoryAssignment(BaseModel):
+    """
+    Structured controlled news category assignment (Taxonomy v1).
+    Carries primary ID, up to 2 secondary IDs, subcategory ID, confidence, and taxonomy version.
+    """
+    model_config = ConfigDict(extra="forbid")
+
+    primary_id: Optional[int] = Field(
+        None, ge=1, le=100, description="Permanent integer ID of primary category (1-18)"
+    )
+    secondary_ids: List[int] = Field(
+        default_factory=list, max_length=2, description="Optional secondary category IDs (max 2)"
+    )
+    subcategory_id: Optional[str] = Field(
+        None, description="Permanent unique subcategory identifier"
+    )
+    confidence: float = Field(
+        default=1.0, ge=0.0, le=1.0, description="Confidence score of classification"
+    )
+    taxonomy_version: str = Field(
+        default="1.0.0", pattern=r"^\d+\.\d+\.\d+$", description="SemVer of taxonomy used"
+    )
+
+    @field_validator("secondary_ids")
+    @classmethod
+    def validate_secondaries(cls, v: List[int]) -> List[int]:
+        if len(v) > 2:
+            raise ValueError("A maximum of 2 secondary categories may be assigned.")
+        if len(v) != len(set(v)):
+            raise ValueError("Secondary category IDs must be unique.")
+        for item in v:
+            if not (1 <= item <= 100):
+                raise ValueError(f"Category ID {item} out of valid range (1-100).")
+        return v
+
+
+class ClassificationResult(PositivityMetadata):
+    """
+    Combined classification result produced by unified classifier call.
+    Carries both constructive positivity decision and category taxonomy assignment.
+    Subclasses PositivityMetadata for full backward compatibility.
+    """
+    category_assignment: Optional[CategoryAssignment] = None
+    publish_hold_reason: Optional[str] = None
+    is_held: bool = False
+    prompt_version: str = "2.0.0"
+
+    def to_positivity_metadata(self) -> PositivityMetadata:
+        return PositivityMetadata(
+            label=self.label,
+            score=self.score,
+            reason=self.reason,
+            rubric_version=self.rubric_version,
+            category=self.category
+        )
 
 
 class SummaryMetadata(BaseModel):
@@ -79,9 +137,11 @@ class Article(BaseModel):
     fetched_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc), description="System fetch timestamp")
     language: str = Field(..., min_length=2, max_length=5, description="ISO language code (e.g. en, hi, te, ur)")
     cluster_id: Optional[str] = Field(None, description="Multilingual semantic cluster ID for deduplication")
+    category: Optional[CategoryAssignment] = Field(None, description="Structured category taxonomy classification")
     positivity: Optional[PositivityMetadata] = Field(None, description="Positivity classification metadata")
     summary: Optional[SummaryMetadata] = Field(None, description="Original-wording summary and verification state")
     status: ArticleStatus = Field(default=ArticleStatus.FETCHED, description="Current lifecycle state")
+    publish_hold_reason: Optional[str] = Field(None, description="Reason if withheld from publication")
 
 
 class EphemeralIngestedItem(BaseModel):

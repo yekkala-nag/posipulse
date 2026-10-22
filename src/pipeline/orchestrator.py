@@ -94,6 +94,7 @@ class PipelineOrchestrator:
             "classified_negative_count": 0,
             "verification_passed_count": 0,
             "published_count": 0,
+            "held_count": 0,
             "run_cost_usd": 0.0
         }
 
@@ -141,11 +142,11 @@ class PipelineOrchestrator:
                 stats["headline_rejected_count"] += 1
                 continue
 
-            # 6. Positivity Classification (Constructive Journalism Rubric)
-            positivity = self.classifier.classify(norm_item)
-            self.current_run_cost_usd += 0.00005  # incremental token cost tracking
+            # 6. Positivity Classification & Taxonomy Assignment (Unified Single Call)
+            classification = self.classifier.classify(norm_item)
+            self.current_run_cost_usd += 0.000075  # unified positivity + category token cost tracking
 
-            if positivity.label != PositivityLabel.POSITIVE or positivity.score < self.config.positivity_threshold:
+            if classification.label != PositivityLabel.POSITIVE or classification.score < self.config.positivity_threshold:
                 stats["classified_negative_count"] += 1
                 continue
             stats["classified_positive_count"] += 1
@@ -189,6 +190,16 @@ class PipelineOrchestrator:
 
             # 9. Persistent Storage
             # Strict non-negotiable rule: norm_item.raw_body is NEVER passed to Article model.
+            # Enforce Option A Hidden Category policy
+            if classification.is_held:
+                article_status = ArticleStatus.HELD_HIDDEN_CATEGORY
+                publish_hold_reason = classification.publish_hold_reason
+                stats["held_count"] = stats.get("held_count", 0) + 1
+            else:
+                article_status = ArticleStatus.PUBLISHED
+                publish_hold_reason = None
+                stats["published_count"] += 1
+
             published_article = Article(
                 id=norm_item.id,
                 source_id=norm_item.source_id,
@@ -200,17 +211,25 @@ class PipelineOrchestrator:
                 fetched_at=datetime.now(timezone.utc),
                 language=self.config.language_code,
                 cluster_id=cluster_id,
-                positivity=positivity,
+                category=classification.category_assignment,
+                positivity=classification.to_positivity_metadata(),
                 summary=final_summary,
-                status=ArticleStatus.PUBLISHED
+                status=article_status,
+                publish_hold_reason=publish_hold_reason
             )
 
             self.storage.insert_article(published_article)
-            stats["published_count"] += 1
-            metrics_collector.increment_counter(
-                "posipulse_articles_published_total",
-                language=self.config.language_code
-            )
+            if article_status == ArticleStatus.PUBLISHED:
+                metrics_collector.increment_counter(
+                    "posipulse_articles_published_total",
+                    language=self.config.language_code
+                )
+            else:
+                metrics_collector.increment_counter(
+                    "posipulse_articles_held_total",
+                    language=self.config.language_code,
+                    reason="hidden_category"
+                )
 
         stats["run_cost_usd"] = round(self.current_run_cost_usd, 6)
         return stats

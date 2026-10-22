@@ -34,7 +34,7 @@ paths:
           required: false
           schema:
             type: string
-            enum: ["Science/Tech", "Ecology", "Empowerment", "Resilience", "Civic"]
+            enum: ["Science/Tech", "Ecology", "Empowerment", "Resilience", "Civic", "Sports", "Entertainment"]
           description: Optional constructive journalism category filter.
         - name: since
           in: query
@@ -306,6 +306,47 @@ components:
             rubric_version:
               type: string
               example: "1.0.0"
+        category:
+          $ref: '#/components/schemas/CategoryAssignment'
+        publish_hold_reason:
+          type: string
+          nullable: true
+          example: null
+
+    CategoryAssignment:
+      type: object
+      required:
+        - primary_id
+        - secondary_ids
+        - confidence
+        - taxonomy_version
+      properties:
+        primary_id:
+          type: integer
+          nullable: true
+          example: 2
+          description: Permanent integer ID of primary category (1-18).
+        secondary_ids:
+          type: array
+          items:
+            type: integer
+          maxItems: 2
+          example: [9]
+          description: Up to 2 secondary category IDs.
+        subcategory_id:
+          type: string
+          nullable: true
+          example: "scitech_ai_software"
+          description: Globally unique permanent subcategory ID.
+        confidence:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 1.0
+          example: 0.95
+        taxonomy_version:
+          type: string
+          example: "1.0.0"
 
     FeedResponse:
       type: object

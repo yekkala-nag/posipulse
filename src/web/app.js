@@ -319,6 +319,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (lower.includes('ecolog') || lower.includes('nature')) return 'ecology';
     if (lower.includes('empower')) return 'empowerment';
     if (lower.includes('civic')) return 'civic';
+    if (lower.includes('sport')) return 'sports';
+    if (lower.includes('entertain') || lower.includes('art') || lower.includes('culture') || lower.includes('film') || lower.includes('music')) return 'entertainment';
     return 'science-tech';
   }
 
