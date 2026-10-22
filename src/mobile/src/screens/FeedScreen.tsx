@@ -15,6 +15,7 @@ import {
   ActivityIndicator,
   SafeAreaView,
   StatusBar,
+  ScrollView,
 } from 'react-native';
 import { Article, LanguageInfo } from '../types';
 import { apiClient } from '../api/client';
@@ -22,6 +23,23 @@ import { mobileStorage } from '../services/storage';
 import { ArticleCard } from '../components/ArticleCard';
 import { LanguageSelector } from '../components/LanguageSelector';
 import { FeedbackModal } from './FeedbackModal';
+
+const VISIBLE_CATEGORIES = [
+  { id: '', label: '✨ All' },
+  { id: 'agriculture-rural', label: '🌾 Agriculture' },
+  { id: 'science-technology', label: '🔬 Science & Tech' },
+  { id: 'education-skills', label: '📚 Education' },
+  { id: 'environment-climate', label: '🌱 Environment' },
+  { id: 'sports', label: '🏆 Sports' },
+  { id: 'society-community', label: '🤝 Community' },
+  { id: 'arts-culture-heritage', label: '🎨 Arts & Culture' },
+  { id: 'lifestyle-travel', label: '✈️ Lifestyle' },
+  { id: 'economy-business', label: '📈 Economy' },
+  { id: 'health-wellness', label: '🩺 Health' },
+  { id: 'infrastructure-transport', label: '🚆 Infrastructure' },
+  { id: 'entertainment-media', label: '🎭 Entertainment' },
+  { id: 'world-diplomacy', label: '🌐 World' },
+];
 
 export const FeedScreen: React.FC = () => {
   const [languages, setLanguages] = useState<LanguageInfo[]>([]);
@@ -126,22 +144,28 @@ export const FeedScreen: React.FC = () => {
         onSelectLanguage={handleSelectLanguage}
       />
 
-      {/* Category Filter Pills */}
-      <View style={styles.categoryBar}>
-        {['Science/Tech', 'Ecology', 'Empowerment', 'Civic', 'Sports', 'Entertainment'].map((cat) => {
-          const isActive = currentCategory === cat;
-          return (
-            <TouchableOpacity
-              key={cat}
-              onPress={() => handleSelectCategory(cat)}
-              style={[styles.categoryPill, isActive && styles.categoryPillActive]}
-            >
-              <Text style={[styles.categoryPillText, isActive && styles.categoryPillTextActive]}>
-                {cat}
-              </Text>
-            </TouchableOpacity>
-          );
-        })}
+      {/* Category Filter Pills (Horizontal Scroll Strip) */}
+      <View style={styles.categoryBarContainer}>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.categoryScrollContent}
+        >
+          {VISIBLE_CATEGORIES.map((cat) => {
+            const isActive = currentCategory === cat.id;
+            return (
+              <TouchableOpacity
+                key={cat.id || 'all'}
+                onPress={() => handleSelectCategory(cat.id)}
+                style={[styles.categoryPill, isActive && styles.categoryPillActive]}
+              >
+                <Text style={[styles.categoryPillText, isActive && styles.categoryPillTextActive]}>
+                  {cat.label}
+                </Text>
+              </TouchableOpacity>
+            );
+          })}
+        </ScrollView>
       </View>
 
       {/* Main Content / Feed */}
@@ -229,17 +253,21 @@ const styles = StyleSheet.create({
     color: '#64748b',
     marginTop: 4,
   },
-  categoryBar: {
-    flexDirection: 'row',
-    paddingHorizontal: 16,
+  categoryBarContainer: {
     paddingVertical: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(255, 255, 255, 0.05)',
+  },
+  categoryScrollContent: {
+    paddingHorizontal: 16,
     gap: 8,
+    flexDirection: 'row',
   },
   categoryPill: {
-    paddingVertical: 5,
-    paddingHorizontal: 12,
-    borderRadius: 14,
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    paddingVertical: 6,
+    paddingHorizontal: 14,
+    borderRadius: 16,
+    backgroundColor: 'rgba(255, 255, 255, 0.06)',
   },
   categoryPillActive: {
     backgroundColor: '#38bdf8',

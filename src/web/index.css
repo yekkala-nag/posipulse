@@ -437,30 +437,47 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  align-items: center;
+  max-width: 100%;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+  scrollbar-width: none;
+}
+
+.category-filters::-webkit-scrollbar {
+  display: none;
 }
 
 .filter-pill {
   background: var(--bg-secondary);
   border: 1px solid var(--border-subtle);
   color: var(--text-secondary);
-  padding: 0.45rem 0.9rem;
+  padding: 0.45rem 0.95rem;
   border-radius: var(--radius-pill);
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 600;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
   transition: all var(--transition-fast);
+  white-space: nowrap;
+  user-select: none;
 }
 
 .filter-pill:hover {
   background: var(--bg-tertiary);
   color: var(--text-primary);
+  border-color: var(--border-medium);
+  transform: translateY(-1px);
 }
 
 .filter-pill.active {
-  background: var(--text-primary);
-  color: var(--bg-primary);
-  border-color: var(--text-primary);
-  box-shadow: var(--shadow-sm);
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.16) 0%, rgba(16, 185, 129, 0.16) 100%);
+  color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.6);
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.2);
+  transform: translateY(-1px);
 }
 
 .action-btn {
@@ -564,9 +581,19 @@ body {
   border-radius: 6px;
 }
 
+.category-tag.agriculture {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+}
+
 .category-tag.science-tech {
   background: rgba(56, 189, 248, 0.15);
   color: var(--cat-science);
+}
+
+.category-tag.education {
+  background: rgba(99, 102, 241, 0.15);
+  color: #818cf8;
 }
 
 .category-tag.ecology {
@@ -574,24 +601,55 @@ body {
   color: var(--cat-ecology);
 }
 
-.category-tag.empowerment {
-  background: rgba(251, 191, 36, 0.15);
-  color: var(--cat-empower);
-}
-
-.category-tag.civic {
-  background: rgba(167, 139, 250, 0.15);
-  color: var(--cat-civic);
-}
-
 .category-tag.sports {
   background: rgba(249, 115, 22, 0.15);
   color: var(--cat-sports);
 }
 
+.category-tag.community,
+.category-tag.empowerment {
+  background: rgba(168, 85, 247, 0.15);
+  color: #c084fc;
+}
+
+.category-tag.arts {
+  background: rgba(244, 63, 94, 0.15);
+  color: #fb7185;
+}
+
+.category-tag.lifestyle {
+  background: rgba(20, 184, 166, 0.15);
+  color: #2dd4bf;
+}
+
+.category-tag.economy {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+}
+
+.category-tag.health {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+}
+
+.category-tag.infrastructure {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+}
+
 .category-tag.entertainment {
   background: rgba(236, 72, 153, 0.15);
   color: var(--cat-entertainment);
+}
+
+.category-tag.world {
+  background: rgba(6, 182, 212, 0.15);
+  color: #22d3ee;
+}
+
+.category-tag.civic {
+  background: rgba(167, 139, 250, 0.15);
+  color: var(--cat-civic);
 }
 
 .card-meta-right {

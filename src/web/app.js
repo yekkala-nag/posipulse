@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentLanguage = 'en';
   let currentCategory = '';
   let availableLanguages = [];
+  let availableCategories = [];
+  let categoriesById = {};
   let isRTL = false;
 
   // DOM Elements
@@ -57,6 +59,43 @@ document.addEventListener('DOMContentLoaded', () => {
   // --------------------------------------------------------------------------
   // Language Registry & Navigation
   // --------------------------------------------------------------------------
+  async function loadCategories(lang = currentLanguage) {
+    try {
+      const res = await fetch(`/v1/categories?language=${encodeURIComponent(lang)}`);
+      if (!res.ok) throw new Error('Failed to fetch categories');
+      const data = await res.json();
+      availableCategories = data.categories || [];
+      categoriesById = {};
+      availableCategories.forEach((c) => {
+        categoriesById[c.id] = c;
+      });
+      renderCategoryFilters();
+    } catch (err) {
+      console.warn('Falling back to default categories:', err);
+    }
+  }
+
+  function renderCategoryFilters() {
+    if (!categoryFilters) return;
+    const isAllActive = !currentCategory;
+    let html = `
+      <button class="filter-pill ${isAllActive ? 'active' : ''}" data-category="" id="cat-all">
+        <span>✨</span> <span>All Stories</span>
+      </button>
+    `;
+
+    availableCategories.forEach((cat) => {
+      const isActive = currentCategory === cat.slug || currentCategory === String(cat.id);
+      html += `
+        <button class="filter-pill ${isActive ? 'active' : ''}" data-category="${cat.slug}" id="cat-${cat.slug}" title="${escapeHTML(cat.name_en)}">
+          <span>${cat.icon}</span> <span>${escapeHTML(cat.display_name)}</span>
+        </button>
+      `;
+    });
+
+    categoryFilters.innerHTML = html;
+  }
+
   async function loadLanguages() {
     try {
       const res = await fetch('/v1/languages');
@@ -65,6 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
       availableLanguages = data.languages || [];
 
       renderLanguageStrip();
+      await loadCategories(currentLanguage);
       loadFeed();
     } catch (err) {
       console.error('Error loading languages:', err);
@@ -88,6 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { code: 'gom', english_name: 'Konkani', native_name: 'कोंकणी', is_rtl: false },
       ];
       renderLanguageStrip();
+      await loadCategories(currentLanguage);
       loadFeed();
     }
   }
@@ -119,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function selectLanguage(code) {
+  async function selectLanguage(code) {
     currentLanguage = code;
     const langObj = availableLanguages.find((l) => l.code === code);
     isRTL = langObj ? langObj.is_rtl : false;
@@ -138,6 +179,8 @@ document.addEventListener('DOMContentLoaded', () => {
     feedDirectionIndicator.textContent = `Direction: ${isRTL ? 'RTL' : 'LTR'}`;
     feedDirectionIndicator.className = `direction-tag ${isRTL ? 'rtl-glow' : ''}`;
 
+    // Dynamically refresh localized categories for new language
+    await loadCategories(code);
     loadFeed();
   }
 
@@ -239,8 +282,14 @@ document.addEventListener('DOMContentLoaded', () => {
         card.setAttribute('dir', 'rtl');
       }
 
-      const category = art.positivity?.category || 'General';
-      const catClass = getCategoryClass(category);
+      let categoryDisplay = art.positivity?.category || 'Constructive';
+      let catClass = getCategoryClass(categoryDisplay);
+
+      if (art.category && art.category.primary_id && categoriesById[art.category.primary_id]) {
+        const catMeta = categoriesById[art.category.primary_id];
+        categoryDisplay = `${catMeta.icon} ${catMeta.display_name}`;
+        catClass = getCategoryClass(catMeta.slug);
+      }
 
       // Substance calculation
       const wordCount = art.summary?.word_count || (art.summary?.text || '').split(/\s+/).length;
@@ -252,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <div>
           <!-- Top Row: Category + Verified Badge -->
           <div class="card-top">
-            <span class="category-tag ${catClass}">${category}</span>
+            <span class="category-tag ${catClass}">${escapeHTML(categoryDisplay)}</span>
             <div class="card-meta-right">
               <span class="verified-badge" title="Faithfulness Verified Entailment Score">
                 <span>✓</span> Verified Positive
@@ -314,13 +363,21 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function getCategoryClass(category) {
-    const lower = category.toLowerCase();
+    const lower = (category || '').toLowerCase();
+    if (lower.includes('agri') || lower.includes('rural')) return 'agriculture';
     if (lower.includes('science') || lower.includes('tech')) return 'science-tech';
-    if (lower.includes('ecolog') || lower.includes('nature')) return 'ecology';
-    if (lower.includes('empower')) return 'empowerment';
-    if (lower.includes('civic')) return 'civic';
+    if (lower.includes('edu') || lower.includes('skill')) return 'education';
+    if (lower.includes('ecolog') || lower.includes('climate') || lower.includes('nature') || lower.includes('environment')) return 'ecology';
     if (lower.includes('sport')) return 'sports';
-    if (lower.includes('entertain') || lower.includes('art') || lower.includes('culture') || lower.includes('film') || lower.includes('music')) return 'entertainment';
+    if (lower.includes('societ') || lower.includes('communit') || lower.includes('empower')) return 'community';
+    if (lower.includes('art') || lower.includes('culture') || lower.includes('heritage')) return 'arts';
+    if (lower.includes('life') || lower.includes('travel')) return 'lifestyle';
+    if (lower.includes('econ') || lower.includes('business')) return 'economy';
+    if (lower.includes('health') || lower.includes('wellness')) return 'health';
+    if (lower.includes('infra') || lower.includes('transport')) return 'infrastructure';
+    if (lower.includes('entertain') || lower.includes('media') || lower.includes('film') || lower.includes('music')) return 'entertainment';
+    if (lower.includes('world') || lower.includes('diplo')) return 'world';
+    if (lower.includes('civic')) return 'civic';
     return 'science-tech';
   }
 

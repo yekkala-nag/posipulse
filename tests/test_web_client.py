@@ -115,3 +115,41 @@ def test_demo_seeding_urdu_rtl(client):
     article = feed_data["articles"][0]
     assert article["language"] == "ur"
     assert article["is_rtl"] is True
+
+
+def test_categories_endpoint_visible_and_localized(client):
+    """Verify /v1/categories returns 13 visible categories with localized display names."""
+    # 1. Default (English)
+    res_en = client.get("/v1/categories")
+    assert res_en.status_code == 200
+    data_en = res_en.json()
+    assert data_en["total_visible"] == 13
+    assert len(data_en["categories"]) == 13
+    assert data_en["taxonomy_version"] == "1.0.0"
+
+    # Invariant: No hidden categories (14-18) in the public categories list
+    cat_ids = [c["id"] for c in data_en["categories"]]
+    assert set(cat_ids) == set(range(1, 14))
+    assert not any(cid in cat_ids for cid in range(14, 19))
+
+    # Check English names and icons
+    agri_en = next(c for c in data_en["categories"] if c["slug"] == "agriculture-rural")
+    assert agri_en["display_name"] == "Agriculture & Rural"
+    assert agri_en["icon"] == "🌾"
+
+    # 2. Hindi localization
+    res_hi = client.get("/v1/categories?language=hi")
+    assert res_hi.status_code == 200
+    data_hi = res_hi.json()
+    assert data_hi["total_visible"] == 13
+    agri_hi = next(c for c in data_hi["categories"] if c["slug"] == "agriculture-rural")
+    assert agri_hi["display_name"] == "कृषि एवं ग्रामीण"
+    assert agri_hi["icon"] == "🌾"
+
+    # 3. Urdu localization
+    res_ur = client.get("/v1/categories?language=ur")
+    assert res_ur.status_code == 200
+    data_ur = res_ur.json()
+    agri_ur = next(c for c in data_ur["categories"] if c["slug"] == "agriculture-rural")
+    assert "زراعت" in agri_ur["display_name"]
+
