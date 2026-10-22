@@ -54,10 +54,10 @@ vercel --prod
 ```
 
 ### How Vercel Configuration Works
-- [vercel.json](file:///Users/nyakkala/Documents/News%20App/vercel.json): Routes all incoming traffic to `api/index.py` using `@vercel/python`.
-- [api/index.py](file:///Users/nyakkala/Documents/News%20App/api/index.py): Serverless ASGI bridge that exports the FastAPI gateway.
-- [requirements.txt](file:///Users/nyakkala/Documents/News%20App/requirements.txt): Pinned runtime dependencies automatically installed by Vercel's build worker.
-- [.vercelignore](file:///Users/nyakkala/Documents/News%20App/.vercelignore): Excludes unnecessary files (`.venv/`, `tests/`, etc.) keeping lambda bundle sizes under 15MB.
+- [vercel.json](file:///Users/nyakkala/Documents/GitHub/posipulse/vercel.json): Routes all incoming traffic to `api/index.py` using `@vercel/python`.
+- [api/index.py](file:///Users/nyakkala/Documents/GitHub/posipulse/api/index.py): Serverless ASGI bridge that exports the FastAPI gateway.
+- [requirements.txt](file:///Users/nyakkala/Documents/GitHub/posipulse/requirements.txt): Pinned runtime dependencies automatically installed by Vercel's build worker.
+- [.vercelignore](file:///Users/nyakkala/Documents/GitHub/posipulse/.vercelignore): Excludes unnecessary files (`.venv/`, `tests/`, etc.) keeping lambda bundle sizes under 15MB.
 
 ---
 
@@ -75,15 +75,27 @@ Native platform code:
 
 ---
 
+## 🏷️ Controlled News Category Taxonomy (v1)
+
+PosiPulse organizes constructive news according to the controlled taxonomy specified in [ADR 0006](file:///Users/nyakkala/Documents/GitHub/posipulse/docs/adr/0006-controlled-news-category-taxonomy.md) and [v1.json](file:///Users/nyakkala/Documents/GitHub/posipulse/config/taxonomy/v1.json):
+- **13 Visible Launch Categories**: Agriculture, Science & Tech, Education & Skills, Environment & Climate, Sports, Society & Community, Arts & Culture, Lifestyle & Travel, Economy & Business, Health & Wellness, Infrastructure & Transport, Entertainment & Media, World & Diplomacy.
+- **5 Hidden Reserved Categories (Option A Policy)**: Governance, Law & Justice, Religion, Defence, Disaster. Articles falling into these categories are held from public distribution.
+- **IPTC Media Topics 2024.1 Compliance**: Full crosswalk with standard QCodes.
+- **16 Languages**: Complete human-localized display names across English and 15 Indian languages.
+
+---
+
 ## 🧪 Running Tests
 ```bash
-.venv/bin/pytest -v
+.venv/bin/python -m pytest -v
 ```
-Runs all 64 test cases covering:
+Runs all 99 test cases covering:
 - Legal non-retention invariants (raw publisher body is never stored in DB or API)
+- Controlled Category Taxonomy v1 & Option A holding policies
 - RSS parser tolerance, timeout retries, and exponential backoff
 - 16-language golden datasets & quality gate verifications
 - Bi-directional RTL layout for Urdu
 - Dynamic substance length band meters
 - DPDP Act 2023 delisting workflows and database audit
 - Vercel serverless entrypoint and configuration schema
+
