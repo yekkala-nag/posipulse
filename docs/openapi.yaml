@@ -137,6 +137,63 @@ paths:
               schema:
                 $ref: '#/components/schemas/LanguageListResponse'
 
+  /v1/categories:
+    get:
+      summary: List Controlled News Categories (Taxonomy v1)
+      operationId: listCategories
+      description: Returns all 13 visible categories with localized display names, IPTC Media Topics codes, and icons.
+      parameters:
+        - name: language
+          in: query
+          required: false
+          schema:
+            type: string
+            default: "en"
+          description: ISO language code for localized display names.
+      responses:
+        '200':
+          description: List of visible categories.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  taxonomy_version:
+                    type: string
+                    example: "1.0.0"
+                  total_visible:
+                    type: integer
+                    example: 13
+                  language:
+                    type: string
+                    example: "en"
+                  categories:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 2
+                        slug:
+                          type: string
+                          example: "science-technology"
+                        name_en:
+                          type: string
+                          example: "Science & Technology"
+                        display_name:
+                          type: string
+                          example: "Science & Technology"
+                        icon:
+                          type: string
+                          example: "🔬"
+                        iptc_qcode:
+                          type: string
+                          example: "medtop:14000000"
+                        subcategories_count:
+                          type: integer
+                          example: 6
+
   /v1/feedback:
     post:
       summary: Submit User Feedback / Report Non-Positive Story

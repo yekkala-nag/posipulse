@@ -97,6 +97,13 @@ class Category(BaseModel):
             raise ValueError("Category must have a non-empty English ('en') display name.")
         return v
 
+    def get_display_name(self, language: str = "en") -> str:
+        return self.display_names.get(language, self.display_names.get("en", self.slug))
+
+    @property
+    def name_en(self) -> str:
+        return self.display_names.get("en", self.slug)
+
 
 class TaxonomyVersion(BaseModel):
     """
