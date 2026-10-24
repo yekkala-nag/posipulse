@@ -1,0 +1,92 @@
+language_code: ur
+language_name_english: Urdu
+language_name_native: اردو
+script: Perso-Arabic
+is_rtl: true
+tier: tier_2
+status: active
+quality_gate:
+  min_positive_precision: 0.9
+  min_faithfulness_pass_rate: 0.95
+  min_healthy_sources: 3
+  native_speaker_spot_check_passed: true
+  gate_passed_at: '2026-10-21T00:00:00Z'
+length_band:
+  min_words: 35
+  max_words: 85
+  substance_scaling: true
+cost_caps:
+  max_cost_per_run_usd: 1.5
+  max_daily_budget_usd: 15.0
+  cost_per_published_item_target_usd: 0.00035
+  alert_threshold_percentage: 80.0
+model_routing:
+  classifier_primary_model: gemini-1.5-flash
+  classifier_fallback_model: gemini-2.0-flash
+  summarizer_primary_model: gemini-1.5-flash
+  summarizer_fallback_model: gemini-2.0-flash
+  verifier_model: gemini-2.0-flash
+  temperature: 0.1
+  max_tokens: 450
+positivity_threshold: 0.85
+rubric_version: 1.0.0
+prompt_version: 1.0.0
+exemplars:
+- headline: جامعہ ملیہ کے طلباء نے بصارت سے محروم افراد کے لیے سمارٹ نیویگیشن ڈیوائس
+    تیار کی
+  body_snippet: طلباء نے جدید سینسرز پر مبنی سستا نیویگیشن سسٹم تیار کیا جو بصارت
+    سے محروم افراد کو آزادانہ نقل و حرکت کی سہولت دیتا ہے۔
+  label: positive
+  reason: معاشرتی شمولیت اور خود انحصاری کے لیے سائنسی ایجاد۔
+  substance_category: Assistive Tech
+sources:
+- id: news18-urdu
+  name: News18 اردو
+  feed_url: https://urdu.news18.com/rss/khabar.xml
+  homepage_url: https://urdu.news18.com
+  language: ur
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: etv-bharat-urdu
+  name: ETV Bharat Urdu
+  feed_url: https://www.etvbharat.com/urdu/national/rss
+  homepage_url: https://www.etvbharat.com/urdu
+  language: ur
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: inquilab-mumbai
+  name: The Inquilab
+  feed_url: https://www.inquilab.com/rss/national.xml
+  homepage_url: https://www.inquilab.com
+  language: ur
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 60
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: bbc-urdu
+  name: BBC News اردو
+  feed_url: https://feeds.bbci.co.uk/urdu/rss.xml
+  homepage_url: https://www.bbc.com/urdu
+  language: ur
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: the-wire-urdu
+  name: The Wire Urdu
+  feed_url: https://thewireurdu.com/feed/
+  homepage_url: https://thewireurdu.com
+  language: ur
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true

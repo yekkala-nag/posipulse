@@ -19,6 +19,7 @@ class LanguageConfigRegistry:
         if config_dir is None:
             # Default to repo root config/languages with robust candidate paths for Vercel
             candidates = [
+                Path(__file__).resolve().parent / "languages",
                 Path(__file__).resolve().parent.parent.parent / "config" / "languages",
                 Path.cwd() / "config" / "languages",
                 Path("/var/task") / "config" / "languages",
@@ -35,19 +36,22 @@ class LanguageConfigRegistry:
         self.reload()
 
     def reload(self) -> None:
-        """Loads and validates all language YAML files in config_dir."""
-        if not self.config_dir.exists():
-            raise ConfigurationError(f"Config directory does not exist: {self.config_dir}")
-
+        """Loads and validates all language configurations, falling back to embedded configs if disk YAMLs are unavailable."""
         configs = {}
-        for yaml_file in sorted(self.config_dir.glob("*.yaml")):
-            try:
-                with open(yaml_file, "r", encoding="utf-8") as f:
-                    raw_data = yaml.safe_load(f)
-                config = LanguageConfig.model_validate(raw_data)
-                configs[config.language_code] = config
-            except Exception as e:
-                raise ConfigurationError(f"Failed to load language config from {yaml_file.name}: {e}") from e
+        if self.config_dir.exists() and any(self.config_dir.glob("*.yaml")):
+            for yaml_file in sorted(self.config_dir.glob("*.yaml")):
+                try:
+                    with open(yaml_file, "r", encoding="utf-8") as f:
+                        raw_data = yaml.safe_load(f)
+                    config = LanguageConfig.model_validate(raw_data)
+                    configs[config.language_code] = config
+                except Exception as e:
+                    raise ConfigurationError(f"Failed to load language config from {yaml_file.name}: {e}") from e
+        else:
+            # Fallback to pre-compiled embedded configs (ensures 100% serverless runtime reliability)
+            from src.config.embedded import EMBEDDED_LANGUAGE_CONFIGS
+            for code, raw_data in EMBEDDED_LANGUAGE_CONFIGS.items():
+                configs[code] = LanguageConfig.model_validate(raw_data)
 
         self._configs = configs
 

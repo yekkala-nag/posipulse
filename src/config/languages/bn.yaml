@@ -1,0 +1,98 @@
+language_code: bn
+language_name_english: Bengali
+language_name_native: বাংলা
+script: Eastern Nagri
+is_rtl: false
+tier: tier_1
+status: active
+quality_gate:
+  min_positive_precision: 0.9
+  min_faithfulness_pass_rate: 0.95
+  min_healthy_sources: 3
+  native_speaker_spot_check_passed: true
+  gate_passed_at: '2026-10-21T00:00:00Z'
+length_band:
+  min_words: 30
+  max_words: 85
+  substance_scaling: true
+cost_caps:
+  max_cost_per_run_usd: 1.5
+  max_daily_budget_usd: 15.0
+  cost_per_published_item_target_usd: 0.00056
+  alert_threshold_percentage: 80.0
+model_routing:
+  classifier_primary_model: gemini-1.5-flash
+  classifier_fallback_model: gemini-2.0-flash
+  summarizer_primary_model: gemini-1.5-flash
+  summarizer_fallback_model: gemini-2.0-flash
+  verifier_model: gemini-2.0-flash
+  temperature: 0.1
+  max_tokens: 450
+positivity_threshold: 0.85
+rubric_version: 1.0.0
+prompt_version: 1.0.0
+exemplars:
+- headline: সুন্দরবনের নদীভাঙন রোধে স্থানীয় মহিলাদের ম্যানগ্রোভ রোপণ আন্দোলন সফল,
+    ৫ হেক্টর বনাঞ্চল পুনরুজ্জীবিত
+  body_snippet: ঘূর্ণিঝড়প্রবণ সুন্দরবনের গোসাবা ব্লকে ৫০০ জন স্থানীয় গ্রামবাসী নারী
+    স্বেচ্ছায় ম্যানগ্রোভ নার্সারি তৈরি করে নতুন বন সৃজন করেছেন।
+  label: positive
+  reason: স্থানীয় জনগোষ্ঠীর নেতৃত্বে পরিবেশ সংরক্ষণ ও বাঁধ রক্ষার টেকসই সমাধান।
+  substance_category: Ecology
+- headline: হাওড়ায় রাসায়নিক কারখানায় ভয়াবহ অগ্নিকাণ্ড, ৩ শ্রমিকের মৃত্যু
+  body_snippet: কারখানায় দাহ্য পদার্থ মজুত থাকায় আগুন দ্রুত ছড়িয়ে পড়ে এবং তিনজনের
+    প্রাণহানি ঘটে।
+  label: negative
+  reason: মারাত্মক দুর্ঘটনা এবং প্রাণহানি।
+  substance_category: Accident/Disaster
+sources:
+- id: anandabazar-patrika
+  name: Anandabazar Patrika
+  feed_url: https://www.anandabazar.com/rss/national.xml
+  homepage_url: https://www.anandabazar.com
+  language: bn
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: news18-bengali
+  name: News18 বাংলা
+  feed_url: https://bengali.news18.com/rss/khabar.xml
+  homepage_url: https://bengali.news18.com
+  language: bn
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: bbc-bangla
+  name: BBC News বাংলা
+  feed_url: https://feeds.bbci.co.uk/bengali/rss.xml
+  homepage_url: https://www.bbc.com/bengali
+  language: bn
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: sangbad-pratidin
+  name: Sangbad Pratidin
+  feed_url: https://www.sangbadpratidin.in/feed/
+  homepage_url: https://www.sangbadpratidin.in
+  language: bn
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: oneindia-bengali
+  name: Oneindia Bengali
+  feed_url: https://bengali.oneindia.com/rss/bengali-news-fb.xml
+  homepage_url: https://bengali.oneindia.com
+  language: bn
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true

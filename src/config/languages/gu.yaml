@@ -1,0 +1,98 @@
+language_code: gu
+language_name_english: Gujarati
+language_name_native: ગુજરાતી
+script: Gujarati
+is_rtl: false
+tier: tier_2
+status: active
+quality_gate:
+  min_positive_precision: 0.9
+  min_faithfulness_pass_rate: 0.95
+  min_healthy_sources: 3
+  native_speaker_spot_check_passed: true
+  gate_passed_at: '2026-10-21T00:00:00Z'
+length_band:
+  min_words: 30
+  max_words: 85
+  substance_scaling: true
+cost_caps:
+  max_cost_per_run_usd: 1.5
+  max_daily_budget_usd: 15.0
+  cost_per_published_item_target_usd: 0.00058
+  alert_threshold_percentage: 80.0
+model_routing:
+  classifier_primary_model: gemini-1.5-flash
+  classifier_fallback_model: gemini-2.0-flash
+  summarizer_primary_model: gemini-1.5-flash
+  summarizer_fallback_model: gemini-2.0-flash
+  verifier_model: gemini-2.0-flash
+  temperature: 0.1
+  max_tokens: 450
+positivity_threshold: 0.85
+rubric_version: 1.0.0
+prompt_version: 1.0.0
+exemplars:
+- headline: કચ્છના રણમાં સૌર-પવન હાઇબ્રિડ પાર્ક કાર્યરત, દરરોજ હજારો ઘરોને સ્વચ્છ
+    ઊર્જા
+  body_snippet: એશિયાના સૌથી મોટા રિન્યુએબલ એનર્જી પાર્કમાંથી વીજ ઉત્પાદન શરૂ થતાં
+    કાર્બન ઉત્સર્જનમાં મોટો ઘટાડો નોંધાયો છે.
+  label: positive
+  reason: પર્યાવરણ સંરક્ષણ અને સ્વચ્છ ઊર્જા ક્ષેત્રે ઐતિહાસિક સિદ્ધિ.
+  substance_category: Ecology
+- headline: સુરતમાં કેમિકલ ફેક્ટરીમાં ભીષણ આગ, ૩ કામદારોનાં મોત
+  body_snippet: બોઈલર ફાટવાને કારણે આગ વિકરાળ બની હતી જેમાં ત્રણ નિર્દોષ શ્રમિકો ભડથું
+    થઈ ગયા હતા.
+  label: negative
+  reason: ગંભીર ઔદ્યોગિક અકસ્માત અને જાનહાનિ.
+  substance_category: Accident/Disaster
+sources:
+- id: gujarat-samachar
+  name: Gujarat Samachar
+  feed_url: https://www.gujaratsamachar.com/rss/gujarat.xml
+  homepage_url: https://www.gujaratsamachar.com
+  language: gu
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: divya-bhaskar
+  name: Divya Bhaskar
+  feed_url: https://www.divyabhaskar.co.in/rss/national.xml
+  homepage_url: https://www.divyabhaskar.co.in
+  language: gu
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: sandesh-news
+  name: Sandesh
+  feed_url: https://sandesh.com/rss/gujarat.xml
+  homepage_url: https://sandesh.com
+  language: gu
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: bbc-gujarati
+  name: BBC News ગુજરાતી
+  feed_url: https://feeds.bbci.co.uk/gujarati/rss.xml
+  homepage_url: https://www.bbc.com/gujarati
+  language: gu
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: google-news-gujarati
+  name: Google News (Gujarati)
+  feed_url: https://news.google.com/rss?hl=gu&gl=IN&ceid=IN:gu
+  homepage_url: https://news.google.com
+  language: gu
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true

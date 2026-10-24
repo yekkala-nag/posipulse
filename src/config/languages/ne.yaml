@@ -1,0 +1,102 @@
+language_code: ne
+language_name_english: Nepali
+language_name_native: नेपाली
+script: Devanagari
+is_rtl: false
+tier: tier_3
+status: active
+quality_gate:
+  min_positive_precision: 0.9
+  min_faithfulness_pass_rate: 0.95
+  min_healthy_sources: 3
+  native_speaker_spot_check_passed: true
+  gate_passed_at: '2026-10-21T00:00:00Z'
+length_band:
+  min_words: 30
+  max_words: 85
+  substance_scaling: true
+cost_caps:
+  max_cost_per_run_usd: 1.5
+  max_daily_budget_usd: 15.0
+  cost_per_published_item_target_usd: 0.00046
+  alert_threshold_percentage: 80.0
+model_routing:
+  classifier_primary_model: gemini-1.5-flash
+  classifier_fallback_model: gemini-2.0-flash
+  summarizer_primary_model: gemini-1.5-flash
+  summarizer_fallback_model: gemini-2.0-flash
+  verifier_model: gemini-2.0-flash
+  temperature: 0.1
+  max_tokens: 450
+positivity_threshold: 0.85
+rubric_version: 1.0.0
+prompt_version: 1.0.0
+exemplars:
+- headline: सिक्किमका किसानहरूले जैविक चिया उत्पादनमा नयाँ कीर्तिमान रचे; युरोपमा
+    प्रत्यक्ष निर्यात
+  body_snippet: सिक्किमका साना किसानहरूले सहकारी बनाएर जैविक अर्थोडक्स चियाको उत्पादन
+    र अन्तर्राष्ट्रिय बजारमा सिधा बिक्री सुरु गरेका छन्।
+  label: positive
+  reason: कृषि स्वावलम्बन र जैविक खेतीको दिगो उपलब्धि।
+  substance_category: Empowerment
+sources:
+- id: kantipur-daily
+  name: Kantipur Daily
+  feed_url: https://ekantipur.com/rss
+  homepage_url: https://ekantipur.com
+  language: ne
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: setopati-nepali
+  name: Setopati
+  feed_url: https://setopati.com/feed
+  homepage_url: https://setopati.com
+  language: ne
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: himalayan-times-nepali
+  name: The Himalayan Times Nepali Desk
+  feed_url: https://thehimalayantimes.com/nepali/rss
+  homepage_url: https://thehimalayantimes.com/nepali
+  language: ne
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: onlinekhabar-nepali
+  name: OnlineKhabar
+  feed_url: https://www.onlinekhabar.com/feed
+  homepage_url: https://www.onlinekhabar.com
+  language: ne
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: ratopati-nepali
+  name: Ratopati
+  feed_url: https://www.ratopati.com/feed
+  homepage_url: https://www.ratopati.com
+  language: ne
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: nepali-times
+  name: Nepali Times
+  feed_url: https://nepalitimes.com/feed
+  homepage_url: https://nepalitimes.com
+  language: ne
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true

@@ -1,0 +1,88 @@
+language_code: or
+language_name_english: Odia
+language_name_native: ଓଡ଼ିଆ
+script: Odia
+is_rtl: false
+tier: tier_2
+status: active
+quality_gate:
+  min_positive_precision: 0.9
+  min_faithfulness_pass_rate: 0.95
+  min_healthy_sources: 3
+  native_speaker_spot_check_passed: true
+  gate_passed_at: '2026-10-21T00:00:00Z'
+length_band:
+  min_words: 30
+  max_words: 85
+  substance_scaling: true
+cost_caps:
+  max_cost_per_run_usd: 1.5
+  max_daily_budget_usd: 15.0
+  cost_per_published_item_target_usd: 0.00075
+  alert_threshold_percentage: 80.0
+model_routing:
+  classifier_primary_model: gemini-1.5-flash
+  classifier_fallback_model: gemini-2.0-flash
+  summarizer_primary_model: gemini-1.5-flash
+  summarizer_fallback_model: gemini-2.0-flash
+  verifier_model: gemini-2.0-flash
+  temperature: 0.1
+  max_tokens: 500
+positivity_threshold: 0.85
+rubric_version: 1.0.0
+prompt_version: 1.0.0
+exemplars:
+- headline: କୋରାପୁଟର ଆଦିବାସୀ ମହିଳାଙ୍କ ଜୈବିକ ମାଣ୍ଡିଆ ଚାଷରେ ରେକର୍ଡ ସଫଳତା; ବିଦେଶକୁ ରପ୍ତାନି
+    ଆରମ୍ଭ
+  body_snippet: ସ୍ଥାନୀୟ ମହିଳା ସ୍ୱୟଂ ସହାୟକ ଗୋଷ୍ଠୀ ବିନା ରାସାୟନିକ ସାରରେ ଉନ୍ନତ ମାନର ମାଣ୍ଡିଆ
+    ଉତ୍ପାଦନ କରି ଅର୍ଥନୈତିକ ସ୍ୱାବଲମ୍ବୀ ହୋଇଛନ୍ତି।
+  label: positive
+  reason: ଜୈବିକ କୃଷି ଓ ମହିଳା ସଶକ୍ତୀକରଣର ସଫଳ ଆଦର୍ଶ।
+  substance_category: Empowerment
+- headline: ବାଲେଶ୍ୱର ନିକଟରେ ଯାତ୍ରୀବାହୀ ବସ୍ ଦୁର୍ଘଟଣା, ୩ ମୃତ ଓ ୨୦ ଗୁରୁତର
+  body_snippet: ଦ୍ରୁତଗତିରେ ଆସୁଥିବା ବସ୍ ଭାରସାମ୍ୟ ହରାଇ ରାସ୍ତା କଡ଼କୁ ଓଲଟି ପଡ଼ିବାରୁ ଘଟଣାସ୍ଥଳରେ
+    ତିନି ଜଣଙ୍କ ମୃତ୍ୟୁ ଘଟିଛି।
+  label: negative
+  reason: ସଡ଼କ ଦୁର୍ଘଟଣା ଏବଂ ପ୍ରାଣହାନି।
+  substance_category: Accident/Disaster
+sources:
+- id: sambad-odia
+  name: Sambad
+  feed_url: https://sambad.in/feed/
+  homepage_url: https://sambad.in
+  language: or
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: prameya-news
+  name: Prameya
+  feed_url: https://prameya.com/feed/
+  homepage_url: https://prameya.com
+  language: or
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: dharitri-odia
+  name: Dharitri
+  feed_url: https://www.dharitri.com/feed/
+  homepage_url: https://www.dharitri.com
+  language: or
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: odisha-tv
+  name: Odisha TV (OTV)
+  feed_url: https://odishatv.in/feed
+  homepage_url: https://odishatv.in
+  language: or
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true

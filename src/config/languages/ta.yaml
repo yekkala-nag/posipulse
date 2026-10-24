@@ -1,0 +1,98 @@
+language_code: ta
+language_name_english: Tamil
+language_name_native: தமிழ்
+script: Tamil
+is_rtl: false
+tier: tier_1
+status: active
+quality_gate:
+  min_positive_precision: 0.9
+  min_faithfulness_pass_rate: 0.95
+  min_healthy_sources: 3
+  native_speaker_spot_check_passed: true
+  gate_passed_at: '2026-10-21T00:00:00Z'
+length_band:
+  min_words: 25
+  max_words: 85
+  substance_scaling: true
+cost_caps:
+  max_cost_per_run_usd: 1.5
+  max_daily_budget_usd: 15.0
+  cost_per_published_item_target_usd: 0.00066
+  alert_threshold_percentage: 80.0
+model_routing:
+  classifier_primary_model: gemini-1.5-flash
+  classifier_fallback_model: gemini-2.0-flash
+  summarizer_primary_model: gemini-1.5-flash
+  summarizer_fallback_model: gemini-2.0-flash
+  verifier_model: gemini-2.0-flash
+  temperature: 0.1
+  max_tokens: 450
+positivity_threshold: 0.85
+rubric_version: 1.0.0
+prompt_version: 1.0.0
+exemplars:
+- headline: தூத்துக்குடியில் மாற்றுத்திறனாளி இளைஞர்கள் உருவாக்கிய கடல்பாசி வளர்ப்பு
+    கூட்டுறவு; மாதம் ரூ.45,000 வருவாய்
+  body_snippet: 80 மாற்றுத்திறனாளி இளைஞர்கள் ஒன்றிணைந்து அறிவியல் பூர்வமான கடல்பாசி
+    வளர்ப்பு திட்டத்தை மேற்கொண்டு நிலையான வாழ்வாதாரம் பெற்றுள்ளனர்.
+  label: positive
+  reason: மாற்றுத்திறனாளிகளின் பொருளாதார தன்னிறைவு மற்றும் சூழல்சார் வாழ்வாதார வெற்றி.
+  substance_category: Empowerment
+- headline: செங்கல்பட்டு அருகே அரசுப் பேருந்து மீது லாரி மோதி விபத்து; 5 பயணிகள் உயிரிழப்பு
+  body_snippet: அதிவேகமாக வந்த சரக்கு லாரி கட்டுப்பாட்டை இழந்து பேருந்து மீது மோதியதில்
+    ஐந்து பேர் சம்பவ இடத்திலேயே உயிரிழந்தனர்.
+  label: negative
+  reason: கோர விபத்து மற்றும் உயிரிழப்பு.
+  substance_category: Accident/Disaster
+sources:
+- id: dinamalar-national
+  name: Dinamalar
+  feed_url: https://www.dinamalar.com/rss/national.xml
+  homepage_url: https://www.dinamalar.com
+  language: ta
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: news18-tamil
+  name: News18 தமிழ்நாடு
+  feed_url: https://tamil.news18.com/rss/khabar.xml
+  homepage_url: https://tamil.news18.com
+  language: ta
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: bbc-tamil
+  name: BBC News தமிழ்
+  feed_url: https://feeds.bbci.co.uk/tamil/rss.xml
+  homepage_url: https://www.bbc.com/tamil
+  language: ta
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: news7-tamil
+  name: News7 Tamil
+  feed_url: https://news7tamil.live/feed
+  homepage_url: https://news7tamil.live
+  language: ta
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: google-news-tamil
+  name: Google News (Tamil)
+  feed_url: https://news.google.com/rss?hl=ta&gl=IN&ceid=IN:ta
+  homepage_url: https://news.google.com
+  language: ta
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
