@@ -400,3 +400,71 @@ def migrate_existing_yaml_sources_to_profiles(conn: sqlite3.Connection, config_r
 
     conn.commit()
     return inserted_count
+
+
+# ============================================================================
+# Migration 004: Verbatim Excerpt Storage on Articles
+# ============================================================================
+
+MIGRATION_004_VERSION = "004_verbatim_excerpts"
+
+
+def apply_verbatim_excerpts_migration(conn: sqlite3.Connection) -> bool:
+    """
+    Applies Migration 004 (Forward):
+    Adds verbatim_excerpt column to articles table if not already present.
+    """
+    cursor = conn.cursor()
+
+    # 1. Ensure migration tracking table exists
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS schema_migrations (
+            version TEXT PRIMARY KEY,
+            applied_at TEXT NOT NULL
+        )
+    """)
+
+    # 2. Check if already applied
+    cursor.execute("SELECT 1 FROM schema_migrations WHERE version = ?", (MIGRATION_004_VERSION,))
+    if cursor.fetchone():
+        return False
+
+    # 3. Add verbatim_excerpt column if missing
+    cursor.execute("PRAGMA table_info(articles)")
+    columns = [row[1] if isinstance(row, tuple) else row["name"] for row in cursor.fetchall()]
+    if "verbatim_excerpt" not in columns:
+        cursor.execute("ALTER TABLE articles ADD COLUMN verbatim_excerpt TEXT")
+
+    # 4. Record migration
+    cursor.execute(
+        "INSERT INTO schema_migrations (version, applied_at) VALUES (?, ?)",
+        (MIGRATION_004_VERSION, datetime.now(timezone.utc).isoformat())
+    )
+    conn.commit()
+    return True
+
+
+def rollback_verbatim_excerpts_migration(conn: sqlite3.Connection) -> bool:
+    """
+    Rolls back Migration 004 (Reversible).
+    Drops verbatim_excerpt column and removes version from schema_migrations.
+    """
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='schema_migrations'")
+    if not cursor.fetchone():
+        return False
+
+    cursor.execute("SELECT 1 FROM schema_migrations WHERE version = ?", (MIGRATION_004_VERSION,))
+    if not cursor.fetchone():
+        return False
+
+    if sqlite3.sqlite_version_info >= (3, 35, 0):
+        try:
+            cursor.execute("ALTER TABLE articles DROP COLUMN verbatim_excerpt")
+        except sqlite3.OperationalError:
+            pass
+
+    cursor.execute("DELETE FROM schema_migrations WHERE version = ?", (MIGRATION_004_VERSION,))
+    conn.commit()
+    return True

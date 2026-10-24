@@ -120,6 +120,24 @@ class SummaryMetadata(BaseModel):
     word_count: int = Field(..., gt=0, description="Word count of summary")
 
 
+class PublisherAttribution(BaseModel):
+    """
+    Prominent original publisher attribution and brand metadata.
+    Enforces no-wrapper, direct link-out to original reporting.
+    """
+    model_config = ConfigDict(extra="forbid")
+
+    publisher_name: str = Field(..., description="Original publisher brand name")
+    primary_domain: str = Field(..., description="Publisher root domain (e.g. thehindu.com)")
+    homepage_url: str = Field(..., description="Link to publisher home page")
+    logo_url: Optional[str] = Field(None, description="Publisher logo image URL")
+    favicon_url: str = Field(..., description="Favicon URL for visual attribution")
+    rights_mode: str = Field(..., description="Rights mode governing article excerpts")
+    trust_tier: str = Field(..., description="Publisher trust and verification tier")
+    verification_status: str = Field(..., description="Publisher domain verification status")
+    utm_opt_in: bool = Field(default=False, description="Whether publisher opted into UTM parameters")
+
+
 class Article(BaseModel):
     """
     Public and persistent article model.
@@ -140,6 +158,9 @@ class Article(BaseModel):
     category: Optional[CategoryAssignment] = Field(None, description="Structured category taxonomy classification")
     positivity: Optional[PositivityMetadata] = Field(None, description="Positivity classification metadata")
     summary: Optional[SummaryMetadata] = Field(None, description="Original-wording summary and verification state")
+    verbatim_excerpt: Optional[str] = Field(None, description="Verbatim publisher text bounded by RightsMode and source ceiling")
+    direct_url: Optional[str] = Field(None, description="Direct publisher destination link with opt-in UTM rules applied")
+    publisher_attribution: Optional[PublisherAttribution] = Field(None, description="Prominent original publisher branding")
     status: ArticleStatus = Field(default=ArticleStatus.FETCHED, description="Current lifecycle state")
     publish_hold_reason: Optional[str] = Field(None, description="Reason if withheld from publication")
 

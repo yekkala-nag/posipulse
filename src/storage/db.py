@@ -22,6 +22,7 @@ from src.schemas.source import (
 from src.storage.migrations import (
     apply_category_taxonomy_migration,
     apply_source_profiles_migration,
+    apply_verbatim_excerpts_migration,
     migrate_existing_yaml_sources_to_profiles,
 )
 
@@ -118,6 +119,7 @@ class StorageEngine:
             conn.commit()
             apply_category_taxonomy_migration(conn)
             apply_source_profiles_migration(conn)
+            apply_verbatim_excerpts_migration(conn)
             migrate_existing_yaml_sources_to_profiles(conn)
 
     def can_fetch_source(self, source_id: str, cooldown_minutes: int = 30) -> bool:
@@ -183,8 +185,9 @@ class StorageEngine:
                     id, source_id, source_name, url, canonical_url, headline,
                     published_at, fetched_at, language, cluster_id,
                     positivity_json, summary_json, status,
-                    category_json, primary_category_id, publish_hold_reason
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    category_json, primary_category_id, publish_hold_reason,
+                    verbatim_excerpt
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
                 article.id,
                 article.source_id,
@@ -201,7 +204,8 @@ class StorageEngine:
                 article.status.value,
                 category_json,
                 primary_category_id,
-                article.publish_hold_reason
+                article.publish_hold_reason,
+                article.verbatim_excerpt
             ))
             conn.commit()
 
@@ -236,6 +240,7 @@ class StorageEngine:
                 )
 
         publish_hold_reason = row["publish_hold_reason"] if "publish_hold_reason" in row_keys else None
+        verbatim_excerpt = row["verbatim_excerpt"] if "verbatim_excerpt" in row_keys else None
 
         return Article(
             id=row["id"],
@@ -251,6 +256,7 @@ class StorageEngine:
             category=category,
             positivity=positivity,
             summary=summary,
+            verbatim_excerpt=verbatim_excerpt,
             status=ArticleStatus(row["status"]),
             publish_hold_reason=publish_hold_reason
         )

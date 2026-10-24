@@ -200,6 +200,16 @@ class PipelineOrchestrator:
                 publish_hold_reason = None
                 stats["published_count"] += 1
 
+            source_profile = self.storage.get_source_profile(norm_item.source_id)
+            from src.presentation.attribution import AttributionEngine
+            verbatim_excerpt = AttributionEngine.format_verbatim_excerpt(norm_item.raw_body, profile=source_profile)
+            direct_url = AttributionEngine.format_direct_link(norm_item.canonical_url, profile=source_profile)
+            publisher_attribution = AttributionEngine.resolve_attribution(
+                norm_item.source_id,
+                profile=source_profile,
+                fallback_name=norm_item.source_name
+            )
+
             published_article = Article(
                 id=norm_item.id,
                 source_id=norm_item.source_id,
@@ -214,6 +224,9 @@ class PipelineOrchestrator:
                 category=classification.category_assignment,
                 positivity=classification.to_positivity_metadata(),
                 summary=final_summary,
+                verbatim_excerpt=verbatim_excerpt,
+                direct_url=direct_url,
+                publisher_attribution=publisher_attribution,
                 status=article_status,
                 publish_hold_reason=publish_hold_reason
             )

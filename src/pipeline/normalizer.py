@@ -24,16 +24,8 @@ class ArticleNormalizer:
     @staticmethod
     def clean_url(url: str) -> str:
         """Removes tracking query parameters (utm_*, ref, fbclid, etc.)."""
-        parsed = urlparse(url)
-        query_params = parse_qs(parsed.query, keep_blank_values=True)
-        # Strip marketing/tracking parameters
-        filtered_params = {
-            k: v for k, v in query_params.items()
-            if not k.startswith("utm_") and k not in {"fbclid", "gclid", "ref", "at_medium", "at_campaign"}
-        }
-        clean_query = urlencode(filtered_params, doseq=True)
-        clean_parsed = parsed._replace(query=clean_query, fragment="")
-        return urlunparse(clean_parsed)
+        from src.presentation.attribution import AttributionEngine
+        return AttributionEngine.clean_url(url)
 
     def normalize(self, item: EphemeralIngestedItem) -> EphemeralIngestedItem:
         clean_headline = self.clean_html(item.headline)

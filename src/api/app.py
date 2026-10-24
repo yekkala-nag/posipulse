@@ -17,6 +17,7 @@ from src.config.loader import LanguageConfigRegistry
 from src.ingestion.validator import FeedValidationResult, FeedValidator
 from src.observability.metrics import metrics_collector
 from src.pipeline.orchestrator import PipelineOrchestrator
+from src.presentation.attribution import AttributionEngine
 from src.publisher.onboarding import PublisherOnboardingService
 from src.schemas.article import Article
 from src.schemas.source import (
@@ -206,12 +207,24 @@ def create_app(storage: Optional[StorageEngine] = None, registry: Optional[Langu
             cursor=cursor
         )
 
-        # Enrich articles with RTL directionality flag for client UI layout
+        # Enrich articles with prominent publisher attribution, direct links, and excerpts
+        profiles_cache: Dict[str, Optional[SourceProfile]] = {}
+
+        def _get_profile(source_id: str) -> Optional[SourceProfile]:
+            if source_id not in profiles_cache:
+                profiles_cache[source_id] = storage_engine.get_source_profile(source_id)
+            return profiles_cache[source_id]
+
         enriched = []
         for a in articles:
-            data = a.model_dump()
-            data["is_rtl"] = lang_config.is_rtl
-            enriched.append(data)
+            raw_data = a.model_dump()
+            profile = _get_profile(a.source_id)
+            enriched_item = AttributionEngine.enrich_article_presentation(
+                raw_data,
+                profile=profile,
+                is_rtl=lang_config.is_rtl
+            )
+            enriched.append(enriched_item)
 
         return {
             "articles": enriched,
@@ -229,9 +242,12 @@ def create_app(storage: Optional[StorageEngine] = None, registry: Optional[Langu
             )
 
         lang_config = config_registry.get(art.language)
-        data = art.model_dump()
-        data["is_rtl"] = lang_config.is_rtl if lang_config else False
-        return data
+        profile = storage_engine.get_source_profile(art.source_id)
+        return AttributionEngine.enrich_article_presentation(
+            art.model_dump(),
+            profile=profile,
+            is_rtl=lang_config.is_rtl if lang_config else False
+        )
 
     @app.get("/v1/clusters/{cluster_id}")
     def get_cluster(cluster_id: str) -> Dict[str, Any]:
@@ -242,12 +258,19 @@ def create_app(storage: Optional[StorageEngine] = None, registry: Optional[Langu
                 detail=f"Semantic cluster '{cluster_id}' not found."
             )
 
+        profiles_cache: Dict[str, Optional[SourceProfile]] = {}
         enriched = []
         for a in cluster_articles:
             lang_config = config_registry.get(a.language)
-            data = a.model_dump()
-            data["is_rtl"] = lang_config.is_rtl if lang_config else False
-            enriched.append(data)
+            if a.source_id not in profiles_cache:
+                profiles_cache[a.source_id] = storage_engine.get_source_profile(a.source_id)
+            profile = profiles_cache[a.source_id]
+            enriched_item = AttributionEngine.enrich_article_presentation(
+                a.model_dump(),
+                profile=profile,
+                is_rtl=lang_config.is_rtl if lang_config else False
+            )
+            enriched.append(enriched_item)
 
         return {
             "cluster_id": cluster_id,
