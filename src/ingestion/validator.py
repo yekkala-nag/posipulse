@@ -11,7 +11,7 @@ import hashlib
 import json
 from pathlib import Path
 import re
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 from urllib.parse import parse_qs, urlparse
 from bs4 import BeautifulSoup
 import feedparser
@@ -506,14 +506,65 @@ class FeedValidator:
             item_previews=item_previews
         )
 
+    @staticmethod
+    def is_safe_feed_url(url: str) -> Tuple[bool, str]:
+        """
+        Guards against Server-Side Request Forgery (SSRF).
+        Rejects loopbacks, private RFC 1918 subnets, cloud metadata (169.254.169.254),
+        and unsupported protocols.
+        """
+        import ipaddress
+        import socket
+        try:
+            parsed = urlparse(url)
+            if parsed.scheme not in ("http", "https"):
+                return False, f"Unsupported URL scheme '{parsed.scheme}'. Only HTTP and HTTPS are permitted."
+            hostname = parsed.hostname
+            if not hostname:
+                return False, "Missing hostname in URL."
+            hostname_lower = hostname.lower()
+            if hostname_lower in ("localhost", "127.0.0.1", "::1", "0.0.0.0"):
+                return False, "Access to localhost/loopback addresses is forbidden."
+            try:
+                ip = ipaddress.ip_address(hostname)
+                if ip.is_private or ip.is_loopback or ip.is_link_local or ip.is_reserved:
+                    return False, f"Access to private/reserved IP address '{hostname}' is forbidden."
+            except ValueError:
+                try:
+                    resolved_ip_str = socket.gethostbyname(hostname)
+                    resolved_ip = ipaddress.ip_address(resolved_ip_str)
+                    if resolved_ip.is_private or resolved_ip.is_loopback or resolved_ip.is_link_local or resolved_ip.is_reserved:
+                        return False, f"Domain '{hostname}' resolves to private/reserved IP address '{resolved_ip_str}'."
+                except Exception:
+                    pass
+            return True, ""
+        except Exception as e:
+            return False, f"Invalid URL structure: {str(e)}"
+
     def validate_url(
         self,
         feed_url: str,
         source_profile: Optional[SourceProfile] = None,
         timeout: int = 10
     ) -> FeedValidationResult:
-        """Fetches a remote feed via HTTP and audits its contents."""
+        """Fetches a remote feed via HTTP and audits its contents with SSRF guards."""
         import httpx
+
+        # Security Hardening: Anti-SSRF check
+        is_safe, error_msg = self.is_safe_feed_url(feed_url)
+        if not is_safe:
+            issue = FeedValidationIssue(
+                code="SSRF_SECURITY_VIOLATION",
+                field="feed_url",
+                message=f"Security violation: {error_msg}",
+                severity=ValidationSeverity.ERROR
+            )
+            return FeedValidationResult(
+                feed_url=feed_url,
+                status="invalid",
+                error_count=1,
+                issues=[issue]
+            )
 
         headers = {
             "User-Agent": "Mozilla/5.0 (compatible; PosiPulseValidator/1.0; +https://posipulse.in/validator)",

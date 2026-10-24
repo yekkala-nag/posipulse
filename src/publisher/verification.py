@@ -134,8 +134,14 @@ class DomainVerifier:
             "Accept": "text/html,application/xhtml+xml",
         }
 
+        from src.ingestion.validator import FeedValidator
+
         last_error = None
         for target_url in urls_to_try:
+            is_safe, error_msg = FeedValidator.is_safe_feed_url(target_url)
+            if not is_safe:
+                return False, f"HTML meta tag verification blocked: {error_msg}", None
+
             try:
                 if client:
                     resp = client.get(target_url)

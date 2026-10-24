@@ -1117,6 +1117,15 @@ def create_app(
         validator = FeedValidator()
         return validator.validate_url(target_url, source_profile=profile)
 
+    @app.get("/v1/admin/dashboard")
+    def get_admin_dashboard() -> Dict[str, Any]:
+        """
+        Operational Administration Dashboard.
+        Consolidates ingestion funnel stages, takedown SLA adherence,
+        reader topic adoption, newsletter subscriber aggregates, and safety audits.
+        """
+        return storage_engine.get_admin_dashboard_data()
+
     return app
 
 

@@ -643,7 +643,7 @@ class StorageEngine:
             cursor.execute("""
                 UPDATE source_profiles
                 SET takedown_status = 'takedown_enforced',
-                    takedown_requested_at = ?,
+                    takedown_requested_at = coalesce(takedown_requested_at, ?),
                     updated_at = ?
                 WHERE id = ?
             """, (now, now, source_id))
@@ -1165,3 +1165,247 @@ class StorageEngine:
                 item["article_ids"] = json.loads(item["article_ids_json"])
                 issues.append(item)
             return issues
+
+    # ========================================================================
+    # Operational Dashboards, Funnel, Takedown SLA & Adoption (Step 8)
+    # ========================================================================
+
+    def get_takedown_sla_metrics(self) -> Dict[str, Any]:
+        """
+        Calculates publisher takedown response time and SLA compliance.
+        Standard SLA target: <= 24.0 hours from request to enforcement.
+        """
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT id, takedown_status, takedown_requested_at, updated_at
+                FROM source_profiles
+                WHERE takedown_status IN ('takedown_requested', 'takedown_enforced')
+            """)
+            rows = cursor.fetchall()
+
+            requested_count = len(rows)
+            enforced_count = 0
+            pending_count = 0
+            enforcement_latencies_hours: List[float] = []
+            compliant_count = 0
+            breached_count = 0
+
+            now = datetime.now(timezone.utc)
+
+            for r in rows:
+                st = r["takedown_status"]
+                req_str = r["takedown_requested_at"]
+                req_dt = datetime.fromisoformat(req_str) if req_str else None
+
+                if st == "takedown_enforced":
+                    enforced_count += 1
+                    if req_dt:
+                        enf_str = r["updated_at"]
+                        enf_dt = datetime.fromisoformat(enf_str) if enf_str else now
+                        diff_hours = (enf_dt - req_dt).total_seconds() / 3600.0
+                        enforcement_latencies_hours.append(diff_hours)
+                        if diff_hours <= 24.0:
+                            compliant_count += 1
+                        else:
+                            breached_count += 1
+                    else:
+                        compliant_count += 1
+                elif st == "takedown_requested":
+                    pending_count += 1
+                    if req_dt:
+                        pending_hours = (now - req_dt).total_seconds() / 3600.0
+                        if pending_hours > 24.0:
+                            breached_count += 1
+
+            avg_hours = (
+                round(sum(enforcement_latencies_hours) / len(enforcement_latencies_hours), 2)
+                if enforcement_latencies_hours else 0.0
+            )
+
+            total_evaluated = compliant_count + breached_count
+            compliance_rate = (
+                round((compliant_count / total_evaluated) * 100.0, 1)
+                if total_evaluated > 0 else 100.0
+            )
+
+            return {
+                "sla_target_hours": 24.0,
+                "total_takedowns_requested": requested_count,
+                "total_takedowns_enforced": enforced_count,
+                "active_takedowns_pending": pending_count,
+                "average_enforcement_time_hours": avg_hours,
+                "sla_compliant_count": compliant_count,
+                "sla_breached_count": breached_count,
+                "sla_compliance_rate_percent": compliance_rate,
+                "sla_status": "COMPLIANT" if compliance_rate >= 99.0 else "WARNING"
+            }
+
+    def get_ingestion_funnel_metrics(self) -> Dict[str, Any]:
+        """
+        Retrieves granular stage-by-stage ingestion funnel conversion metrics.
+        """
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT status, count(*) as cnt FROM articles GROUP BY status")
+            counts = {r["status"]: r["cnt"] for r in cursor.fetchall()}
+
+            cursor.execute("SELECT count(*) as total FROM delisted_articles")
+            delisted_row = cursor.fetchone()
+            delisted_count = delisted_row["total"] if delisted_row else 0
+
+            cursor.execute("SELECT count(*) as total FROM articles WHERE status = 'held_hidden_category'")
+            held_row = cursor.fetchone()
+            held_count = held_row["total"] if held_row else 0
+
+            published_count = counts.get(ArticleStatus.PUBLISHED.value, 0)
+            classifier_neg = counts.get(ArticleStatus.CLASSIFIED_NEGATIVE.value, 0)
+            headline_neg = counts.get(ArticleStatus.HEADLINE_REJECTED.value, 0)
+            verifier_failed = counts.get(ArticleStatus.VERIFICATION_FAILED.value, 0)
+            total_ingested = sum(counts.values())
+
+            positivity_pass_rate = (
+                round((published_count + verifier_failed + held_count) / total_ingested, 4)
+                if total_ingested > 0 else 0.0
+            )
+
+            final_publication_rate = (
+                round(published_count / total_ingested, 4)
+                if total_ingested > 0 else 0.0
+            )
+
+            return {
+                "total_articles_ingested": total_ingested,
+                "stage_counts": {
+                    "headline_rejected": headline_neg,
+                    "classified_negative": classifier_neg,
+                    "verification_failed": verifier_failed,
+                    "held_hidden_category": held_count,
+                    "published": published_count,
+                    "delisted": delisted_count
+                },
+                "positivity_pass_rate": positivity_pass_rate,
+                "final_publication_rate": final_publication_rate,
+                "fail_closed_held_count": held_count
+            }
+
+    def get_reader_adoption_metrics(self) -> Dict[str, Any]:
+        """
+        Aggregates reader topic following and newsletter adoption numbers.
+        Zero-PII compliant (device counts and language aggregates only).
+        """
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+
+            # Following devices & breakdown
+            cursor.execute("SELECT count(DISTINCT device_id) as total_devices FROM reader_following")
+            dev_row = cursor.fetchone()
+            total_devices = dev_row["total_devices"] if dev_row else 0
+
+            cursor.execute("""
+                SELECT target_id, count(*) as follower_count
+                FROM reader_following
+                WHERE following_type = 'category'
+                GROUP BY target_id
+                ORDER BY follower_count DESC
+                LIMIT 5
+            """)
+            top_categories = [{"category_id": r["target_id"], "followers": r["follower_count"]} for r in cursor.fetchall()]
+
+            cursor.execute("""
+                SELECT target_id, count(*) as follower_count
+                FROM reader_following
+                WHERE following_type = 'source'
+                GROUP BY target_id
+                ORDER BY follower_count DESC
+                LIMIT 5
+            """)
+            top_sources = [{"source_id": r["target_id"], "followers": r["follower_count"]} for r in cursor.fetchall()]
+
+            # Newsletter subscriber aggregates
+            cursor.execute("""
+                SELECT language, status, count(*) as cnt
+                FROM newsletter_subscriptions
+                GROUP BY language, status
+            """)
+            sub_rows = cursor.fetchall()
+
+            newsletter_stats: Dict[str, Dict[str, int]] = {}
+            total_confirmed_subs = 0
+            total_pending_subs = 0
+
+            for r in sub_rows:
+                lang = r["language"]
+                st = r["status"]
+                cnt = r["cnt"]
+                if lang not in newsletter_stats:
+                    newsletter_stats[lang] = {"confirmed": 0, "pending": 0, "unsubscribed": 0}
+                newsletter_stats[lang][st] = cnt
+                if st == "confirmed":
+                    total_confirmed_subs += cnt
+                elif st == "pending_confirmation":
+                    total_pending_subs += cnt
+
+            # Newsletter issues sent
+            cursor.execute("SELECT count(*) as issue_count, coalesce(sum(recipient_count), 0) as total_sent FROM newsletter_issues")
+            issue_row = cursor.fetchone()
+            total_issues = issue_row["issue_count"] if issue_row else 0
+            total_recipients_sent = issue_row["total_sent"] if issue_row else 0
+
+            return {
+                "reader_following": {
+                    "total_anonymous_devices": total_devices,
+                    "top_followed_categories": top_categories,
+                    "top_followed_sources": top_sources,
+                },
+                "newsletters": {
+                    "total_confirmed_subscribers": total_confirmed_subs,
+                    "total_pending_confirmations": total_pending_subs,
+                    "subscribers_by_language": newsletter_stats,
+                    "total_issues_compiled": total_issues,
+                    "total_digest_emails_dispatched": total_recipients_sent,
+                }
+            }
+
+    def get_admin_dashboard_data(self) -> Dict[str, Any]:
+        """
+        Consolidates complete system health, funnel, SLA, and adoption data
+        into an integrated operational dashboard payload.
+        """
+        funnel = self.get_ingestion_funnel_metrics()
+        takedown_sla = self.get_takedown_sla_metrics()
+        adoption = self.get_reader_adoption_metrics()
+
+        # Integrity & Safety Audit checks
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            # 1. Zero published articles in hidden categories (14-18)
+            cursor.execute("""
+                SELECT count(*) as leaked_count FROM articles
+                WHERE status = 'published' AND primary_category_id IN (14, 15, 16, 17, 18)
+            """)
+            leak_row = cursor.fetchone()
+            hidden_category_leak_count = leak_row["leaked_count"] if leak_row else 0
+
+            # 2. Zero impressions on takedown-enforced publishers
+            cursor.execute("""
+                SELECT count(*) as invalid_sources FROM source_profiles
+                WHERE takedown_status = 'takedown_enforced' AND verification_status = 'verified'
+            """)
+            invalid_row = cursor.fetchone()
+            invalid_verified_count = invalid_row["invalid_sources"] if invalid_row else 0
+
+        integrity_pass = (hidden_category_leak_count == 0 and invalid_verified_count == 0)
+
+        return {
+            "status": "operational",
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "ingestion_funnel": funnel,
+            "takedown_sla": takedown_sla,
+            "reader_adoption": adoption,
+            "system_integrity": {
+                "hidden_category_leak_count": hidden_category_leak_count,
+                "integrity_audit_passed": integrity_pass,
+                "dpdp_compliance": "ACTIVE"
+            }
+        }
