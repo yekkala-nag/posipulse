@@ -85,6 +85,13 @@ def create_app(storage: Optional[StorageEngine] = None, registry: Optional[Langu
             return FileResponse(index_file)
         return {"message": "PosiPulse Web Reader Client"}
 
+    @app.get("/publisher")
+    def get_publisher_portal():
+        pub_file = web_dir / "publisher.html"
+        if pub_file.exists():
+            return FileResponse(pub_file)
+        return {"message": "PosiPulse Publisher Portal"}
+
     class FeedbackPayload(BaseModel):
         article_id: str
         feedback_type: str = Field(..., description="not_positive, toxic_positivity, inaccurate_summary, broken_link, other")
@@ -608,6 +615,154 @@ def create_app(storage: Optional[StorageEngine] = None, registry: Optional[Langu
         analytics_data["primary_domain"] = profile.primary_domain
         analytics_data["period"] = period
         return analytics_data
+
+    @app.get("/v1/publishers/{source_id}/dashboard")
+    def get_publisher_dashboard(source_id: str) -> Dict[str, Any]:
+        """
+        Publisher Self-Service Management Dashboard.
+        Assembles profile metadata, ingestion health, historical article counts,
+        recent ingested items, and audit history.
+        """
+        profile = storage_engine.get_source_profile(source_id)
+        if not profile:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Publisher source '{source_id}' not found."
+            )
+
+        fetch_log = storage_engine.get_source_fetch_log(source_id)
+        counts = storage_engine.get_source_article_counts(source_id)
+        recent_articles = storage_engine.get_source_recent_articles(source_id, limit=20)
+
+        # Enrich recent articles with direct links and excerpts
+        enriched_articles = []
+        for art in recent_articles:
+            raw = art.model_dump()
+            enriched_articles.append(
+                AttributionEngine.enrich_article_presentation(raw, profile=profile)
+            )
+
+        # Check circuit breaker and health status
+        circuit_breaker_tripped = (
+            profile.takedown_status.value != "active"
+            or profile.review_state.value in ("suspended", "takedown_requested", "takedown_enforced")
+        )
+        last_status = fetch_log["status"] if fetch_log else ("healthy" if profile.review_state.value == "active" else "idle")
+
+        ingestion_health = {
+            "status": last_status,
+            "last_fetched_at": fetch_log["last_fetched_at"] if fetch_log else None,
+            "items_last_fetched": fetch_log["items_count"] if fetch_log else 0,
+            "circuit_breaker_tripped": circuit_breaker_tripped,
+            "metrics": counts
+        }
+
+        # Sanitized audit trail (last 10 entries)
+        recent_audit = [
+            {
+                "timestamp": entry.timestamp.isoformat(),
+                "action": entry.action,
+                "actor": entry.actor,
+                "details": entry.details
+            }
+            for entry in profile.audit_history[-10:]
+        ]
+
+        return {
+            "source_profile": profile.model_dump(),
+            "ingestion_health": ingestion_health,
+            "recent_articles": enriched_articles,
+            "recent_audit": recent_audit
+        }
+
+    class PublisherSettingsUpdateRequest(BaseModel):
+        contact_email: Optional[EmailStr] = None
+        contact_name: Optional[str] = None
+        utm_opt_in: Optional[bool] = None
+        rights_mode: Optional[RightsMode] = None
+        excerpt_ceiling_chars: Optional[int] = Field(None, ge=100, le=2500)
+        excerpt_ceiling_words: Optional[int] = Field(None, ge=15, le=400)
+        actor: str = "publisher"
+
+    @app.patch("/v1/publishers/{source_id}/settings", response_model=SourceProfile)
+    def update_publisher_settings(
+        source_id: str,
+        request: PublisherSettingsUpdateRequest
+    ) -> SourceProfile:
+        """
+        Publisher Self-Service Settings Management.
+        Allows partner publishers to toggle UTM opt-in, update contact info,
+        and request RightsMode or excerpt ceiling adjustments.
+        """
+        profile = storage_engine.get_source_profile(source_id)
+        if not profile:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Publisher source '{source_id}' not found."
+            )
+
+        changes = {}
+        if request.contact_email is not None:
+            profile.contact_email = request.contact_email
+            changes["contact_email"] = str(request.contact_email)
+        if request.contact_name is not None:
+            profile.contact_name = request.contact_name
+            changes["contact_name"] = request.contact_name
+        if request.utm_opt_in is not None:
+            profile.utm_opt_in = request.utm_opt_in
+            changes["utm_opt_in"] = request.utm_opt_in
+        if request.excerpt_ceiling_chars is not None:
+            profile.excerpt_ceiling_chars = request.excerpt_ceiling_chars
+            changes["excerpt_ceiling_chars"] = request.excerpt_ceiling_chars
+        if request.excerpt_ceiling_words is not None:
+            profile.excerpt_ceiling_words = request.excerpt_ceiling_words
+            changes["excerpt_ceiling_words"] = request.excerpt_ceiling_words
+
+        if request.rights_mode is not None and request.rights_mode != profile.rights_mode:
+            old_mode = profile.rights_mode
+            profile.rights_mode = request.rights_mode
+            changes["rights_mode"] = {"from": old_mode.value, "to": request.rights_mode.value}
+            # If requesting LONGER_EXCERPT, require terms review confirmation
+            if request.rights_mode == RightsMode.LONGER_EXCERPT:
+                profile.terms_review_status = TermsReviewStatus.PENDING
+                changes["terms_review_status"] = "pending_agreement"
+
+        storage_engine.save_source_profile(
+            profile,
+            actor=request.actor,
+            action="publisher_settings_updated"
+        )
+        return profile
+
+    class TestFeedRequest(BaseModel):
+        feed_url: Optional[str] = None
+
+    @app.post("/v1/publishers/{source_id}/test-feed", response_model=FeedValidationResult)
+    def test_publisher_feed(
+        source_id: str,
+        request: TestFeedRequest = TestFeedRequest()
+    ) -> FeedValidationResult:
+        """
+        On-Demand Feed Validator Integration.
+        Runs the Tier 1 feed compliance audit against the publisher's registered feed URL,
+        reporting actionable warnings and item preview renderings under their active RightsMode.
+        """
+        profile = storage_engine.get_source_profile(source_id)
+        if not profile:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Publisher source '{source_id}' not found."
+            )
+
+        target_url = request.feed_url or (profile.feed_urls[0] if profile.feed_urls else None)
+        if not target_url:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="No feed URL registered or provided for validation."
+            )
+
+        validator = FeedValidator()
+        return validator.validate_url(target_url, source_profile=profile)
 
     return app
 

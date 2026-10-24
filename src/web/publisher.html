@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PosiPulse — Publisher Self-Service Portal & Health Monitor</title>
+  <meta name="description" content="Tier 1 news publisher self-service dashboard: RightsMode configuration, domain verification, feed health monitor, and privacy-preserving referral analytics.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/static/index.css">
+  <style>
+    .portal-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .portal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .portal-nav {
+      display: flex;
+      gap: 12px;
+    }
+    .portal-nav a, .portal-nav button {
+      background: var(--bg-surface, #1e293b);
+      color: var(--text-primary, #f8fafc);
+      border: 1px solid var(--border-color, #334155);
+      border-radius: 8px;
+      padding: 8px 16px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .portal-nav a:hover, .portal-nav button:hover {
+      background: var(--primary-accent, #38bdf8);
+      color: #0f172a;
+    }
+    .selector-bar {
+      background: var(--bg-card, #1e293b);
+      border: 1px solid var(--border-color, #334155);
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    .selector-bar input, .selector-bar select {
+      background: var(--bg-main, #0f172a);
+      color: var(--text-primary, #f8fafc);
+      border: 1px solid var(--border-color, #334155);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 14px;
+    }
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: var(--bg-card, #1e293b);
+      border: 1px solid var(--border-color, #334155);
+      border-radius: 12px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-card h3 {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted, #94a3b8);
+      margin-bottom: 8px;
+    }
+    .stat-val {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text-primary, #f8fafc);
+      margin-bottom: 6px;
+    }
+    .stat-meta {
+      font-size: 13px;
+      color: var(--text-secondary, #cbd5e1);
+    }
+    .badge-verified {
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+      border: 1px solid #22c55e;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .badge-pending {
+      background: rgba(234, 179, 8, 0.15);
+      color: #facc15;
+      border: 1px solid #eab308;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .section-card {
+      background: var(--bg-card, #1e293b);
+      border: 1px solid var(--border-color, #334155);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .section-card h2 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .table-container {
+      overflow-x: auto;
+    }
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    table.data-table th, table.data-table td {
+      padding: 12px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color, #334155);
+    }
+    table.data-table th {
+      color: var(--text-muted, #94a3b8);
+      font-weight: 600;
+    }
+    .btn-action {
+      background: #38bdf8;
+      color: #0f172a;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-action:hover {
+      opacity: 0.9;
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted, #94a3b8);
+      margin-bottom: 6px;
+    }
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="portal-container">
+    <div class="portal-header">
+      <div class="brand-group">
+        <div class="brand-logo-badge"><span class="brand-icon">🌱</span></div>
+        <div class="brand-text">
+          <div class="brand-title">
+            <span class="brand-name">PosiPulse</span>
+            <span class="brand-tag">PUBLISHER PORTAL</span>
+          </div>
+          <p class="brand-subtitle">Partner Syndication &amp; Ingestion Management</p>
+        </div>
+      </div>
+      <div class="portal-nav">
+        <a href="/app">Reader App</a>
+        <button id="theme-toggle-btn" class="icon-button" title="Toggle Theme">🌙</button>
+      </div>
+    </div>
+
+    <!-- Source Selector -->
+    <div class="selector-bar">
+      <label for="source-id-input"><strong>Source ID:</strong></label>
+      <input type="text" id="source-id-input" value="the-hindu-national" placeholder="e.g. the-hindu-national" style="flex: 1; max-width: 320px;">
+      <button class="btn-action" id="load-dashboard-btn">Load Dashboard</button>
+    </div>
+
+    <!-- Status Overview Cards -->
+    <div class="dashboard-grid">
+      <div class="stat-card">
+        <h3>Publisher Profile</h3>
+        <div class="stat-val" id="profile-name">Loading...</div>
+        <div class="stat-meta" id="profile-domain">Domain: -</div>
+        <div style="margin-top: 10px;">
+          <span class="badge-verified" id="profile-badge">Active</span>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <h3>Rights Mode &amp; Ceiling</h3>
+        <div class="stat-val" id="rights-mode-val">-</div>
+        <div class="stat-meta" id="rights-ceiling-val">Ceiling: 400 chars / 60 words</div>
+        <div class="stat-meta" id="utm-opt-in-val" style="margin-top: 4px;">UTM Tracking: Disabled (Clean Links)</div>
+      </div>
+
+      <div class="stat-card">
+        <h3>Ingestion Health</h3>
+        <div class="stat-val" id="health-status">Healthy</div>
+        <div class="stat-meta" id="health-last-fetch">Last Polled: -</div>
+        <div class="stat-meta" id="health-items-fetched">Items Ingested: 0</div>
+      </div>
+
+      <div class="stat-card">
+        <h3>Cumulative Coverage</h3>
+        <div class="stat-val" id="stats-published">0</div>
+        <div class="stat-meta" id="stats-breakdown">Published / Total Ingested</div>
+      </div>
+    </div>
+
+    <!-- Self-Serve Settings Management -->
+    <section class="section-card">
+      <h2>⚙️ Source Settings &amp; Rights Configuration</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+        <div>
+          <div class="form-group">
+            <label for="setting-email">Contact Email (for takedowns &amp; notices):</label>
+            <input type="email" id="setting-email" style="width: 100%; padding: 8px 12px; background: #0f172a; border: 1px solid #334155; border-radius: 6px; color: #fff;">
+          </div>
+          <div class="form-group">
+            <label for="setting-rights-mode">Rights Mode:</label>
+            <select id="setting-rights-mode" style="width: 100%; padding: 8px 12px; background: #0f172a; border: 1px solid #334155; border-radius: 6px; color: #fff;">
+              <option value="headline_only">headline_only (Headline + link only)</option>
+              <option value="feed_provided_excerpt">feed_provided_excerpt (Bounded verbatim excerpt)</option>
+              <option value="longer_excerpt">longer_excerpt (Requires syndication license)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <div class="form-group">
+            <label>UTM Attribution Tracking:</label>
+            <div class="toggle-row">
+              <input type="checkbox" id="setting-utm-optin" style="width: 18px; height: 18px;">
+              <label for="setting-utm-optin" style="margin: 0; font-weight: normal;">Append <code>utm_source=posipulse&amp;utm_medium=referral</code> to direct links</label>
+            </div>
+            <p style="font-size: 12px; color: #94a3b8; margin-top: 6px;">By default, PosiPulse strips all tracking parameters to guarantee reader privacy under the DPDP Act 2023.</p>
+          </div>
+
+          <div style="margin-top: 20px;">
+            <button class="btn-action" id="save-settings-btn">Save Settings</button>
+            <span id="settings-status-msg" style="margin-left: 12px; font-size: 13px; color: #4ade80;"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- On-Demand Feed Health Audit Tool -->
+    <section class="section-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h2 style="margin: 0;">🧪 On-Demand Feed Validator</h2>
+        <button class="btn-action" id="run-validator-btn">Run Feed Audit</button>
+      </div>
+      <p style="color: #94a3b8; font-size: 14px; margin-bottom: 16px;">
+        Audits your registered live RSS/Atom feed against PosiPulse Tier 1 syndication guidelines, checking for required metadata, canonical HTTPS links, tracking parameters, and excerpt ceilings.
+      </p>
+      <div id="validator-results" style="display: none; background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 16px; margin-top: 12px;">
+        <div id="validator-summary" style="font-weight: 600; margin-bottom: 12px;"></div>
+        <div id="validator-issues"></div>
+      </div>
+    </section>
+
+    <!-- Recent Ingestion Feed -->
+    <section class="section-card">
+      <h2>📰 Recent Ingested Stories (Last 20)</h2>
+      <div class="table-container">
+        <table class="data-table" id="recent-articles-table">
+          <thead>
+            <tr>
+              <th>Headline</th>
+              <th>Status</th>
+              <th>Category</th>
+              <th>Verbatim Excerpt Preview</th>
+              <th>Direct Link</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td colspan="5" style="text-align: center; color: #94a3b8;">Loading recent stories...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const currentSourceId = new URLSearchParams(window.location.search).get('source_id') || 'the-hindu-national';
+    document.getElementById('source-id-input').value = currentSourceId;
+
+    async function loadDashboard(sourceId) {
+      try {
+        const resp = await fetch(`/v1/publishers/${sourceId}/dashboard`);
+        if (!resp.ok) {
+          alert(`Publisher source '${sourceId}' not found.`);
+          return;
+        }
+        const data = await resp.json();
+        const p = data.source_profile;
+        const h = data.ingestion_health;
+
+        // Profile
+        document.getElementById('profile-name').textContent = p.publisher_name;
+        document.getElementById('profile-domain').textContent = `Domain: ${p.primary_domain}`;
+        document.getElementById('profile-badge').textContent = p.review_state.toUpperCase();
+        document.getElementById('profile-badge').className = p.review_state === 'active' ? 'badge-verified' : 'badge-pending';
+
+        // Rights
+        document.getElementById('rights-mode-val').textContent = p.rights_mode;
+        document.getElementById('rights-ceiling-val').textContent = `Ceiling: ${p.excerpt_ceiling_chars} chars / ${p.excerpt_ceiling_words} words`;
+        document.getElementById('utm-opt-in-val').textContent = `UTM Tracking: ${p.utm_opt_in ? 'Enabled' : 'Disabled (Clean Links)'}`;
+
+        // Ingestion Health
+        document.getElementById('health-status').textContent = h.status.toUpperCase();
+        document.getElementById('health-last-fetch').textContent = `Last Polled: ${h.last_fetched_at ? new Date(h.last_fetched_at).toLocaleTimeString() : 'Never'}`;
+        document.getElementById('health-items-fetched').textContent = `Items Last Fetched: ${h.items_last_fetched}`;
+
+        // Counts
+        document.getElementById('stats-published').textContent = `${h.metrics.total_published} / ${h.metrics.total_ingested}`;
+
+        // Settings Form
+        document.getElementById('setting-email').value = p.contact_email || '';
+        document.getElementById('setting-rights-mode').value = p.rights_mode;
+        document.getElementById('setting-utm-optin').checked = p.utm_opt_in;
+
+        // Recent Articles Table
+        const tbody = document.querySelector('#recent-articles-table tbody');
+        tbody.innerHTML = '';
+        if (!data.recent_articles || data.recent_articles.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: #94a3b8;">No articles ingested yet.</td></tr>';
+        } else {
+          data.recent_articles.forEach(art => {
+            const tr = document.createElement('tr');
+            const excerpt = art.verbatim_excerpt ? `"${art.verbatim_excerpt}"` : '<span style="color:#94a3b8">(Suppressed - headline_only)</span>';
+            const catName = art.category ? `Category #${art.category.primary_id}` : 'General';
+            tr.innerHTML = `
+              <td><strong>${art.headline}</strong></td>
+              <td><span style="font-size:12px; font-weight:600; color:${art.status === 'published' ? '#4ade80' : '#f87171'}">${art.status}</span></td>
+              <td>${catName}</td>
+              <td style="max-width: 320px; font-size:13px;">${excerpt}</td>
+              <td><a href="${art.direct_url || art.canonical_url}" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; text-decoration:none;">Original Story ↗</a></td>
+            `;
+            tbody.appendChild(tr);
+          });
+        }
+
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    document.getElementById('load-dashboard-btn').addEventListener('click', () => {
+      const src = document.getElementById('source-id-input').value.trim();
+      if (src) loadDashboard(src);
+    });
+
+    document.getElementById('save-settings-btn').addEventListener('click', async () => {
+      const src = document.getElementById('source-id-input').value.trim();
+      const payload = {
+        contact_email: document.getElementById('setting-email').value || null,
+        rights_mode: document.getElementById('setting-rights-mode').value,
+        utm_opt_in: document.getElementById('setting-utm-optin').checked,
+        actor: 'publisher_web_portal'
+      };
+      try {
+        const resp = await fetch(`/v1/publishers/${src}/settings`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (resp.ok) {
+          document.getElementById('settings-status-msg').textContent = '✓ Settings saved successfully.';
+          setTimeout(() => { document.getElementById('settings-status-msg').textContent = ''; }, 3000);
+          loadDashboard(src);
+        } else {
+          alert('Failed to update settings.');
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    });
+
+    document.getElementById('run-validator-btn').addEventListener('click', async () => {
+      const src = document.getElementById('source-id-input').value.trim();
+      const resDiv = document.getElementById('validator-results');
+      resDiv.style.display = 'block';
+      document.getElementById('validator-summary').textContent = 'Auditing active feed...';
+      document.getElementById('validator-issues').innerHTML = '';
+
+      try {
+        const resp = await fetch(`/v1/publishers/${src}/test-feed`, { method: 'POST' });
+        const val = await resp.json();
+        document.getElementById('validator-summary').innerHTML = `
+          Feed Status: <span style="color:${val.status === 'valid' ? '#4ade80' : '#f87171'}">${val.status.toUpperCase()}</span> |
+          Format: <strong>${val.feed_format || 'unknown'}</strong> |
+          Errors: <strong>${val.error_count}</strong>, Warnings: <strong>${val.warning_count}</strong> |
+          Total Items: <strong>${val.total_items}</strong>
+        `;
+
+        const issuesDiv = document.getElementById('validator-issues');
+        if (val.issues && val.issues.length > 0) {
+          issuesDiv.innerHTML = '<ul style="margin: 8px 0 0 16px; font-size:13px; color:#cbd5e1;">' +
+            val.issues.map(i => `<li><strong>[${i.severity.toUpperCase()}]</strong> ${i.code} on ${i.field}: ${i.message}</li>`).join('') +
+            '</ul>';
+        } else {
+          issuesDiv.innerHTML = '<p style="color:#4ade80; font-size:13px; margin-top:8px;">✓ All guidelines verified with zero warnings.</p>';
+        }
+      } catch (err) {
+        document.getElementById('validator-summary').textContent = 'Feed audit failed: ' + err.message;
+      }
+    });
+
+    // Theme toggle
+    document.getElementById('theme-toggle-btn').addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+    });
+
+    // Initial load
+    loadDashboard(currentSourceId);
+  </script>
+</body>
+</html>

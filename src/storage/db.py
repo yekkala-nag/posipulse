@@ -159,6 +159,54 @@ class StorageEngine:
             """, (source_id, datetime.now(timezone.utc).isoformat(), status, items_count))
             conn.commit()
 
+    def get_source_fetch_log(self, source_id: str) -> Optional[Dict[str, Any]]:
+        """Retrieves the most recent fetch log for a publisher source."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM source_fetch_logs WHERE source_id = ?", (source_id,))
+            row = cursor.fetchone()
+            if not row:
+                return None
+            return {
+                "source_id": row["source_id"],
+                "last_fetched_at": row["last_fetched_at"],
+                "status": row["status"],
+                "items_count": row["items_count"]
+            }
+
+    def get_source_recent_articles(self, source_id: str, limit: int = 20) -> List[Article]:
+        """Returns the most recent articles ingested for a specific source."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                "SELECT * FROM articles WHERE source_id = ? ORDER BY published_at DESC LIMIT ?",
+                (source_id, limit)
+            )
+            rows = cursor.fetchall()
+            return [self._row_to_article(r) for r in rows]
+
+    def get_source_article_counts(self, source_id: str) -> Dict[str, int]:
+        """Returns total counts of ingested, published, held, and delisted articles for a source."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT
+                    COUNT(*) AS total_ingested,
+                    COALESCE(SUM(CASE WHEN status = 'published' THEN 1 ELSE 0 END), 0) AS total_published,
+                    COALESCE(SUM(CASE WHEN status = 'held_hidden_category' THEN 1 ELSE 0 END), 0) AS total_held,
+                    COALESCE(SUM(CASE WHEN status = 'delisted' THEN 1 ELSE 0 END), 0) AS total_delisted
+                FROM articles WHERE source_id = ?
+            """, (source_id,))
+            row = cursor.fetchone()
+            if not row:
+                return {"total_ingested": 0, "total_published": 0, "total_held": 0, "total_delisted": 0}
+            return {
+                "total_ingested": row["total_ingested"],
+                "total_published": row["total_published"],
+                "total_held": row["total_held"],
+                "total_delisted": row["total_delisted"]
+            }
+
     def is_hash_processed(self, item_hash: str) -> bool:
         with self._get_connection() as conn:
             cursor = conn.cursor()
