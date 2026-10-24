@@ -9,7 +9,20 @@ import json
 import sqlite3
 from typing import Any, Dict, List, Optional, Tuple
 from src.schemas.article import Article, ArticleStatus, CategoryAssignment, PositivityMetadata, SummaryMetadata
-from src.storage.migrations import apply_category_taxonomy_migration
+from src.schemas.source import (
+    RightsMode,
+    SourceProfile,
+    SourceProfileAuditEntry,
+    TakedownStatus,
+    TermsReviewStatus,
+    TrustTier,
+    VerificationStatus,
+)
+from src.storage.migrations import (
+    apply_category_taxonomy_migration,
+    apply_source_profiles_migration,
+    migrate_existing_yaml_sources_to_profiles,
+)
 
 
 class StorageEngine:
@@ -103,11 +116,23 @@ class StorageEngine:
             """)
             conn.commit()
             apply_category_taxonomy_migration(conn)
+            apply_source_profiles_migration(conn)
+            migrate_existing_yaml_sources_to_profiles(conn)
 
     def can_fetch_source(self, source_id: str, cooldown_minutes: int = 30) -> bool:
-        """Determines if a publisher source is eligible for dynamic fetch based on cooldown."""
+        """Determines if a publisher source is eligible for dynamic fetch based on cooldown and takedown state."""
         with self._get_connection() as conn:
             cursor = conn.cursor()
+            # 1. Immediate fail-closed check for publisher takedowns
+            try:
+                cursor.execute("SELECT takedown_status FROM source_profiles WHERE id = ?", (source_id,))
+                prof = cursor.fetchone()
+                if prof and prof["takedown_status"] in ("takedown_requested", "takedown_enforced"):
+                    return False
+            except Exception:
+                pass
+
+            # 2. Cooldown check
             cursor.execute("SELECT last_fetched_at FROM source_fetch_logs WHERE source_id = ?", (source_id,))
             row = cursor.fetchone()
             if not row:
@@ -369,3 +394,198 @@ class StorageEngine:
                 "verifier_fail_rate": round(verifier_fail_rate, 4),
                 "average_cost_per_published_item_usd": 0.00030
             }
+
+    # =========================================================================
+    # Source Profile Management & Takedown Enforcement (Step 1)
+    # =========================================================================
+
+    def save_source_profile(
+        self,
+        profile: SourceProfile,
+        actor: str = "system",
+        action: str = "save"
+    ) -> None:
+        """Upserts a SourceProfile record and appends to the immutable audit log."""
+        now = datetime.now(timezone.utc).isoformat()
+        profile.updated_at = datetime.now(timezone.utc)
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT OR REPLACE INTO source_profiles (
+                    id, publisher_id, publisher_name, primary_domain, feed_urls_json,
+                    homepage_url, language, rights_mode, excerpt_ceiling_chars,
+                    excerpt_ceiling_words, utm_opt_in, verification_status,
+                    verified_at, terms_review_status, trust_tier, takedown_status,
+                    takedown_requested_at, contact_email, contact_name,
+                    created_at, updated_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, (
+                profile.id,
+                profile.publisher_id,
+                profile.publisher_name,
+                profile.primary_domain,
+                json.dumps(profile.feed_urls),
+                profile.homepage_url,
+                profile.language,
+                profile.rights_mode.value if isinstance(profile.rights_mode, RightsMode) else profile.rights_mode,
+                profile.excerpt_ceiling_chars,
+                profile.excerpt_ceiling_words,
+                1 if profile.utm_opt_in else 0,
+                profile.verification_status.value if isinstance(profile.verification_status, VerificationStatus) else profile.verification_status,
+                profile.verified_at.isoformat() if profile.verified_at else None,
+                profile.terms_review_status.value if isinstance(profile.terms_review_status, TermsReviewStatus) else profile.terms_review_status,
+                profile.trust_tier.value if isinstance(profile.trust_tier, TrustTier) else profile.trust_tier,
+                profile.takedown_status.value if isinstance(profile.takedown_status, TakedownStatus) else profile.takedown_status,
+                profile.takedown_requested_at.isoformat() if profile.takedown_requested_at else None,
+                profile.contact_email,
+                profile.contact_name,
+                profile.created_at.isoformat(),
+                now
+            ))
+
+            cursor.execute("""
+                INSERT INTO source_profile_audit_log (
+                    source_id, action, actor, details_json, timestamp
+                ) VALUES (?, ?, ?, ?, ?)
+            """, (
+                profile.id,
+                action,
+                actor,
+                json.dumps({
+                    "rights_mode": profile.rights_mode.value if isinstance(profile.rights_mode, RightsMode) else profile.rights_mode,
+                    "verification_status": profile.verification_status.value if isinstance(profile.verification_status, VerificationStatus) else profile.verification_status,
+                    "takedown_status": profile.takedown_status.value if isinstance(profile.takedown_status, TakedownStatus) else profile.takedown_status,
+                    "utm_opt_in": profile.utm_opt_in
+                }),
+                now
+            ))
+            conn.commit()
+
+    def get_source_profile(self, source_id: str) -> Optional[SourceProfile]:
+        """Fetches a SourceProfile along with its complete audit history."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM source_profiles WHERE id = ?", (source_id,))
+            row = cursor.fetchone()
+            if not row:
+                return None
+
+            cursor.execute(
+                "SELECT * FROM source_profile_audit_log WHERE source_id = ? ORDER BY timestamp ASC",
+                (source_id,)
+            )
+            audit_rows = cursor.fetchall()
+            audit_entries = [
+                SourceProfileAuditEntry(
+                    timestamp=datetime.fromisoformat(ar["timestamp"]),
+                    action=ar["action"],
+                    actor=ar["actor"],
+                    details=json.loads(ar["details_json"])
+                )
+                for ar in audit_rows
+            ]
+
+            return SourceProfile(
+                id=row["id"],
+                publisher_id=row["publisher_id"],
+                publisher_name=row["publisher_name"],
+                primary_domain=row["primary_domain"],
+                feed_urls=json.loads(row["feed_urls_json"]),
+                homepage_url=row["homepage_url"],
+                language=row["language"],
+                rights_mode=RightsMode(row["rights_mode"]),
+                excerpt_ceiling_chars=row["excerpt_ceiling_chars"],
+                excerpt_ceiling_words=row["excerpt_ceiling_words"],
+                utm_opt_in=bool(row["utm_opt_in"]),
+                verification_status=VerificationStatus(row["verification_status"]),
+                verified_at=datetime.fromisoformat(row["verified_at"]) if row["verified_at"] else None,
+                terms_review_status=TermsReviewStatus(row["terms_review_status"]),
+                trust_tier=TrustTier(row["trust_tier"]),
+                takedown_status=TakedownStatus(row["takedown_status"]),
+                takedown_requested_at=datetime.fromisoformat(row["takedown_requested_at"]) if row["takedown_requested_at"] else None,
+                contact_email=row["contact_email"],
+                contact_name=row["contact_name"],
+                created_at=datetime.fromisoformat(row["created_at"]),
+                updated_at=datetime.fromisoformat(row["updated_at"]),
+                audit_history=audit_entries
+            )
+
+    def list_source_profiles(
+        self,
+        language: Optional[str] = None,
+        verification_status: Optional[str] = None,
+        active_only: bool = True
+    ) -> List[SourceProfile]:
+        """Lists source profiles matching the optional filters."""
+        query = "SELECT id FROM source_profiles WHERE 1=1"
+        params: List[Any] = []
+        if language:
+            query += " AND language = ?"
+            params.append(language)
+        if verification_status:
+            query += " AND verification_status = ?"
+            params.append(verification_status)
+        if active_only:
+            query += " AND takedown_status = 'active'"
+        query += " ORDER BY publisher_name ASC"
+
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute(query, params)
+            rows = cursor.fetchall()
+
+        profiles = []
+        for r in rows:
+            p = self.get_source_profile(r["id"])
+            if p:
+                profiles.append(p)
+        return profiles
+
+    def enforce_source_takedown(
+        self,
+        source_id: str,
+        actor: str = "compliance_officer",
+        reason: str = "Publisher takedown request"
+    ) -> int:
+        """
+        Enforces publisher takedown immediately:
+        1. Transitions source_profiles.takedown_status to 'takedown_enforced'.
+        2. Delists all articles matching source_id across all surfaces immediately.
+        3. Appends immutable audit entry.
+        Returns count of delisted articles.
+        """
+        now = datetime.now(timezone.utc).isoformat()
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            # 1. Update source profile
+            cursor.execute("""
+                UPDATE source_profiles
+                SET takedown_status = 'takedown_enforced',
+                    takedown_requested_at = ?,
+                    updated_at = ?
+                WHERE id = ?
+            """, (now, now, source_id))
+
+            # 2. Cascade delist to all articles
+            cursor.execute("""
+                UPDATE articles
+                SET status = 'delisted',
+                    publish_hold_reason = ?
+                WHERE source_id = ? AND status != 'delisted'
+            """, (f"Publisher takedown enforced: {reason}", source_id))
+            delisted_count = cursor.rowcount
+
+            # 3. Audit log
+            cursor.execute("""
+                INSERT INTO source_profile_audit_log (
+                    source_id, action, actor, details_json, timestamp
+                ) VALUES (?, ?, ?, ?, ?)
+            """, (
+                source_id,
+                "takedown_enforced",
+                actor,
+                json.dumps({"reason": reason, "delisted_articles_count": delisted_count}),
+                now
+            ))
+            conn.commit()
+            return delisted_count
