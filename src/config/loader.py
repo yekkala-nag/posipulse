@@ -17,9 +17,17 @@ class ConfigurationError(Exception):
 class LanguageConfigRegistry:
     def __init__(self, config_dir: Optional[str] = None):
         if config_dir is None:
-            # Default to repo root config/languages
-            base_dir = Path(__file__).resolve().parent.parent.parent
-            self.config_dir = base_dir / "config" / "languages"
+            # Default to repo root config/languages with robust candidate paths for Vercel
+            candidates = [
+                Path(__file__).resolve().parent.parent.parent / "config" / "languages",
+                Path.cwd() / "config" / "languages",
+                Path("/var/task") / "config" / "languages",
+            ]
+            self.config_dir = candidates[0]
+            for candidate in candidates:
+                if candidate.exists() and any(candidate.glob("*.yaml")):
+                    self.config_dir = candidate
+                    break
         else:
             self.config_dir = Path(config_dir)
 
