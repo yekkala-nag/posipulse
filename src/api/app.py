@@ -17,8 +17,18 @@ from src.config.loader import LanguageConfigRegistry
 from src.ingestion.validator import FeedValidationResult, FeedValidator
 from src.observability.metrics import metrics_collector
 from src.pipeline.orchestrator import PipelineOrchestrator
+from src.publisher.onboarding import PublisherOnboardingService
 from src.schemas.article import Article
-from src.schemas.source import RightsMode, SourceProfile
+from src.schemas.source import (
+    PublisherRegistrationRequest,
+    PublisherReviewState,
+    RightsMode,
+    SourceProfile,
+    TermsReviewStatus,
+    VerificationChallenge,
+    VerificationMethod,
+    VerificationResult,
+)
 from src.storage.db import StorageEngine
 
 
@@ -429,6 +439,79 @@ def create_app(storage: Optional[StorageEngine] = None, registry: Optional[Langu
                 source_profile=source_profile,
                 declared_language=request.language or "en"
             )
+
+    @app.post("/v1/publishers/register", response_model=SourceProfile, status_code=status.HTTP_201_CREATED)
+    def register_publisher_source(request: PublisherRegistrationRequest) -> SourceProfile:
+        """Self-service registration for candidate publishers."""
+        onboarding_service = PublisherOnboardingService(storage_engine)
+        try:
+            return onboarding_service.register_publisher(request)
+        except ValueError as e:
+            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(e))
+
+    @app.get("/v1/publishers/{source_id}/challenge", response_model=VerificationChallenge)
+    def get_publisher_verification_challenge(source_id: str) -> VerificationChallenge:
+        """Fetches active verification tokens and instructions for DNS and HTML meta tag verification."""
+        onboarding_service = PublisherOnboardingService(storage_engine)
+        try:
+            return onboarding_service.get_or_create_challenge(source_id)
+        except ValueError as e:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e))
+
+    class VerifyDomainRequest(BaseModel):
+        method: VerificationMethod = VerificationMethod.DNS_TXT
+        admin_actor: Optional[str] = None
+
+    @app.post("/v1/publishers/{source_id}/verify", response_model=VerificationResult)
+    def trigger_domain_verification(source_id: str, request: VerifyDomainRequest) -> VerificationResult:
+        """Triggers automated DNS TXT, HTML meta tag, or admin manual verification."""
+        onboarding_service = PublisherOnboardingService(storage_engine)
+        try:
+            return onboarding_service.verify_domain(
+                source_id=source_id,
+                method=request.method,
+                actor=request.admin_actor or "system"
+            )
+        except ValueError as e:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e))
+
+    class ReviewTermsRequest(BaseModel):
+        terms_review_status: TermsReviewStatus
+        admin_actor: str
+        notes: Optional[str] = None
+
+    @app.post("/v1/publishers/{source_id}/review", response_model=SourceProfile)
+    def review_publisher_terms(source_id: str, request: ReviewTermsRequest) -> SourceProfile:
+        """Admin review of publisher terms of service and syndication agreement."""
+        onboarding_service = PublisherOnboardingService(storage_engine)
+        try:
+            return onboarding_service.review_terms(
+                source_id=source_id,
+                new_terms_status=request.terms_review_status,
+                actor=request.admin_actor,
+                notes=request.notes
+            )
+        except ValueError as e:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e))
+
+    class LifecycleStateRequest(BaseModel):
+        new_state: PublisherReviewState
+        actor: str
+        reason: str
+
+    @app.post("/v1/publishers/{source_id}/state", response_model=SourceProfile)
+    def transition_publisher_lifecycle_state(source_id: str, request: LifecycleStateRequest) -> SourceProfile:
+        """Transitions publisher review/scheduling state (active, suspended, takedown)."""
+        onboarding_service = PublisherOnboardingService(storage_engine)
+        try:
+            return onboarding_service.update_lifecycle_state(
+                source_id=source_id,
+                new_state=request.new_state,
+                actor=request.actor,
+                reason=request.reason
+            )
+        except ValueError as e:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e))
 
     return app
 

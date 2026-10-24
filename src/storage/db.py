@@ -10,6 +10,7 @@ import sqlite3
 from typing import Any, Dict, List, Optional, Tuple
 from src.schemas.article import Article, ArticleStatus, CategoryAssignment, PositivityMetadata, SummaryMetadata
 from src.schemas.source import (
+    PublisherReviewState,
     RightsMode,
     SourceProfile,
     SourceProfileAuditEntry,
@@ -408,6 +409,10 @@ class StorageEngine:
         """Upserts a SourceProfile record and appends to the immutable audit log."""
         now = datetime.now(timezone.utc).isoformat()
         profile.updated_at = datetime.now(timezone.utc)
+        meta = dict(profile.extra_metadata)
+        meta["review_state"] = profile.review_state.value if isinstance(profile.review_state, PublisherReviewState) else profile.review_state
+        extra_json = json.dumps(meta)
+
         with self._get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute("""
@@ -417,8 +422,8 @@ class StorageEngine:
                     excerpt_ceiling_words, utm_opt_in, verification_status,
                     verified_at, terms_review_status, trust_tier, takedown_status,
                     takedown_requested_at, contact_email, contact_name,
-                    created_at, updated_at
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    created_at, updated_at, extra_metadata_json
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
                 profile.id,
                 profile.publisher_id,
@@ -440,7 +445,8 @@ class StorageEngine:
                 profile.contact_email,
                 profile.contact_name,
                 profile.created_at.isoformat(),
-                now
+                now,
+                extra_json
             ))
 
             cursor.execute("""
@@ -454,6 +460,7 @@ class StorageEngine:
                 json.dumps({
                     "rights_mode": profile.rights_mode.value if isinstance(profile.rights_mode, RightsMode) else profile.rights_mode,
                     "verification_status": profile.verification_status.value if isinstance(profile.verification_status, VerificationStatus) else profile.verification_status,
+                    "review_state": meta["review_state"],
                     "takedown_status": profile.takedown_status.value if isinstance(profile.takedown_status, TakedownStatus) else profile.takedown_status,
                     "utm_opt_in": profile.utm_opt_in
                 }),
@@ -485,6 +492,19 @@ class StorageEngine:
                 for ar in audit_rows
             ]
 
+            extra_meta = {}
+            if "extra_metadata_json" in row.keys() and row["extra_metadata_json"]:
+                try:
+                    extra_meta = json.loads(row["extra_metadata_json"])
+                except Exception:
+                    extra_meta = {}
+
+            review_st = extra_meta.get("review_state", PublisherReviewState.ACTIVE.value)
+            try:
+                review_state_enum = PublisherReviewState(review_st)
+            except Exception:
+                review_state_enum = PublisherReviewState.ACTIVE
+
             return SourceProfile(
                 id=row["id"],
                 publisher_id=row["publisher_id"],
@@ -503,11 +523,13 @@ class StorageEngine:
                 trust_tier=TrustTier(row["trust_tier"]),
                 takedown_status=TakedownStatus(row["takedown_status"]),
                 takedown_requested_at=datetime.fromisoformat(row["takedown_requested_at"]) if row["takedown_requested_at"] else None,
+                review_state=review_state_enum,
                 contact_email=row["contact_email"],
                 contact_name=row["contact_name"],
                 created_at=datetime.fromisoformat(row["created_at"]),
                 updated_at=datetime.fromisoformat(row["updated_at"]),
-                audit_history=audit_entries
+                audit_history=audit_entries,
+                extra_metadata=extra_meta
             )
 
     def list_source_profiles(

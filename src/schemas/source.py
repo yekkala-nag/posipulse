@@ -54,6 +54,74 @@ class TakedownStatus(str, Enum):
     TAKEDOWN_ENFORCED = "takedown_enforced"
 
 
+class PublisherReviewState(str, Enum):
+    """
+    End-to-end publisher lifecycle review state:
+    - pending_review: Submitted, awaiting domain verification & admin check
+    - verified: Domain ownership cryptographically confirmed
+    - active: Terms approved and feeds actively scheduled for polling
+    - suspended: Temporarily halted
+    - takedown_requested: Delisting initiated
+    - takedown_enforced: Fully blocked and historical stories delisted
+    """
+    PENDING_REVIEW = "pending_review"
+    VERIFIED = "verified"
+    ACTIVE = "active"
+    SUSPENDED = "suspended"
+    TAKEDOWN_REQUESTED = "takedown_requested"
+    TAKEDOWN_ENFORCED = "takedown_enforced"
+
+
+class VerificationMethod(str, Enum):
+    """Mechanisms for verifying domain ownership."""
+    DNS_TXT = "dns_txt"
+    HTML_META = "html_meta"
+    MANUAL_ADMIN = "manual_admin"
+
+
+class VerificationChallenge(BaseModel):
+    """Challenge token and instructions for automated publisher domain verification."""
+    model_config = ConfigDict(extra="forbid")
+
+    source_id: str
+    primary_domain: str
+    token: str
+    dns_record_name: str
+    dns_txt_expected: str
+    meta_tag_expected: str
+    expires_at: datetime
+
+
+class VerificationResult(BaseModel):
+    """Outcome of automated or manual domain verification attempt."""
+    model_config = ConfigDict(extra="forbid")
+
+    source_id: str
+    primary_domain: str
+    method: VerificationMethod
+    verified: bool
+    message: str
+    checked_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    record_found: Optional[str] = None
+
+
+class PublisherRegistrationRequest(BaseModel):
+    """Self-service onboarding request submitted by a candidate publisher."""
+    model_config = ConfigDict(extra="forbid")
+
+    publisher_name: str = Field(..., min_length=2, max_length=200)
+    primary_domain: str = Field(..., description="Publisher website domain (e.g. thehindu.com)")
+    contact_email: EmailStr
+    contact_name: Optional[str] = Field(None, max_length=200)
+    feed_urls: List[str] = Field(..., min_length=1, description="Candidate RSS/Atom feed URLs")
+    homepage_url: Optional[str] = Field(None, description="Homepage URL (defaults to https://<domain>)")
+    language: str = Field(default="en", min_length=2, max_length=5)
+    rights_mode: RightsMode = Field(default=RightsMode.HEADLINE_ONLY)
+    utm_opt_in: bool = Field(default=False)
+    requested_excerpt_chars: int = Field(default=400, ge=100, le=2000)
+    requested_excerpt_words: int = Field(default=60, ge=15, le=300)
+
+
 class SourceProfileAuditEntry(BaseModel):
     """Audit entry documenting an administrative, verification, or takedown change."""
     model_config = ConfigDict(extra="forbid")
@@ -88,11 +156,19 @@ class SourceProfile(BaseModel):
     trust_tier: TrustTier = Field(default=TrustTier.TIER_2)
     takedown_status: TakedownStatus = Field(default=TakedownStatus.ACTIVE)
     takedown_requested_at: Optional[datetime] = None
+    review_state: PublisherReviewState = Field(
+        default=PublisherReviewState.ACTIVE,
+        description="Overall publisher review and active scheduling lifecycle state"
+    )
     contact_email: Optional[EmailStr] = None
     contact_name: Optional[str] = Field(None, max_length=200)
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     audit_history: List[SourceProfileAuditEntry] = Field(default_factory=list)
+    extra_metadata: Dict[str, Any] = Field(
+        default_factory=dict,
+        description="Additional verification tokens, challenge metadata, and onboarding state"
+    )
 
     @field_validator("primary_domain")
     @classmethod
@@ -110,6 +186,12 @@ class SourceProfile(BaseModel):
         if self.takedown_status != TakedownStatus.ACTIVE:
             return False
         if self.terms_review_status == TermsReviewStatus.OPTED_OUT:
+            return False
+        if self.review_state in (
+            PublisherReviewState.SUSPENDED,
+            PublisherReviewState.TAKEDOWN_REQUESTED,
+            PublisherReviewState.TAKEDOWN_ENFORCED
+        ):
             return False
         return True
 
