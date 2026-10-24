@@ -12,14 +12,6 @@
       }
     }
   ],
-  "functions": {
-    "api/index.py": {
-      "includeFiles": [
-        "config/**",
-        "src/**"
-      ]
-    }
-  },
   "routes": [
     {
       "src": "/(.*)",
