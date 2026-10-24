@@ -14,9 +14,11 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, EmailStr, Field
 from src.config.loader import LanguageConfigRegistry
+from src.ingestion.validator import FeedValidationResult, FeedValidator
 from src.observability.metrics import metrics_collector
 from src.pipeline.orchestrator import PipelineOrchestrator
 from src.schemas.article import Article
+from src.schemas.source import RightsMode, SourceProfile
 from src.storage.db import StorageEngine
 
 
@@ -384,6 +386,49 @@ def create_app(storage: Optional[StorageEngine] = None, registry: Optional[Langu
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "processed": processed
         }
+
+    class FeedValidationRequest(BaseModel):
+        feed_url: Optional[str] = None
+        xml_content: Optional[str] = None
+        primary_domain: Optional[str] = None
+        language: Optional[str] = "en"
+        rights_mode: Optional[RightsMode] = RightsMode.HEADLINE_ONLY
+
+    @app.post("/v1/publishers/validate-feed", response_model=FeedValidationResult)
+    def validate_publisher_feed(request: FeedValidationRequest) -> FeedValidationResult:
+        """
+        Tier 1 Publisher Feed Compliance Auditor.
+        Validates candidate RSS 2.0 / Atom 1.0 feeds, checks for tracking params,
+        enforces excerpt ceilings, and generates item previews under the specified rights mode.
+        """
+        if not request.feed_url and not request.xml_content:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Either 'feed_url' or 'xml_content' must be provided."
+            )
+
+        source_profile = None
+        if request.primary_domain:
+            source_profile = SourceProfile(
+                id=f"validate-{request.primary_domain.replace('.', '-')}",
+                publisher_id="temp-validator",
+                publisher_name=request.primary_domain,
+                primary_domain=request.primary_domain,
+                feed_urls=[request.feed_url or f"https://{request.primary_domain}/rss"],
+                homepage_url=f"https://{request.primary_domain}",
+                language=request.language or "en",
+                rights_mode=request.rights_mode or RightsMode.HEADLINE_ONLY,
+            )
+
+        validator = FeedValidator()
+        if request.feed_url:
+            return validator.validate_url(request.feed_url, source_profile=source_profile)
+        else:
+            return validator.validate_xml(
+                request.xml_content or "",
+                source_profile=source_profile,
+                declared_language=request.language or "en"
+            )
 
     return app
 
