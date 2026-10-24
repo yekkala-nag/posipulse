@@ -226,6 +226,18 @@ def create_app(storage: Optional[StorageEngine] = None, registry: Optional[Langu
             )
             enriched.append(enriched_item)
 
+        # Batch record anonymous impressions for served feed articles (DPDP Act 2023)
+        if articles:
+            storage_engine.record_impressions_batch([
+                {
+                    "source_id": a.source_id,
+                    "article_id": a.id,
+                    "language": a.language,
+                    "category_id": a.category.primary_id if a.category else None
+                }
+                for a in articles
+            ])
+
         return {
             "articles": enriched,
             "next_cursor": next_cursor,
@@ -535,6 +547,67 @@ def create_app(storage: Optional[StorageEngine] = None, registry: Optional[Langu
             )
         except ValueError as e:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e))
+
+    class OutboundClickPayload(BaseModel):
+        article_id: str
+
+    @app.post("/v1/analytics/click", status_code=status.HTTP_204_NO_CONTENT)
+    def record_outbound_click(payload: OutboundClickPayload):
+        """
+        Privacy-Preserving Outbound Click Beacon (DPDP Act 2023 Compliant).
+        Records an anonymous aggregate outbound click for publisher reporting.
+        Zero personal data collected (all IPs, user agents, cookies, and identifiers discarded).
+        """
+        art = storage_engine.get_article(payload.article_id)
+        if not art:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Article not found or delisted.")
+
+        cat_id = art.category.primary_id if art.category else None
+        storage_engine.record_click(
+            source_id=art.source_id,
+            article_id=art.id,
+            language=art.language,
+            category_id=cat_id
+        )
+        return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+    @app.get("/v1/publishers/{source_id}/analytics")
+    def get_publisher_analytics(
+        source_id: str,
+        period: str = Query("7d", pattern=r"^(24h|7d|30d)$", description="Aggregation window (24h, 7d, 30d)"),
+        min_threshold: int = Query(5, ge=1, le=50, description="K-anonymity suppression threshold (default 5)")
+    ) -> Dict[str, Any]:
+        """
+        Publisher Analytics Dashboard (DPDP Act 2023 Compliant).
+        Returns aggregate-only referral performance metrics:
+        impressions, outbound clicks, CTR, and language/category breakdowns.
+        Enforces minimum threshold k-anonymity (suppresses buckets with fewer than min_threshold events).
+        """
+        profile = storage_engine.get_source_profile(source_id)
+        if not profile:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Publisher source '{source_id}' not found."
+            )
+
+        from datetime import timedelta
+        now = datetime.now(timezone.utc)
+        if period == "24h":
+            since = now - timedelta(hours=24)
+        elif period == "30d":
+            since = now - timedelta(days=30)
+        else:
+            since = now - timedelta(days=7)
+
+        analytics_data = storage_engine.get_publisher_analytics(
+            source_id=source_id,
+            since=since,
+            min_threshold=min_threshold
+        )
+        analytics_data["publisher_name"] = profile.publisher_name
+        analytics_data["primary_domain"] = profile.primary_domain
+        analytics_data["period"] = period
+        return analytics_data
 
     return app
 

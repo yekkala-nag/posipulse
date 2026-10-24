@@ -468,3 +468,88 @@ def rollback_verbatim_excerpts_migration(conn: sqlite3.Connection) -> bool:
     cursor.execute("DELETE FROM schema_migrations WHERE version = ?", (MIGRATION_004_VERSION,))
     conn.commit()
     return True
+
+
+# ============================================================================
+# Migration 005: Privacy-Preserving Hourly Publisher Analytics (DPDP Act 2023)
+# ============================================================================
+
+MIGRATION_005_VERSION = "005_publisher_analytics"
+
+
+def apply_publisher_analytics_migration(conn: sqlite3.Connection) -> bool:
+    """
+    Applies Migration 005 (Forward):
+    Creates privacy-preserving, aggregate-only publisher_analytics_hourly table.
+    Strict DPDP Act 2023 invariant: Zero personal data (no IPs, no User-Agents, no user IDs).
+    """
+    cursor = conn.cursor()
+
+    # 1. Ensure migration tracking table exists
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS schema_migrations (
+            version TEXT PRIMARY KEY,
+            applied_at TEXT NOT NULL
+        )
+    """)
+
+    # 2. Check if already applied
+    cursor.execute("SELECT 1 FROM schema_migrations WHERE version = ?", (MIGRATION_005_VERSION,))
+    if cursor.fetchone():
+        return False
+
+    # 3. Create hourly pre-aggregated metrics table
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS publisher_analytics_hourly (
+            source_id TEXT NOT NULL,
+            article_id TEXT NOT NULL,
+            language TEXT NOT NULL,
+            category_id INTEGER,
+            time_bucket TEXT NOT NULL,
+            impressions INTEGER NOT NULL DEFAULT 0,
+            clicks INTEGER NOT NULL DEFAULT 0,
+            PRIMARY KEY (source_id, article_id, time_bucket)
+        )
+    """)
+
+    # 4. Performance indexes for time-range querying
+    cursor.execute("""
+        CREATE INDEX IF NOT EXISTS idx_pub_analytics_source_bucket
+        ON publisher_analytics_hourly (source_id, time_bucket)
+    """)
+    cursor.execute("""
+        CREATE INDEX IF NOT EXISTS idx_pub_analytics_bucket
+        ON publisher_analytics_hourly (time_bucket)
+    """)
+
+    # 5. Record migration
+    cursor.execute(
+        "INSERT INTO schema_migrations (version, applied_at) VALUES (?, ?)",
+        (MIGRATION_005_VERSION, datetime.now(timezone.utc).isoformat())
+    )
+    conn.commit()
+    return True
+
+
+def rollback_publisher_analytics_migration(conn: sqlite3.Connection) -> bool:
+    """
+    Rolls back Migration 005 (Reversible).
+    Drops publisher_analytics_hourly table and indexes.
+    """
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='schema_migrations'")
+    if not cursor.fetchone():
+        return False
+
+    cursor.execute("SELECT 1 FROM schema_migrations WHERE version = ?", (MIGRATION_005_VERSION,))
+    if not cursor.fetchone():
+        return False
+
+    cursor.execute("DROP INDEX IF EXISTS idx_pub_analytics_source_bucket")
+    cursor.execute("DROP INDEX IF EXISTS idx_pub_analytics_bucket")
+    cursor.execute("DROP TABLE IF EXISTS publisher_analytics_hourly")
+
+    cursor.execute("DELETE FROM schema_migrations WHERE version = ?", (MIGRATION_005_VERSION,))
+    conn.commit()
+    return True

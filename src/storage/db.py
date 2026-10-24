@@ -21,6 +21,7 @@ from src.schemas.source import (
 )
 from src.storage.migrations import (
     apply_category_taxonomy_migration,
+    apply_publisher_analytics_migration,
     apply_source_profiles_migration,
     apply_verbatim_excerpts_migration,
     migrate_existing_yaml_sources_to_profiles,
@@ -120,6 +121,7 @@ class StorageEngine:
             apply_category_taxonomy_migration(conn)
             apply_source_profiles_migration(conn)
             apply_verbatim_excerpts_migration(conn)
+            apply_publisher_analytics_migration(conn)
             migrate_existing_yaml_sources_to_profiles(conn)
 
     def can_fetch_source(self, source_id: str, cooldown_minutes: int = 30) -> bool:
@@ -617,3 +619,236 @@ class StorageEngine:
             ))
             conn.commit()
             return delisted_count
+
+    # =========================================================================
+    # Privacy-Preserving Publisher Analytics (DPDP Act 2023)
+    # Strict invariant: Zero PII (no IPs, no User-Agents, no reader identifiers)
+    # =========================================================================
+
+    def record_impression(
+        self,
+        source_id: str,
+        article_id: str,
+        language: str,
+        category_id: Optional[int] = None,
+        timestamp: Optional[datetime] = None
+    ) -> None:
+        """Records an anonymous impression in an hourly aggregation bucket."""
+        ts = timestamp or datetime.now(timezone.utc)
+        bucket = ts.strftime("%Y-%m-%dT%H:00:00Z")
+
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT INTO publisher_analytics_hourly (
+                    source_id, article_id, language, category_id, time_bucket, impressions, clicks
+                ) VALUES (?, ?, ?, ?, ?, 1, 0)
+                ON CONFLICT(source_id, article_id, time_bucket)
+                DO UPDATE SET impressions = impressions + 1
+            """, (source_id, article_id, language, category_id, bucket))
+            conn.commit()
+
+    def record_impressions_batch(self, items: List[Dict[str, Any]], timestamp: Optional[datetime] = None) -> None:
+        """Batch-increments hourly impressions for served feed articles."""
+        if not items:
+            return
+        ts = timestamp or datetime.now(timezone.utc)
+        bucket = ts.strftime("%Y-%m-%dT%H:00:00Z")
+
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            for it in items:
+                cursor.execute("""
+                    INSERT INTO publisher_analytics_hourly (
+                        source_id, article_id, language, category_id, time_bucket, impressions, clicks
+                    ) VALUES (?, ?, ?, ?, ?, 1, 0)
+                    ON CONFLICT(source_id, article_id, time_bucket)
+                    DO UPDATE SET impressions = impressions + 1
+                """, (
+                    it["source_id"],
+                    it["article_id"],
+                    it.get("language", "en"),
+                    it.get("category_id"),
+                    bucket
+                ))
+            conn.commit()
+
+    def record_click(
+        self,
+        source_id: str,
+        article_id: str,
+        language: str,
+        category_id: Optional[int] = None,
+        timestamp: Optional[datetime] = None
+    ) -> None:
+        """Records an anonymous outbound link-out click in an hourly aggregation bucket."""
+        ts = timestamp or datetime.now(timezone.utc)
+        bucket = ts.strftime("%Y-%m-%dT%H:00:00Z")
+
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT INTO publisher_analytics_hourly (
+                    source_id, article_id, language, category_id, time_bucket, impressions, clicks
+                ) VALUES (?, ?, ?, ?, ?, 0, 1)
+                ON CONFLICT(source_id, article_id, time_bucket)
+                DO UPDATE SET clicks = clicks + 1
+            """, (source_id, article_id, language, category_id, bucket))
+            conn.commit()
+
+    def get_publisher_analytics(
+        self,
+        source_id: str,
+        since: datetime,
+        min_threshold: int = 5
+    ) -> Dict[str, Any]:
+        """
+        Retrieves DPDP Act 2023 compliant aggregate analytics for a publisher source.
+        Enforces k-anonymity (min_threshold): buckets or breakdowns with fewer than
+        min_threshold events are suppressed.
+        """
+        since_str = since.strftime("%Y-%m-%dT%H:00:00Z")
+
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+
+            # 1. Overall totals
+            cursor.execute("""
+                SELECT
+                    COALESCE(SUM(impressions), 0) AS total_impressions,
+                    COALESCE(SUM(clicks), 0) AS total_clicks
+                FROM publisher_analytics_hourly
+                WHERE source_id = ? AND time_bucket >= ?
+            """, (source_id, since_str))
+            totals_row = cursor.fetchone()
+            total_impressions = totals_row["total_impressions"] if totals_row else 0
+            total_clicks = totals_row["total_clicks"] if totals_row else 0
+
+            # K-anonymity gate on whole source if extremely low traffic
+            k_anonymity_suppressed = False
+            if total_impressions > 0 and total_impressions < min_threshold and total_clicks < min_threshold:
+                k_anonymity_suppressed = True
+
+            overall_ctr = round(total_clicks / total_impressions, 4) if total_impressions > 0 else 0.0
+
+            # 2. Hourly Timeline
+            cursor.execute("""
+                SELECT
+                    time_bucket,
+                    SUM(impressions) AS hourly_impressions,
+                    SUM(clicks) AS hourly_clicks
+                FROM publisher_analytics_hourly
+                WHERE source_id = ? AND time_bucket >= ?
+                GROUP BY time_bucket
+                ORDER BY time_bucket ASC
+            """, (source_id, since_str))
+            timeline_rows = cursor.fetchall()
+            hourly_timeline = []
+            for r in timeline_rows:
+                h_imp = r["hourly_impressions"]
+                h_clk = r["hourly_clicks"]
+                if h_imp < min_threshold and h_clk < min_threshold:
+                    hourly_timeline.append({
+                        "time_bucket": r["time_bucket"],
+                        "impressions": None,
+                        "clicks": None,
+                        "suppressed": True
+                    })
+                else:
+                    hourly_timeline.append({
+                        "time_bucket": r["time_bucket"],
+                        "impressions": h_imp,
+                        "clicks": h_clk,
+                        "suppressed": False
+                    })
+
+            # 3. Language Breakdown
+            cursor.execute("""
+                SELECT language, SUM(impressions) AS lang_impressions, SUM(clicks) AS lang_clicks
+                FROM publisher_analytics_hourly
+                WHERE source_id = ? AND time_bucket >= ?
+                GROUP BY language
+            """, (source_id, since_str))
+            lang_rows = cursor.fetchall()
+            language_breakdown = {}
+            for lr in lang_rows:
+                if lr["lang_impressions"] >= min_threshold or lr["lang_clicks"] >= min_threshold:
+                    language_breakdown[lr["language"]] = {
+                        "impressions": lr["lang_impressions"],
+                        "clicks": lr["lang_clicks"]
+                    }
+
+            # 4. Category Breakdown
+            cursor.execute("""
+                SELECT category_id, SUM(impressions) AS cat_impressions, SUM(clicks) AS cat_clicks
+                FROM publisher_analytics_hourly
+                WHERE source_id = ? AND time_bucket >= ?
+                GROUP BY category_id
+            """, (source_id, since_str))
+            cat_rows = cursor.fetchall()
+            category_breakdown = []
+            suppressed_cat_imp = 0
+            suppressed_cat_clk = 0
+            for cr in cat_rows:
+                cat_imp = cr["cat_impressions"]
+                cat_clk = cr["cat_clicks"]
+                if cat_imp >= min_threshold or cat_clk >= min_threshold:
+                    category_breakdown.append({
+                        "category_id": cr["category_id"],
+                        "impressions": cat_imp,
+                        "clicks": cat_clk
+                    })
+                else:
+                    suppressed_cat_imp += cat_imp
+                    suppressed_cat_clk += cat_clk
+
+            if suppressed_cat_imp > 0 or suppressed_cat_clk > 0:
+                category_breakdown.append({
+                    "category_id": None,
+                    "label": f"Other (suppressed < {min_threshold})",
+                    "impressions": suppressed_cat_imp,
+                    "clicks": suppressed_cat_clk
+                })
+
+            # 5. Top Articles
+            cursor.execute("""
+                SELECT
+                    p.article_id,
+                    a.headline,
+                    SUM(p.impressions) AS art_impressions,
+                    SUM(p.clicks) AS art_clicks
+                FROM publisher_analytics_hourly p
+                LEFT JOIN articles a ON p.article_id = a.id
+                WHERE p.source_id = ? AND p.time_bucket >= ?
+                GROUP BY p.article_id
+                ORDER BY art_clicks DESC, art_impressions DESC
+                LIMIT 20
+            """, (source_id, since_str))
+            art_rows = cursor.fetchall()
+            top_articles = []
+            for ar in art_rows:
+                a_imp = ar["art_impressions"]
+                a_clk = ar["art_clicks"]
+                if a_imp >= min_threshold or a_clk >= min_threshold:
+                    art_ctr = round(a_clk / a_imp, 4) if a_imp > 0 else 0.0
+                    top_articles.append({
+                        "article_id": ar["article_id"],
+                        "headline": ar["headline"] or "[Archived Article]",
+                        "impressions": a_imp,
+                        "clicks": a_clk,
+                        "ctr": art_ctr
+                    })
+
+            return {
+                "source_id": source_id,
+                "since": since_str,
+                "k_anonymity_threshold": min_threshold,
+                "k_anonymity_suppressed": k_anonymity_suppressed,
+                "total_impressions": total_impressions,
+                "total_clicks": total_clicks,
+                "overall_ctr": overall_ctr,
+                "hourly_timeline": hourly_timeline,
+                "language_breakdown": language_breakdown,
+                "category_breakdown": category_breakdown,
+                "top_articles": top_articles
+            }
