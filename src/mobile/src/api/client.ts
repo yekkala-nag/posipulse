@@ -59,6 +59,26 @@ export class PosiPulseApiClient {
   }
 
   /**
+   * Asynchronously record anonymous outbound referral click (DPDP Act 2023 compliant).
+   */
+  async recordClick(payload: {
+    article_id: string;
+    source_id: string;
+    language: string;
+    category_id?: number | null;
+  }): Promise<void> {
+    try {
+      await fetch(`${this.baseUrl}/v1/analytics/click`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+    } catch {
+      // Fire-and-forget; never block the reader link-out
+    }
+  }
+
+  /**
    * Submit constructive accuracy feedback or toxic positivity report.
    */
   async submitFeedback(payload: FeedbackPayload): Promise<{ success: boolean; feedback_id: string }> {

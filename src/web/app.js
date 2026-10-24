@@ -282,6 +282,18 @@ document.addEventListener('DOMContentLoaded', () => {
         card.setAttribute('dir', 'rtl');
       }
 
+      const pub = art.publisher_attribution || {};
+      const rightsMode = pub.rights_mode || 'headline_only';
+      const rightsModeLabel =
+        rightsMode === 'longer_excerpt'
+          ? 'Extended Excerpt'
+          : rightsMode === 'feed_provided_excerpt'
+          ? 'Feed Excerpt'
+          : 'Headline Only';
+
+      const faviconUrl = pub.favicon_url || (pub.primary_domain ? `https://${pub.primary_domain}/favicon.ico` : '');
+      const directUrl = art.direct_url || art.canonical_url || art.url || '#';
+
       let categoryDisplay = art.positivity?.category || 'Constructive';
       let catClass = getCategoryClass(categoryDisplay);
 
@@ -299,6 +311,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
       card.innerHTML = `
         <div>
+          <!-- Publisher Attribution & Trust Header -->
+          <div class="card-publisher-header">
+            <div class="publisher-brand-info">
+              ${faviconUrl ? `<img src="${escapeHTML(faviconUrl)}" class="publisher-favicon" alt="" onerror="this.style.display='none'">` : ''}
+              <div class="publisher-brand-text">
+                <span class="publisher-brand-title">${escapeHTML(pub.publisher_name || art.source_name || 'Publisher')}</span>
+                ${pub.primary_domain ? `<span class="publisher-brand-domain">${escapeHTML(pub.primary_domain)}</span>` : ''}
+              </div>
+            </div>
+            <div class="publisher-trust-badges">
+              ${pub.verification_status === 'verified' ? `<span class="verified-domain-pill" title="Cryptographically verified publisher domain">✓ Verified Domain</span>` : ''}
+              <span class="rights-mode-pill" title="Syndication Rights Mode">${escapeHTML(rightsModeLabel)}</span>
+            </div>
+          </div>
+
           <!-- Top Row: Category + Verified Badge -->
           <div class="card-top">
             <span class="category-tag ${catClass}">${escapeHTML(categoryDisplay)}</span>
@@ -311,6 +338,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
           <!-- Headline -->
           <h2 class="card-headline">${escapeHTML(art.headline)}</h2>
+
+          <!-- Verbatim Publisher Excerpt (where terms allow) -->
+          ${art.verbatim_excerpt ? `
+            <div class="card-verbatim-box">
+              <div class="verbatim-tag">
+                <span>“ Publisher's Verbatim Excerpt</span>
+                <span class="rights-mode-pill">${escapeHTML(rightsModeLabel)}</span>
+              </div>
+              <blockquote class="card-verbatim-text">${escapeHTML(art.verbatim_excerpt)}</blockquote>
+            </div>
+          ` : rightsMode === 'headline_only' ? `
+            <div class="card-rights-note">
+              <span>📰</span>
+              <span>Headline-only rights agreement. Read complete reporting directly on ${escapeHTML(pub.publisher_name || art.source_name || 'the publisher\'s site')}.</span>
+            </div>
+          ` : ''}
 
           <!-- Substance Length Band Indicator -->
           <div class="substance-indicator-bar" title="Summary length dynamically scales with story factual substance">
@@ -327,18 +370,20 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
 
           <!-- Abstractive Summary Box (Original Words Only) -->
-          <div class="card-summary-box">
-            <span class="original-wording-tag">Original-Wording Synthesis</span>
-            <p class="card-summary-text">${escapeHTML(art.summary?.text || '')}</p>
-          </div>
+          ${art.summary?.text ? `
+            <div class="card-summary-box">
+              <span class="original-wording-tag">Original-Wording Synthesis</span>
+              <p class="card-summary-text">${escapeHTML(art.summary.text)}</p>
+            </div>
+          ` : ''}
         </div>
 
-        <!-- Bottom Actions & Prominent Publisher Link-Out -->
+        <!-- Bottom Actions & Prominent Direct Link-Out -->
         <div class="card-bottom">
-          <a href="${escapeHTML(art.canonical_url)}" target="_blank" rel="noopener noreferrer" class="publisher-link-btn" id="link-btn-${art.id}">
+          <a href="${escapeHTML(directUrl)}" target="_blank" rel="noopener noreferrer" class="publisher-link-btn" id="link-btn-${art.id}" data-article-id="${escapeHTML(art.id)}" data-source-id="${escapeHTML(art.source_id)}" data-lang="${escapeHTML(art.language)}" data-cat-id="${art.category?.primary_id || ''}">
             <div class="publisher-info">
               <span>Read Full Story at</span>
-              <strong class="publisher-name">${escapeHTML(art.source_name || 'Original Publisher')}</strong>
+              <strong class="publisher-name">${escapeHTML(pub.publisher_name || art.source_name || 'Original Publisher')}</strong>
             </div>
             <span class="link-arrow">↗</span>
           </a>
@@ -351,6 +396,28 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
 
       articlesGrid.appendChild(card);
+    });
+
+    // Attach anonymous click analytics tracking to publisher link-out buttons
+    document.querySelectorAll('.publisher-link-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const artId = btn.getAttribute('data-article-id');
+        const srcId = btn.getAttribute('data-source-id');
+        const lang = btn.getAttribute('data-lang');
+        const catId = btn.getAttribute('data-cat-id');
+        if (artId && srcId) {
+          fetch('/v1/analytics/click', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              article_id: artId,
+              source_id: srcId,
+              language: lang || 'en',
+              category_id: catId ? parseInt(catId, 10) : null,
+            }),
+          }).catch(() => {});
+        }
+      });
     });
 
     // Attach report button listeners

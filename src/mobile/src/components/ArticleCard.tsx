@@ -12,6 +12,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Article } from '../types';
 import { SubstanceMeter } from './SubstanceMeter';
 import { openPublisherStory } from '../utils/linking';
+import { apiClient } from '../api/client';
 
 interface ArticleCardProps {
   article: Article;
@@ -22,13 +23,50 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ article, onReport }) =
   const isRTL = Boolean(article.is_rtl);
   const wordCount = article.summary?.word_count || 50;
   const category = article.positivity?.category || 'General';
+  const pub = article.publisher_attribution;
+  const rightsMode = pub?.rights_mode || 'headline_only';
+
+  const rightsModeLabel =
+    rightsMode === 'longer_excerpt'
+      ? 'Extended Excerpt'
+      : rightsMode === 'feed_provided_excerpt'
+      ? 'Feed Excerpt'
+      : 'Headline Only';
 
   const handleLinkOut = async () => {
-    await openPublisherStory(article.canonical_url || article.url);
+    const targetUrl = article.direct_url || article.canonical_url || article.url;
+    // Asynchronously record anonymous referral click (DPDP Act 2023)
+    apiClient.recordClick({
+      article_id: article.id,
+      source_id: article.source_id,
+      language: article.language,
+      category_id: article.category?.primary_id,
+    });
+    await openPublisherStory(targetUrl);
   };
 
   return (
     <View style={[styles.card, isRTL && styles.cardRTL]}>
+      {/* Publisher Branding & Trust Header */}
+      <View style={[styles.publisherBrandRow, isRTL && styles.headerRowRTL]}>
+        <View style={styles.publisherMetaLeft}>
+          <Text style={styles.publisherBrandName}>{pub?.publisher_name || article.source_name || 'Publisher'}</Text>
+          {pub?.primary_domain ? (
+            <Text style={styles.publisherDomain}>{pub.primary_domain}</Text>
+          ) : null}
+        </View>
+        <View style={styles.badgesRight}>
+          {pub?.verification_status === 'verified' && (
+            <View style={styles.verifiedDomainBadge}>
+              <Text style={styles.verifiedDomainText}>✓ Verified Domain</Text>
+            </View>
+          )}
+          <View style={styles.rightsModeBadge}>
+            <Text style={styles.rightsModeText}>{rightsModeLabel}</Text>
+          </View>
+        </View>
+      </View>
+
       {/* Category + Entailment Verification Badge */}
       <View style={[styles.headerRow, isRTL && styles.headerRowRTL]}>
         <View style={styles.categoryBadge}>
@@ -44,18 +82,38 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ article, onReport }) =
         {article.headline}
       </Text>
 
+      {/* Verbatim Publisher Excerpt (where terms allow) */}
+      {article.verbatim_excerpt ? (
+        <View style={styles.verbatimExcerptContainer}>
+          <View style={[styles.verbatimBadgeRow, isRTL && styles.headerRowRTL]}>
+            <Text style={styles.verbatimExcerptBadge}>“ Publisher's Verbatim Excerpt</Text>
+          </View>
+          <Text style={[styles.verbatimExcerptText, isRTL && styles.textRTL]}>
+            {article.verbatim_excerpt}
+          </Text>
+        </View>
+      ) : rightsMode === 'headline_only' ? (
+        <View style={styles.headlineOnlyNote}>
+          <Text style={[styles.headlineOnlyText, isRTL && styles.textRTL]}>
+            📰 Headline-only rights: Read complete reporting directly on {article.source_name || 'the publisher\'s site'}.
+          </Text>
+        </View>
+      ) : null}
+
       {/* Substance Meter */}
       <SubstanceMeter wordCount={wordCount} isRTL={isRTL} />
 
       {/* Abstractive Original-Wording Summary Box */}
-      <View style={styles.summaryContainer}>
-        <View style={[styles.summaryBadgeRow, isRTL && styles.headerRowRTL]}>
-          <Text style={styles.summaryBadge}>Original-Wording Synthesis</Text>
+      {article.summary?.text ? (
+        <View style={styles.summaryContainer}>
+          <View style={[styles.summaryBadgeRow, isRTL && styles.headerRowRTL]}>
+            <Text style={styles.summaryBadge}>Original-Wording Synthesis</Text>
+          </View>
+          <Text style={[styles.summaryText, isRTL && styles.textRTL]}>
+            {article.summary.text}
+          </Text>
         </View>
-        <Text style={[styles.summaryText, isRTL && styles.textRTL]}>
-          {article.summary?.text}
-        </Text>
-      </View>
+      ) : null}
 
       {/* Prominent Original Publisher Link-Out Button */}
       <TouchableOpacity
@@ -65,7 +123,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ article, onReport }) =
       >
         <View style={[styles.publisherTextCol, isRTL && styles.publisherTextColRTL]}>
           <Text style={styles.publisherSubtext}>Read Full Story at</Text>
-          <Text style={styles.publisherName}>{article.source_name || 'Original Publisher'}</Text>
+          <Text style={styles.publisherName}>{pub?.publisher_name || article.source_name || 'Original Publisher'}</Text>
         </View>
         <Text style={styles.arrowIcon}>↗</Text>
       </TouchableOpacity>
@@ -215,5 +273,93 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#ef4444',
     fontWeight: '600',
+  },
+  publisherBrandRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
+    paddingBottom: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(255, 255, 255, 0.05)',
+  },
+  publisherMetaLeft: {
+    flexDirection: 'column',
+  },
+  publisherBrandName: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: '#f8fafc',
+  },
+  publisherDomain: {
+    fontSize: 11,
+    color: '#94a3b8',
+  },
+  badgesRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  verifiedDomainBadge: {
+    backgroundColor: 'rgba(56, 189, 248, 0.15)',
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: 'rgba(56, 189, 248, 0.3)',
+  },
+  verifiedDomainText: {
+    fontSize: 10,
+    color: '#38bdf8',
+    fontWeight: '600',
+  },
+  rightsModeBadge: {
+    backgroundColor: 'rgba(148, 163, 184, 0.12)',
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 4,
+  },
+  rightsModeText: {
+    fontSize: 10,
+    color: '#cbd5e1',
+    fontWeight: '500',
+  },
+  verbatimExcerptContainer: {
+    backgroundColor: 'rgba(30, 41, 59, 0.6)',
+    padding: 12,
+    borderRadius: 10,
+    borderLeftWidth: 3,
+    borderLeftColor: '#f59e0b',
+    marginVertical: 8,
+  },
+  verbatimBadgeRow: {
+    flexDirection: 'row',
+    marginBottom: 6,
+  },
+  verbatimExcerptBadge: {
+    fontSize: 10,
+    color: '#f59e0b',
+    fontWeight: '700',
+    letterSpacing: 0.5,
+    textTransform: 'uppercase',
+  },
+  verbatimExcerptText: {
+    fontSize: 14,
+    color: '#f1f5f9',
+    fontStyle: 'italic',
+    lineHeight: 22,
+  },
+  headlineOnlyNote: {
+    backgroundColor: 'rgba(15, 23, 42, 0.5)',
+    padding: 8,
+    borderRadius: 6,
+    marginVertical: 6,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.05)',
+  },
+  headlineOnlyText: {
+    fontSize: 12,
+    color: '#94a3b8',
+    fontStyle: 'italic',
   },
 });

@@ -4,7 +4,7 @@ Implements zero-retention storage of original publisher text:
 Only verified original summaries, headlines, metadata, and canonical links are persisted.
 """
 
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 import json
 import sqlite3
 from typing import Any, Dict, List, Optional, Tuple
@@ -747,7 +747,7 @@ class StorageEngine:
     def get_publisher_analytics(
         self,
         source_id: str,
-        since: datetime,
+        since: Optional[datetime] = None,
         min_threshold: int = 5
     ) -> Dict[str, Any]:
         """
@@ -755,6 +755,8 @@ class StorageEngine:
         Enforces k-anonymity (min_threshold): buckets or breakdowns with fewer than
         min_threshold events are suppressed.
         """
+        if since is None:
+            since = datetime.now(timezone.utc) - timedelta(days=30)
         since_str = since.strftime("%Y-%m-%dT%H:00:00Z")
 
         with self._get_connection() as conn:

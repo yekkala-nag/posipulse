@@ -34,12 +34,25 @@ export interface CategoryAssignment {
   taxonomy_version: string;
 }
 
+export interface PublisherAttribution {
+  publisher_name: string;
+  primary_domain: string;
+  homepage_url: string;
+  logo_url?: string | null;
+  favicon_url: string;
+  rights_mode: 'headline_only' | 'feed_provided_excerpt' | 'longer_excerpt';
+  trust_tier: string;
+  verification_status: string;
+  utm_opt_in: boolean;
+}
+
 export interface Article {
   id: string;
   source_id: string;
   source_name: string;
   url: string;
   canonical_url: string;
+  direct_url?: string;
   headline: string;
   published_at: string;
   fetched_at: string;
@@ -48,6 +61,8 @@ export interface Article {
   category?: CategoryAssignment | null;
   positivity: PositivityMetadata;
   summary: SummaryMetadata;
+  verbatim_excerpt?: string | null;
+  publisher_attribution?: PublisherAttribution | null;
   status: 'published' | 'delisted' | 'held_hidden_category';
   publish_hold_reason?: string | null;
   is_rtl?: boolean;
