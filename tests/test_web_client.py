@@ -153,3 +153,19 @@ def test_categories_endpoint_visible_and_localized(client):
     agri_ur = next(c for c in data_ur["categories"] if c["slug"] == "agriculture-rural")
     assert "زراعت" in agri_ur["display_name"]
 
+
+def test_demo_seeding_all_sixteen_languages(client):
+    """Verify demo fixture seeding works cleanly across all 16 supported languages."""
+    from src.api.app import FIXTURE_MAP
+    assert len(FIXTURE_MAP) == 16
+    for lang in FIXTURE_MAP.keys():
+        seed_res = client.post(f"/v1/demo/seed?language={lang}")
+        assert seed_res.status_code == 200, f"Failed seeding {lang}: {seed_res.text}"
+        data = seed_res.json()
+        assert data["success"] is True
+        assert data["published_count"] >= 1
+        feed_res = client.get(f"/v1/feed?language={lang}")
+        assert feed_res.status_code == 200
+        feed_data = feed_res.json()
+        assert feed_data["total_returned"] >= 1
+
