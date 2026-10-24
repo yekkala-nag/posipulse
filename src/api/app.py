@@ -30,6 +30,9 @@ from src.schemas.source import (
     VerificationMethod,
     VerificationResult,
 )
+from src.newsletter.esp import EmailServiceProvider, MockEmailProvider
+from src.newsletter.models import SubscribeRequest
+from src.newsletter.service import NewsletterService
 from src.storage.db import StorageEngine
 
 
@@ -53,7 +56,11 @@ FIXTURE_MAP: Dict[str, tuple[str, str]] = {
 }
 
 
-def create_app(storage: Optional[StorageEngine] = None, registry: Optional[LanguageConfigRegistry] = None) -> FastAPI:
+def create_app(
+    storage: Optional[StorageEngine] = None,
+    registry: Optional[LanguageConfigRegistry] = None,
+    esp_provider: Optional[EmailServiceProvider] = None,
+) -> FastAPI:
     app = FastAPI(
         title="Positive News App API Gateway",
         version="1.0.0",
@@ -71,6 +78,11 @@ def create_app(storage: Optional[StorageEngine] = None, registry: Optional[Langu
     # In-memory or shared instances
     storage_engine = storage or StorageEngine(":memory:")
     config_registry = registry or LanguageConfigRegistry()
+    newsletter_service = NewsletterService(
+        storage=storage_engine,
+        esp_provider=esp_provider,
+        config_registry=config_registry
+    )
 
     # Mount static assets for web reader client
     web_dir = Path(__file__).resolve().parent.parent / "web"
@@ -458,6 +470,138 @@ def create_app(storage: Optional[StorageEngine] = None, registry: Optional[Langu
             "device_id": device_id,
             "records_cleared": cleared_count,
             "deleted_count": cleared_count
+        }
+
+    # ========================================================================
+    # Per-Language Newsletter Management (Step 7)
+    # ========================================================================
+
+    @app.post("/v1/newsletter/subscribe")
+    def subscribe_newsletter(request: SubscribeRequest) -> Dict[str, Any]:
+        """
+        Subscribe to a language-specific constructive newsletter edition.
+        Enforces double opt-in confirmation under the DPDP Act 2023.
+        """
+        try:
+            sub, is_new, conf_link = newsletter_service.subscribe(
+                email=request.email,
+                language=request.language,
+                send_confirmation_email=True
+            )
+            return {
+                "success": True,
+                "message": "Confirmation link sent to your email. Please verify to begin receiving digests.",
+                "subscription_id": sub.id,
+                "email": sub.email,
+                "language": sub.language,
+                "status": sub.status.value,
+                "confirmation_link": conf_link
+            }
+        except ValueError as e:
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+
+    @app.get("/v1/newsletter/confirm")
+    def confirm_newsletter_subscription(
+        token: str = Query(..., min_length=10, description="Cryptographic confirmation token")
+    ) -> Dict[str, Any]:
+        """Confirm newsletter subscription via double opt-in link."""
+        try:
+            sub = newsletter_service.confirm(token)
+            return {
+                "success": True,
+                "status": "confirmed",
+                "message": f"Successfully confirmed subscription to PosiPulse {sub.language.upper()} Constructive Weekly!",
+                "subscription_id": sub.id,
+                "email": sub.email,
+                "language": sub.language,
+                "confirmed_at": sub.confirmed_at.isoformat() if sub.confirmed_at else None
+            }
+        except KeyError:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Confirmation token not found or has expired."
+            )
+
+    class UnsubscribeRequest(BaseModel):
+        token: Optional[str] = None
+
+    @app.get("/v1/newsletter/unsubscribe")
+    @app.post("/v1/newsletter/unsubscribe")
+    def unsubscribe_newsletter(
+        token: Optional[str] = Query(None, description="One-click unsubscribe token"),
+        body: Optional[UnsubscribeRequest] = None
+    ) -> Dict[str, Any]:
+        """
+        Single-click unsubscribe (RFC 8058 compliant).
+        Immediately removes subscriber from further dispatches.
+        """
+        unsub_token = token or (body.token if body else None)
+        if not unsub_token:
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Unsubscribe token required.")
+        try:
+            sub = newsletter_service.unsubscribe(unsub_token)
+            return {
+                "success": True,
+                "status": "unsubscribed",
+                "message": f"You have been successfully unsubscribed from PosiPulse {sub.language.upper()} digests.",
+                "email": sub.email,
+                "language": sub.language,
+                "unsubscribed_at": sub.unsubscribed_at.isoformat() if sub.unsubscribed_at else None
+            }
+        except KeyError:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Invalid unsubscribe token."
+            )
+
+    @app.delete("/v1/newsletter/subscription")
+    def erase_newsletter_subscription(
+        email: EmailStr = Query(..., description="Email address to erase under DPDP Act")
+    ) -> Dict[str, Any]:
+        """DPDP Section 12 Right to Erasure for email newsletter subscriptions."""
+        erased_count = newsletter_service.erase(email)
+        return {
+            "success": True,
+            "status": "erased",
+            "email": email,
+            "records_deleted": erased_count
+        }
+
+    @app.post("/v1/newsletter/digest/preview")
+    def preview_newsletter_digest(
+        language: str = Query("en", min_length=2, max_length=5),
+        days: int = Query(7, ge=1, le=30),
+        limit: int = Query(10, ge=1, le=25)
+    ) -> Dict[str, Any]:
+        """Preview compiled HTML and plain-text newsletter digest for a language."""
+        issue = newsletter_service.builder.build_digest(language=language, days=days, limit=limit)
+        return {
+            "id": issue.id,
+            "language": issue.language,
+            "subject": issue.subject,
+            "issue_date": issue.issue_date,
+            "article_count": len(issue.article_ids),
+            "article_ids": issue.article_ids,
+            "html_content": issue.html_content,
+            "text_content": issue.text_content
+        }
+
+    @app.post("/v1/newsletter/digest/send")
+    def send_newsletter_digest(
+        language: str = Query("en", min_length=2, max_length=5),
+        days: int = Query(7, ge=1, le=30),
+        limit: int = Query(10, ge=1, le=25)
+    ) -> Dict[str, Any]:
+        """Dispatches compiled newsletter digest to all confirmed subscribers."""
+        issue, sent_count = newsletter_service.dispatch_weekly_digest(language=language, days=days, limit=limit)
+        return {
+            "success": True,
+            "issue_id": issue.id,
+            "language": issue.language,
+            "subject": issue.subject,
+            "article_count": len(issue.article_ids),
+            "recipients_sent": sent_count,
+            "sent_at": issue.sent_at.isoformat() if issue.sent_at else None
         }
 
     @app.get("/v1/articles/{article_id}")

@@ -21,6 +21,7 @@ from src.schemas.source import (
 )
 from src.storage.migrations import (
     apply_category_taxonomy_migration,
+    apply_newsletter_subscriptions_migration,
     apply_publisher_analytics_migration,
     apply_reader_following_migration,
     apply_source_profiles_migration,
@@ -124,6 +125,7 @@ class StorageEngine:
             apply_verbatim_excerpts_migration(conn)
             apply_publisher_analytics_migration(conn)
             apply_reader_following_migration(conn)
+            apply_newsletter_subscriptions_migration(conn)
             migrate_existing_yaml_sources_to_profiles(conn)
 
     def can_fetch_source(self, source_id: str, cooldown_minutes: int = 30) -> bool:
@@ -1026,3 +1028,140 @@ class StorageEngine:
         articles = [self._row_to_article(r) for r in rows[:limit]]
         next_cursor = rows[limit]["published_at"] if len(rows) > limit else None
         return articles, next_cursor
+
+    # ========================================================================
+    # Newsletter Subscriptions & Issues Storage
+    # ========================================================================
+
+    def save_newsletter_subscription(self, sub: Any) -> bool:
+        """Inserts or updates a newsletter subscription record."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT INTO newsletter_subscriptions (
+                    id, email, language, status, confirmation_token, unsubscribe_token,
+                    requested_at, confirmed_at, unsubscribed_at, created_at, updated_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ON CONFLICT(email, language) DO UPDATE SET
+                    status = excluded.status,
+                    confirmation_token = excluded.confirmation_token,
+                    unsubscribe_token = excluded.unsubscribe_token,
+                    requested_at = excluded.requested_at,
+                    confirmed_at = excluded.confirmed_at,
+                    unsubscribed_at = excluded.unsubscribed_at,
+                    updated_at = excluded.updated_at
+            """, (
+                sub.id,
+                sub.email.lower().strip(),
+                sub.language,
+                sub.status.value if hasattr(sub.status, "value") else str(sub.status),
+                sub.confirmation_token,
+                sub.unsubscribe_token,
+                sub.requested_at.isoformat() if hasattr(sub.requested_at, "isoformat") else str(sub.requested_at),
+                sub.confirmed_at.isoformat() if sub.confirmed_at and hasattr(sub.confirmed_at, "isoformat") else (str(sub.confirmed_at) if sub.confirmed_at else None),
+                sub.unsubscribed_at.isoformat() if sub.unsubscribed_at and hasattr(sub.unsubscribed_at, "isoformat") else (str(sub.unsubscribed_at) if sub.unsubscribed_at else None),
+                sub.created_at.isoformat() if hasattr(sub.created_at, "isoformat") else str(sub.created_at),
+                sub.updated_at.isoformat() if hasattr(sub.updated_at, "isoformat") else str(sub.updated_at),
+            ))
+            conn.commit()
+            return True
+
+    def get_newsletter_subscription(self, email: str, language: str) -> Optional[Dict[str, Any]]:
+        """Finds a subscription by email and language."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT * FROM newsletter_subscriptions
+                WHERE email = ? AND language = ?
+            """, (email.lower().strip(), language))
+            row = cursor.fetchone()
+            return dict(row) if row else None
+
+    def get_newsletter_subscription_by_token(self, token_type: str, token: str) -> Optional[Dict[str, Any]]:
+        """Finds a subscription by confirmation_token or unsubscribe_token."""
+        col = "confirmation_token" if token_type == "confirmation" else "unsubscribe_token"
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute(f"SELECT * FROM newsletter_subscriptions WHERE {col} = ?", (token,))
+            row = cursor.fetchone()
+            return dict(row) if row else None
+
+    def get_confirmed_subscribers(self, language: str) -> List[Dict[str, Any]]:
+        """Returns all confirmed subscribers for a language edition."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT * FROM newsletter_subscriptions
+                WHERE language = ? AND status = 'confirmed'
+                ORDER BY confirmed_at ASC
+            """, (language,))
+            return [dict(r) for r in cursor.fetchall()]
+
+    def erase_newsletter_subscription(self, email: str) -> int:
+        """DPDP Act Right to Erasure: Permanently removes all subscription data for email."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("DELETE FROM newsletter_subscriptions WHERE email = ?", (email.lower().strip(),))
+            conn.commit()
+            return cursor.rowcount
+
+    def save_newsletter_issue(self, issue: Any) -> bool:
+        """Archives a compiled newsletter issue."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT INTO newsletter_issues (
+                    id, language, subject, issue_date, article_ids_json,
+                    html_content, text_content, sent_at, recipient_count, created_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ON CONFLICT(id) DO UPDATE SET
+                    sent_at = excluded.sent_at,
+                    recipient_count = excluded.recipient_count
+            """, (
+                issue.id,
+                issue.language,
+                issue.subject,
+                issue.issue_date,
+                json.dumps(issue.article_ids),
+                issue.html_content,
+                issue.text_content,
+                issue.sent_at.isoformat() if issue.sent_at and hasattr(issue.sent_at, "isoformat") else (str(issue.sent_at) if issue.sent_at else None),
+                issue.recipient_count,
+                issue.created_at.isoformat() if hasattr(issue.created_at, "isoformat") else str(issue.created_at),
+            ))
+            conn.commit()
+            return True
+
+    def get_newsletter_issue(self, issue_id: str) -> Optional[Dict[str, Any]]:
+        """Retrieves a specific newsletter issue by ID."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM newsletter_issues WHERE id = ?", (issue_id,))
+            row = cursor.fetchone()
+            if not row:
+                return None
+            res = dict(row)
+            res["article_ids"] = json.loads(res["article_ids_json"])
+            return res
+
+    def list_newsletter_issues(self, language: Optional[str] = None, limit: int = 20) -> List[Dict[str, Any]]:
+        """Lists compiled newsletter issues."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            if language:
+                cursor.execute("""
+                    SELECT * FROM newsletter_issues
+                    WHERE language = ? ORDER BY issue_date DESC LIMIT ?
+                """, (language, limit))
+            else:
+                cursor.execute("""
+                    SELECT * FROM newsletter_issues
+                    ORDER BY issue_date DESC LIMIT ?
+                """, (limit,))
+            rows = cursor.fetchall()
+            issues = []
+            for r in rows:
+                item = dict(r)
+                item["article_ids"] = json.loads(item["article_ids_json"])
+                issues.append(item)
+            return issues

@@ -633,3 +633,125 @@ def rollback_reader_following_migration(conn: sqlite3.Connection) -> bool:
     cursor.execute("DELETE FROM schema_migrations WHERE version = ?", (MIGRATION_006_VERSION,))
     conn.commit()
     return True
+
+
+# ============================================================================
+# Migration 007: Per-Language Newsletter Subscriptions & Issues
+# ============================================================================
+
+MIGRATION_007_VERSION = "007_newsletter_subscriptions"
+
+
+def apply_newsletter_subscriptions_migration(conn: sqlite3.Connection) -> bool:
+    """
+    Applies Migration 007 (Forward).
+    Creates tables for double opt-in subscriptions and compiled newsletter issues.
+    Complies with DPDP Act 2023 with cryptographic tokens and audit timestamps.
+    """
+    cursor = conn.cursor()
+
+    # 1. Ensure schema migrations tracker exists
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS schema_migrations (
+            version TEXT PRIMARY KEY,
+            applied_at TEXT NOT NULL
+        )
+    """)
+
+    # 2. Check if already applied
+    cursor.execute("SELECT 1 FROM schema_migrations WHERE version = ?", (MIGRATION_007_VERSION,))
+    if cursor.fetchone():
+        return False
+
+    # 3. Create newsletter_subscriptions table
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS newsletter_subscriptions (
+            id TEXT PRIMARY KEY,
+            email TEXT NOT NULL,
+            language TEXT NOT NULL,
+            status TEXT NOT NULL, -- 'pending_confirmation', 'confirmed', 'unsubscribed'
+            confirmation_token TEXT NOT NULL,
+            unsubscribe_token TEXT NOT NULL,
+            requested_at TEXT NOT NULL,
+            confirmed_at TEXT,
+            unsubscribed_at TEXT,
+            created_at TEXT NOT NULL,
+            updated_at TEXT NOT NULL,
+            UNIQUE (email, language)
+        )
+    """)
+
+    # 4. Performance indexes for lookups and batch sending
+    cursor.execute("""
+        CREATE INDEX IF NOT EXISTS idx_newsletter_sub_email
+        ON newsletter_subscriptions (email)
+    """)
+    cursor.execute("""
+        CREATE INDEX IF NOT EXISTS idx_newsletter_sub_lang_status
+        ON newsletter_subscriptions (language, status)
+    """)
+    cursor.execute("""
+        CREATE INDEX IF NOT EXISTS idx_newsletter_sub_conf_token
+        ON newsletter_subscriptions (confirmation_token)
+    """)
+    cursor.execute("""
+        CREATE INDEX IF NOT EXISTS idx_newsletter_sub_unsub_token
+        ON newsletter_subscriptions (unsubscribe_token)
+    """)
+
+    # 5. Create newsletter_issues table for compiled archive & metrics
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS newsletter_issues (
+            id TEXT PRIMARY KEY,
+            language TEXT NOT NULL,
+            subject TEXT NOT NULL,
+            issue_date TEXT NOT NULL,
+            article_ids_json TEXT NOT NULL,
+            html_content TEXT NOT NULL,
+            text_content TEXT NOT NULL,
+            sent_at TEXT,
+            recipient_count INTEGER NOT NULL DEFAULT 0,
+            created_at TEXT NOT NULL
+        )
+    """)
+    cursor.execute("""
+        CREATE INDEX IF NOT EXISTS idx_newsletter_issues_lang
+        ON newsletter_issues (language, issue_date)
+    """)
+
+    # 6. Record migration
+    cursor.execute(
+        "INSERT INTO schema_migrations (version, applied_at) VALUES (?, ?)",
+        (MIGRATION_007_VERSION, datetime.now(timezone.utc).isoformat())
+    )
+    conn.commit()
+    return True
+
+
+def rollback_newsletter_subscriptions_migration(conn: sqlite3.Connection) -> bool:
+    """
+    Rolls back Migration 007 (Reversible).
+    Drops newsletter_subscriptions and newsletter_issues tables and indexes.
+    """
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='schema_migrations'")
+    if not cursor.fetchone():
+        return False
+
+    cursor.execute("SELECT 1 FROM schema_migrations WHERE version = ?", (MIGRATION_007_VERSION,))
+    if not cursor.fetchone():
+        return False
+
+    cursor.execute("DROP INDEX IF EXISTS idx_newsletter_sub_email")
+    cursor.execute("DROP INDEX IF EXISTS idx_newsletter_sub_lang_status")
+    cursor.execute("DROP INDEX IF EXISTS idx_newsletter_sub_conf_token")
+    cursor.execute("DROP INDEX IF EXISTS idx_newsletter_sub_unsub_token")
+    cursor.execute("DROP TABLE IF EXISTS newsletter_subscriptions")
+
+    cursor.execute("DROP INDEX IF EXISTS idx_newsletter_issues_lang")
+    cursor.execute("DROP TABLE IF EXISTS newsletter_issues")
+
+    cursor.execute("DELETE FROM schema_migrations WHERE version = ?", (MIGRATION_007_VERSION,))
+    conn.commit()
+    return True

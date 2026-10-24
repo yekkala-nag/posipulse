@@ -237,6 +237,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Dynamically refresh localized categories for new language
     await loadCategories(code);
+    const nlSelect = document.getElementById('newsletter-lang-select');
+    if (nlSelect) nlSelect.value = code;
     loadFeed();
   }
 
@@ -853,4 +855,48 @@ document.addEventListener('DOMContentLoaded', () => {
   if (followingCloseBtn) followingCloseBtn.addEventListener('click', closeFollowingModal);
   if (followingDoneBtn) followingDoneBtn.addEventListener('click', closeFollowingModal);
   if (clearAllFollowingBtn) clearAllFollowingBtn.addEventListener('click', clearAllFollowingData);
+
+  // --------------------------------------------------------------------------
+  // Newsletter Signup Integration (Double Opt-In & DPDP Compliant)
+  // --------------------------------------------------------------------------
+  const newsletterForm = document.getElementById('newsletter-form');
+  const newsletterEmail = document.getElementById('newsletter-email');
+  const newsletterLangSelect = document.getElementById('newsletter-lang-select');
+  const newsletterFeedback = document.getElementById('newsletter-feedback');
+  const newsletterSubmitBtn = document.getElementById('newsletter-submit-btn');
+
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = (newsletterEmail.value || '').trim();
+      const lang = newsletterLangSelect ? newsletterLangSelect.value : currentLanguage;
+
+      if (!email) return;
+
+      newsletterSubmitBtn.disabled = true;
+      newsletterSubmitBtn.innerHTML = '<span>⏳ Sending...</span>';
+      newsletterFeedback.className = 'newsletter-feedback hidden';
+
+      try {
+        const res = await fetch('/v1/newsletter/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email, language: lang }),
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || 'Subscription request failed.');
+
+        newsletterFeedback.textContent = '✨ Verification link sent! Please check your inbox to confirm your subscription (Double Opt-In).';
+        newsletterFeedback.className = 'newsletter-feedback success';
+        newsletterEmail.value = '';
+      } catch (err) {
+        newsletterFeedback.textContent = `⚠️ ${err.message}`;
+        newsletterFeedback.className = 'newsletter-feedback error';
+      } finally {
+        newsletterSubmitBtn.disabled = false;
+        newsletterSubmitBtn.innerHTML = '<span>Subscribe ↗</span>';
+      }
+    });
+  }
 });
