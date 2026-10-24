@@ -22,6 +22,7 @@ from src.schemas.source import (
 from src.storage.migrations import (
     apply_category_taxonomy_migration,
     apply_publisher_analytics_migration,
+    apply_reader_following_migration,
     apply_source_profiles_migration,
     apply_verbatim_excerpts_migration,
     migrate_existing_yaml_sources_to_profiles,
@@ -122,6 +123,7 @@ class StorageEngine:
             apply_source_profiles_migration(conn)
             apply_verbatim_excerpts_migration(conn)
             apply_publisher_analytics_migration(conn)
+            apply_reader_following_migration(conn)
             migrate_existing_yaml_sources_to_profiles(conn)
 
     def can_fetch_source(self, source_id: str, cooldown_minutes: int = 30) -> bool:
@@ -902,3 +904,125 @@ class StorageEngine:
                 "category_breakdown": category_breakdown,
                 "top_articles": top_articles
             }
+
+    # ========================================================================
+    # Reader Following Architecture (Topic & Source Following)
+    # ========================================================================
+
+    def follow_target(self, device_id: str, following_type: str, target_id: str) -> bool:
+        """
+        Follows a category or publisher source anonymously by device_id.
+        following_type: 'category' or 'source'
+        target_id: category integer ID (1-13) string, or source profile slug.
+        """
+        now = datetime.now(timezone.utc).isoformat()
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT OR REPLACE INTO reader_following (device_id, following_type, target_id, created_at)
+                VALUES (?, ?, ?, ?)
+            """, (device_id, following_type, str(target_id), now))
+            conn.commit()
+            return True
+
+    def unfollow_target(self, device_id: str, following_type: str, target_id: str) -> bool:
+        """Unfollows a category or publisher source for a given device_id."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                DELETE FROM reader_following
+                WHERE device_id = ? AND following_type = ? AND target_id = ?
+            """, (device_id, following_type, str(target_id)))
+            conn.commit()
+            return cursor.rowcount > 0
+
+    def get_reader_following(self, device_id: str) -> Dict[str, List[str]]:
+        """Returns the full list of followed categories and sources for an anonymous device."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT following_type, target_id FROM reader_following
+                WHERE device_id = ? ORDER BY created_at ASC
+            """, (device_id,))
+            rows = cursor.fetchall()
+            categories = []
+            sources = []
+            for r in rows:
+                if r["following_type"] == "category":
+                    val = r["target_id"]
+                    categories.append(int(val) if isinstance(val, str) and val.isdigit() else val)
+                elif r["following_type"] == "source":
+                    sources.append(r["target_id"])
+            return {"categories": categories, "sources": sources}
+
+    def clear_reader_following(self, device_id: str) -> int:
+        """Wipes all preferences for a device (DPDP Section 12 Right to Erasure)."""
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("DELETE FROM reader_following WHERE device_id = ?", (device_id,))
+            conn.commit()
+            return cursor.rowcount
+
+    def get_following_feed(
+        self,
+        device_id: str,
+        language: str,
+        limit: int = 20,
+        cursor: Optional[str] = None
+    ) -> Tuple[List[Article], Optional[str]]:
+        """
+        Returns verified published articles matching the reader's followed categories or sources.
+        Delisted, held (hidden categories), or non-published items are excluded.
+        """
+        following = self.get_reader_following(device_id)
+        followed_categories = following["categories"]
+        followed_sources = following["sources"]
+
+        if not followed_categories and not followed_sources:
+            return [], None
+
+        query = """
+            SELECT a.* FROM articles a
+            LEFT JOIN delisted_articles d ON a.id = d.article_id
+            LEFT JOIN source_profiles sp ON a.source_id = sp.id
+            WHERE a.language = ?
+              AND a.status = ?
+              AND d.article_id IS NULL
+              AND (sp.takedown_status IS NULL OR sp.takedown_status = 'active')
+        """
+        params: List[Any] = [language, ArticleStatus.PUBLISHED.value]
+
+        filter_clauses = []
+        if followed_categories:
+            cat_ids = []
+            for c in followed_categories:
+                if str(c).isdigit():
+                    cat_ids.append(int(c))
+            if cat_ids:
+                placeholders = ",".join("?" for _ in cat_ids)
+                filter_clauses.append(f"a.primary_category_id IN ({placeholders})")
+                params.extend(cat_ids)
+
+        if followed_sources:
+            placeholders = ",".join("?" for _ in followed_sources)
+            filter_clauses.append(f"a.source_id IN ({placeholders})")
+            params.extend(followed_sources)
+
+        if filter_clauses:
+            query += f" AND ({' OR '.join(filter_clauses)})"
+
+        if cursor:
+            query += " AND a.published_at < ?"
+            params.append(cursor)
+
+        query += " ORDER BY a.published_at DESC LIMIT ?"
+        params.append(limit + 1)
+
+        with self._get_connection() as conn:
+            c = conn.cursor()
+            c.execute(query, params)
+            rows = c.fetchall()
+
+        articles = [self._row_to_article(r) for r in rows[:limit]]
+        next_cursor = rows[limit]["published_at"] if len(rows) > limit else None
+        return articles, next_cursor

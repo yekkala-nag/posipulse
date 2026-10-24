@@ -133,6 +133,95 @@ export class PosiPulseApiClient {
       throw new Error(`Failed to fetch live news: HTTP ${res.status}`);
     }
     return await res.json();
+  /**
+   * Fetch followed categories and sources for an anonymous device ID (DPDP Act 2023 compliant).
+   */
+  async getFollowing(deviceId: string): Promise<{ device_id: string; categories: number[]; sources: string[] }> {
+    const res = await fetch(`${this.baseUrl}/v1/reader/${encodeURIComponent(deviceId)}/following`, {
+      headers: { 'Accept': 'application/json' },
+    });
+    if (!res.ok) {
+      throw new Error(`Failed to load following preferences: HTTP ${res.status}`);
+    }
+    return await res.json();
+  }
+
+  /**
+   * Follow a category or publisher source.
+   */
+  async follow(
+    deviceId: string,
+    type: 'category' | 'source',
+    targetId: string | number
+  ): Promise<{ success: boolean; following_type: string; target_id: string | number }> {
+    const res = await fetch(`${this.baseUrl}/v1/reader/${encodeURIComponent(deviceId)}/follow`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ following_type: type, target_id: targetId }),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.detail || `Failed to follow: HTTP ${res.status}`);
+    }
+    return await res.json();
+  }
+
+  /**
+   * Unfollow a category or publisher source.
+   */
+  async unfollow(
+    deviceId: string,
+    type: 'category' | 'source',
+    targetId: string | number
+  ): Promise<{ success: boolean }> {
+    const res = await fetch(`${this.baseUrl}/v1/reader/${encodeURIComponent(deviceId)}/follow`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ following_type: type, target_id: targetId }),
+    });
+    if (!res.ok) {
+      throw new Error(`Failed to unfollow: HTTP ${res.status}`);
+    }
+    return await res.json();
+  }
+
+  /**
+   * Erase all followed categories and sources for device ID (DPDP Act right to erasure).
+   */
+  async clearFollowing(deviceId: string): Promise<{ success: boolean; deleted_count: number }> {
+    const res = await fetch(`${this.baseUrl}/v1/reader/${encodeURIComponent(deviceId)}/following`, {
+      method: 'DELETE',
+    });
+    if (!res.ok) {
+      throw new Error(`Failed to clear following data: HTTP ${res.status}`);
+    }
+    return await res.json();
+  }
+
+  /**
+   * Fetch constructive feed restricted to reader's followed categories and sources.
+   */
+  async getFollowingFeed(
+    deviceId: string,
+    language: string,
+    options?: {
+      cursor?: string;
+      limit?: number;
+    }
+  ): Promise<FeedResponse> {
+    const params = new URLSearchParams();
+    params.set('device_id', deviceId);
+    params.set('language', language);
+    if (options?.cursor) params.set('cursor', options.cursor);
+    if (options?.limit) params.set('limit', String(options.limit));
+
+    const res = await fetch(`${this.baseUrl}/v1/feed/following?${params.toString()}`, {
+      headers: { 'Accept': 'application/json' },
+    });
+    if (!res.ok) {
+      throw new Error(`Failed to load following feed: HTTP ${res.status}`);
+    }
+    return (await res.json()) as FeedResponse;
   }
 }
 

@@ -548,8 +548,88 @@ def rollback_publisher_analytics_migration(conn: sqlite3.Connection) -> bool:
 
     cursor.execute("DROP INDEX IF EXISTS idx_pub_analytics_source_bucket")
     cursor.execute("DROP INDEX IF EXISTS idx_pub_analytics_bucket")
-    cursor.execute("DROP TABLE IF EXISTS publisher_analytics_hourly")
-
     cursor.execute("DELETE FROM schema_migrations WHERE version = ?", (MIGRATION_005_VERSION,))
+    conn.commit()
+    return True
+
+
+# ============================================================================
+# Migration 006: Reader Following Architecture (Categories & Sources)
+# ============================================================================
+
+MIGRATION_006_VERSION = "006_reader_following"
+
+
+def apply_reader_following_migration(conn: sqlite3.Connection) -> bool:
+    """
+    Applies Migration 006 (Forward).
+    Creates reader_following table for anonymous device-based topic and source following.
+    Enforces strict zero-PII and DPDP user preference retention.
+    """
+    cursor = conn.cursor()
+
+    # 1. Ensure schema migrations tracker exists
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS schema_migrations (
+            version TEXT PRIMARY KEY,
+            applied_at TEXT NOT NULL
+        )
+    """)
+
+    # 2. Check if already applied
+    cursor.execute("SELECT 1 FROM schema_migrations WHERE version = ?", (MIGRATION_006_VERSION,))
+    if cursor.fetchone():
+        return False
+
+    # 3. Create reader_following table
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS reader_following (
+            device_id TEXT NOT NULL,
+            following_type TEXT NOT NULL, -- 'category' or 'source'
+            target_id TEXT NOT NULL,      -- category ID integer string (1-13) or source_id slug
+            created_at TEXT NOT NULL,
+            PRIMARY KEY (device_id, following_type, target_id)
+        )
+    """)
+
+    # 4. Performance indexes for device preference lookups and popularity aggregation
+    cursor.execute("""
+        CREATE INDEX IF NOT EXISTS idx_reader_following_device
+        ON reader_following (device_id)
+    """)
+    cursor.execute("""
+        CREATE INDEX IF NOT EXISTS idx_reader_following_target
+        ON reader_following (following_type, target_id)
+    """)
+
+    # 5. Record migration
+    cursor.execute(
+        "INSERT INTO schema_migrations (version, applied_at) VALUES (?, ?)",
+        (MIGRATION_006_VERSION, datetime.now(timezone.utc).isoformat())
+    )
+    conn.commit()
+    return True
+
+
+def rollback_reader_following_migration(conn: sqlite3.Connection) -> bool:
+    """
+    Rolls back Migration 006 (Reversible).
+    Drops reader_following table and indexes.
+    """
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='schema_migrations'")
+    if not cursor.fetchone():
+        return False
+
+    cursor.execute("SELECT 1 FROM schema_migrations WHERE version = ?", (MIGRATION_006_VERSION,))
+    if not cursor.fetchone():
+        return False
+
+    cursor.execute("DROP INDEX IF EXISTS idx_reader_following_device")
+    cursor.execute("DROP INDEX IF EXISTS idx_reader_following_target")
+    cursor.execute("DROP TABLE IF EXISTS reader_following")
+
+    cursor.execute("DELETE FROM schema_migrations WHERE version = ?", (MIGRATION_006_VERSION,))
     conn.commit()
     return True

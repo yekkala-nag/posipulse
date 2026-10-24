@@ -13,6 +13,12 @@ document.addEventListener('DOMContentLoaded', () => {
   let categoriesById = {};
   let isRTL = false;
 
+  // Anonymous Reader Identity & Following State (DPDP Compliant)
+  let deviceId = getOrCreateDeviceId();
+  let followedCategories = new Set();
+  let followedSources = new Set();
+  let isFollowingMode = false;
+
   // DOM Elements
   const languageStrip = document.getElementById('language-strip');
   const currentLangDisplay = document.getElementById('current-lang-display');
@@ -33,8 +39,53 @@ document.addEventListener('DOMContentLoaded', () => {
   const feedbackForm = document.getElementById('feedback-form');
   const modalArticleId = document.getElementById('modal-article-id');
 
-  // Initialize Theme
+  // Following Management Elements
+  const openFollowingBtn = document.getElementById('open-following-btn');
+  const followingCountBadge = document.getElementById('following-count-badge');
+  const followingModal = document.getElementById('following-modal');
+  const followingCloseBtn = document.getElementById('following-close-btn');
+  const followingDoneBtn = document.getElementById('following-done-btn');
+  const clearAllFollowingBtn = document.getElementById('clear-all-following-btn');
+  const followingCategoriesList = document.getElementById('following-categories-list');
+  const followingSourcesList = document.getElementById('following-sources-list');
+
+  // Initialize Theme & Following State
   initTheme();
+  loadFollowingPreferences();
+
+  function getOrCreateDeviceId() {
+    let id = localStorage.getItem('posipulse_device_id');
+    if (!id) {
+      id = 'dev-' + Math.random().toString(36).substring(2, 12) + '-' + Date.now().toString(36);
+      localStorage.setItem('posipulse_device_id', id);
+    }
+    return id;
+  }
+
+  async function loadFollowingPreferences() {
+    try {
+      const res = await fetch(`/v1/reader/${encodeURIComponent(deviceId)}/following`);
+      if (res.ok) {
+        const data = await res.json();
+        followedCategories = new Set(data.categories || []);
+        followedSources = new Set(data.sources || []);
+        updateFollowingBadge();
+      }
+    } catch (err) {
+      console.warn('Could not load following preferences:', err);
+    }
+  }
+
+  function updateFollowingBadge() {
+    const total = followedCategories.size + followedSources.size;
+    if (followingCountBadge) {
+      followingCountBadge.textContent = total;
+    }
+    const catFollowingPill = document.getElementById('cat-following-count');
+    if (catFollowingPill) {
+      catFollowingPill.textContent = `(${total})`;
+    }
+  }
 
   // Load Languages & Feed
   loadLanguages();
@@ -77,15 +128,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderCategoryFilters() {
     if (!categoryFilters) return;
-    const isAllActive = !currentCategory;
+    const isAllActive = !currentCategory && !isFollowingMode;
+    const isFollowingActive = isFollowingMode;
+    const totalFollowing = followedCategories.size + followedSources.size;
     let html = `
       <button class="filter-pill ${isAllActive ? 'active' : ''}" data-category="" id="cat-all">
         <span>✨</span> <span>All Stories</span>
       </button>
+      <button class="filter-pill ${isFollowingActive ? 'active' : ''}" data-category="__following__" id="cat-following">
+        <span>⭐</span> <span>Following <span id="cat-following-count">(${totalFollowing})</span></span>
+      </button>
     `;
 
     availableCategories.forEach((cat) => {
-      const isActive = currentCategory === cat.slug || currentCategory === String(cat.id);
+      const isActive = !isFollowingMode && (currentCategory === cat.slug || currentCategory === String(cat.id));
       html += `
         <button class="filter-pill ${isActive ? 'active' : ''}" data-category="${cat.slug}" id="cat-${cat.slug}" title="${escapeHTML(cat.name_en)}">
           <span>${cat.icon}</span> <span>${escapeHTML(cat.display_name)}</span>
@@ -194,7 +250,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.filter-pill').forEach((btn) => btn.classList.remove('active'));
     target.classList.add('active');
 
-    currentCategory = target.getAttribute('data-category') || '';
+    const catAttr = target.getAttribute('data-category') || '';
+    if (catAttr === '__following__') {
+      isFollowingMode = true;
+      currentCategory = '';
+    } else {
+      isFollowingMode = false;
+      currentCategory = catAttr;
+    }
     loadFeed();
   });
 
@@ -208,9 +271,14 @@ document.addEventListener('DOMContentLoaded', () => {
     emptyState.classList.add('hidden');
 
     try {
-      let url = `/v1/feed?language=${encodeURIComponent(currentLanguage)}`;
-      if (currentCategory) {
-        url += `&category=${encodeURIComponent(currentCategory)}`;
+      let url;
+      if (isFollowingMode) {
+        url = `/v1/feed/following?device_id=${encodeURIComponent(deviceId)}&language=${encodeURIComponent(currentLanguage)}`;
+      } else {
+        url = `/v1/feed?language=${encodeURIComponent(currentLanguage)}`;
+        if (currentCategory) {
+          url += `&category=${encodeURIComponent(currentCategory)}`;
+        }
       }
 
       const res = await fetch(url);
@@ -219,8 +287,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = await res.json();
       let articles = data.articles || [];
 
-      // Auto-seed demo stories on first visit to this language if feed is empty
-      if (articles.length === 0 && !currentCategory && !autoSeededLanguages[currentLanguage]) {
+      // Auto-seed demo stories on first visit to this language if feed is empty (not in following mode)
+      if (articles.length === 0 && !currentCategory && !isFollowingMode && !autoSeededLanguages[currentLanguage]) {
         autoSeededLanguages[currentLanguage] = true;
         try {
           const seedRes = await fetch(`/v1/demo/seed?language=${encodeURIComponent(currentLanguage)}`, { method: 'POST' });
@@ -236,11 +304,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
 
-      feedResultsCounter.textContent = `Showing ${articles.length} verified constructive stories`;
+      if (isFollowingMode) {
+        feedResultsCounter.textContent = `Showing ${articles.length} stories from your followed topics & sources`;
+      } else {
+        feedResultsCounter.textContent = `Showing ${articles.length} verified constructive stories`;
+      }
 
       if (articles.length === 0) {
         articlesGrid.innerHTML = '';
-        emptyState.classList.remove('hidden');
+        if (isFollowingMode && (followedCategories.size + followedSources.size === 0)) {
+          articlesGrid.innerHTML = `
+            <div class="empty-state">
+              <div class="empty-icon">⭐</div>
+              <h3 class="empty-title">You Haven't Followed Any Topics or Sources Yet</h3>
+              <p class="empty-description">Click "+ Follow" on any category or publisher card to tailor your constructive feed.</p>
+            </div>
+          `;
+        } else {
+          emptyState.classList.remove('hidden');
+        }
       } else {
         renderArticles(articles);
       }
@@ -323,12 +405,24 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="publisher-trust-badges">
               ${pub.verification_status === 'verified' ? `<span class="verified-domain-pill" title="Cryptographically verified publisher domain">✓ Verified Domain</span>` : ''}
               <span class="rights-mode-pill" title="Syndication Rights Mode">${escapeHTML(rightsModeLabel)}</span>
+              ${art.source_id ? `
+                <button class="follow-toggle-btn ${followedSources.has(art.source_id) ? 'active' : ''}" data-source-id="${escapeHTML(art.source_id)}" title="Follow / unfollow publisher source">
+                  ${followedSources.has(art.source_id) ? '★ Following' : '+ Follow'}
+                </button>
+              ` : ''}
             </div>
           </div>
 
           <!-- Top Row: Category + Verified Badge -->
           <div class="card-top">
-            <span class="category-tag ${catClass}">${escapeHTML(categoryDisplay)}</span>
+            <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+              <span class="category-tag ${catClass}">${escapeHTML(categoryDisplay)}</span>
+              ${art.category && art.category.primary_id ? `
+                <button class="follow-cat-btn ${followedCategories.has(art.category.primary_id) ? 'active' : ''}" data-cat-id="${art.category.primary_id}" title="Follow category">
+                  ${followedCategories.has(art.category.primary_id) ? '★ Following' : '+ Follow'}
+                </button>
+              ` : ''}
+            </div>
             <div class="card-meta-right">
               <span class="verified-badge" title="Faithfulness Verified Entailment Score">
                 <span>✓</span> Verified Positive
@@ -396,6 +490,81 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
 
       articlesGrid.appendChild(card);
+    });
+
+    // Attach follow/unfollow listeners for sources
+    document.querySelectorAll('.follow-toggle-btn').forEach((btn) => {
+      btn.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        const sourceId = btn.getAttribute('data-source-id');
+        if (!sourceId) return;
+        const isFollowed = followedSources.has(sourceId);
+        try {
+          const res = await fetch(`/v1/reader/${encodeURIComponent(deviceId)}/follow`, {
+            method: isFollowed ? 'DELETE' : 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ following_type: 'source', target_id: sourceId }),
+          });
+          if (!res.ok) throw new Error('Failed to update follow');
+          if (isFollowed) {
+            followedSources.delete(sourceId);
+          } else {
+            followedSources.add(sourceId);
+          }
+          updateFollowingBadge();
+          renderCategoryFilters();
+          if (isFollowingMode) {
+            loadFeed();
+          } else {
+            document.querySelectorAll(`.follow-toggle-btn[data-source-id="${sourceId}"]`).forEach((b) => {
+              b.classList.toggle('active', !isFollowed);
+              b.textContent = !isFollowed ? '★ Following' : '+ Follow';
+            });
+          }
+        } catch (err) {
+          console.error('Follow error:', err);
+        }
+      });
+    });
+
+    // Attach follow/unfollow listeners for categories
+    document.querySelectorAll('.follow-cat-btn').forEach((btn) => {
+      btn.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        const catIdStr = btn.getAttribute('data-cat-id');
+        if (!catIdStr) return;
+        const catId = parseInt(catIdStr, 10);
+        const isFollowed = followedCategories.has(catId);
+        try {
+          const res = await fetch(`/v1/reader/${encodeURIComponent(deviceId)}/follow`, {
+            method: isFollowed ? 'DELETE' : 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ following_type: 'category', target_id: catId }),
+          });
+          if (!res.ok) {
+            const errData = await res.json().catch(() => ({}));
+            throw new Error(errData.detail || 'Failed to update follow');
+          }
+          if (isFollowed) {
+            followedCategories.delete(catId);
+          } else {
+            followedCategories.add(catId);
+          }
+          updateFollowingBadge();
+          renderCategoryFilters();
+          if (isFollowingMode) {
+            loadFeed();
+          } else {
+            document.querySelectorAll(`.follow-cat-btn[data-cat-id="${catId}"]`).forEach((b) => {
+              b.classList.toggle('active', !isFollowed);
+              b.textContent = !isFollowed ? '★ Following' : '+ Follow';
+            });
+          }
+        } catch (err) {
+          console.error('Category follow error:', err);
+          alert(err.message);
+        }
+      });
     });
 
     // Attach anonymous click analytics tracking to publisher link-out buttons
@@ -571,4 +740,117 @@ document.addEventListener('DOMContentLoaded', () => {
       alert(`Error submitting feedback: ${err.message}`);
     }
   });
+
+  // --------------------------------------------------------------------------
+  // Reader Following Modal Management (DPDP Act 2023 Compliant)
+  // --------------------------------------------------------------------------
+  function openFollowingModal() {
+    renderFollowingModalLists();
+    if (followingModal) followingModal.classList.remove('hidden');
+  }
+
+  function closeFollowingModal() {
+    if (followingModal) followingModal.classList.add('hidden');
+  }
+
+  function renderFollowingModalLists() {
+    if (!followingCategoriesList || !followingSourcesList) return;
+
+    // Render followed categories
+    if (followedCategories.size === 0) {
+      followingCategoriesList.innerHTML = '<span class="empty-following-msg" style="color: var(--text-muted); font-size: 0.85rem;">No categories followed yet.</span>';
+    } else {
+      followingCategoriesList.innerHTML = Array.from(followedCategories)
+        .map((catId) => {
+          const meta = categoriesById[catId] || { display_name: `Category ${catId}`, icon: '🏷️' };
+          return `
+            <span class="following-item-chip" style="display: inline-flex; align-items: center; gap: 0.4rem; background: var(--bg-surface-elevated, #2a2a2a); border: 1px solid var(--border-color); padding: 0.3rem 0.6rem; border-radius: 9999px; font-size: 0.85rem;">
+              <span>${meta.icon || '🏷️'} ${escapeHTML(meta.display_name)}</span>
+              <button class="remove-chip-btn" data-cat-id="${catId}" style="background: none; border: none; cursor: pointer; color: var(--text-muted); font-weight: bold; padding: 0 2px;" title="Unfollow">✕</button>
+            </span>
+          `;
+        })
+        .join('');
+    }
+
+    // Render followed sources
+    if (followedSources.size === 0) {
+      followingSourcesList.innerHTML = '<span class="empty-following-msg" style="color: var(--text-muted); font-size: 0.85rem;">No publisher sources followed yet.</span>';
+    } else {
+      followingSourcesList.innerHTML = Array.from(followedSources)
+        .map((srcId) => {
+          return `
+            <span class="following-item-chip" style="display: inline-flex; align-items: center; gap: 0.4rem; background: var(--bg-surface-elevated, #2a2a2a); border: 1px solid var(--border-color); padding: 0.3rem 0.6rem; border-radius: 9999px; font-size: 0.85rem;">
+              <span>📰 ${escapeHTML(srcId)}</span>
+              <button class="remove-chip-btn" data-source-id="${escapeHTML(srcId)}" style="background: none; border: none; cursor: pointer; color: var(--text-muted); font-weight: bold; padding: 0 2px;" title="Unfollow">✕</button>
+            </span>
+          `;
+        })
+        .join('');
+    }
+
+    // Attach chip remove handlers
+    followingCategoriesList.querySelectorAll('.remove-chip-btn').forEach((b) => {
+      b.addEventListener('click', async () => {
+        const catId = parseInt(b.getAttribute('data-cat-id'), 10);
+        await unfollowItem('category', catId);
+        followedCategories.delete(catId);
+        updateFollowingBadge();
+        renderFollowingModalLists();
+        renderCategoryFilters();
+        if (isFollowingMode) loadFeed();
+      });
+    });
+
+    followingSourcesList.querySelectorAll('.remove-chip-btn').forEach((b) => {
+      b.addEventListener('click', async () => {
+        const srcId = b.getAttribute('data-source-id');
+        await unfollowItem('source', srcId);
+        followedSources.delete(srcId);
+        updateFollowingBadge();
+        renderFollowingModalLists();
+        renderCategoryFilters();
+        if (isFollowingMode) loadFeed();
+      });
+    });
+  }
+
+  async function unfollowItem(type, targetId) {
+    try {
+      await fetch(`/v1/reader/${encodeURIComponent(deviceId)}/follow`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ following_type: type, target_id: targetId }),
+      });
+    } catch (err) {
+      console.warn('Unfollow failed:', err);
+    }
+  }
+
+  async function clearAllFollowingData() {
+    if (!confirm('DPDP Erasure: Are you sure you want to permanently delete all stored following preferences? This action cannot be undone.')) {
+      return;
+    }
+    try {
+      const res = await fetch(`/v1/reader/${encodeURIComponent(deviceId)}/following`, {
+        method: 'DELETE',
+      });
+      if (res.ok) {
+        followedCategories.clear();
+        followedSources.clear();
+        updateFollowingBadge();
+        renderFollowingModalLists();
+        renderCategoryFilters();
+        if (isFollowingMode) loadFeed();
+        alert('All reader preferences have been permanently erased from the server.');
+      }
+    } catch (err) {
+      alert(`Could not erase data: ${err.message}`);
+    }
+  }
+
+  if (openFollowingBtn) openFollowingBtn.addEventListener('click', openFollowingModal);
+  if (followingCloseBtn) followingCloseBtn.addEventListener('click', closeFollowingModal);
+  if (followingDoneBtn) followingDoneBtn.addEventListener('click', closeFollowingModal);
+  if (clearAllFollowingBtn) clearAllFollowingBtn.addEventListener('click', clearAllFollowingData);
 });

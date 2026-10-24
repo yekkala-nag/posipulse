@@ -739,6 +739,46 @@ body {
   border-radius: var(--radius-pill);
 }
 
+/* Follow Buttons */
+.follow-toggle-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  color: var(--text-secondary);
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.follow-toggle-btn:hover {
+  background: rgba(245, 158, 11, 0.2);
+  color: #f59e0b;
+  border-color: #f59e0b;
+}
+
+.follow-toggle-btn.active {
+  background: rgba(245, 158, 11, 0.25);
+  color: #f59e0b;
+  border-color: #f59e0b;
+}
+
+.follow-cat-btn {
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-size: 0.75rem;
+  cursor: pointer;
+  margin-left: 0.35rem;
+  opacity: 0.7;
+}
+
+.follow-cat-btn:hover, .follow-cat-btn.active {
+  opacity: 1;
+  color: #f59e0b;
+}
+
 /* Verbatim Publisher Excerpt Container */
 .card-verbatim-box {
   background: rgba(245, 158, 11, 0.06);

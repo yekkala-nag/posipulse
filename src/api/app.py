@@ -7,7 +7,7 @@ feed pagination, and DPDP Act delisting.
 
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from fastapi import BackgroundTasks, FastAPI, Header, HTTPException, Query, Response, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
@@ -249,6 +249,215 @@ def create_app(storage: Optional[StorageEngine] = None, registry: Optional[Langu
             "articles": enriched,
             "next_cursor": next_cursor,
             "total_returned": len(enriched)
+        }
+
+    # ========================================================================
+    # Reader Following & Topic Preferences (Categories & Sources)
+    # ========================================================================
+
+    class FollowRequest(BaseModel):
+        following_type: str = Field(..., description="'category' or 'source'")
+        target_id: Union[str, int] = Field(..., description="Category ID (e.g. 1-13) or Source ID slug")
+
+    @app.get("/v1/feed/following")
+    def get_following_feed(
+        device_id: str = Query(..., min_length=4, max_length=128, description="Anonymous device identifier"),
+        language: str = Query(..., min_length=2, max_length=5, description="ISO language code"),
+        limit: int = Query(20, ge=1, le=100),
+        cursor: Optional[str] = Query(None, description="Pagination cursor")
+    ) -> Dict[str, Any]:
+        """
+        Following Feed.
+        Delivers verified constructive news matching topics (categories) and publisher sources
+        followed by an anonymous device ID. No user account required.
+        """
+        lang_config = config_registry.get(language)
+        if not lang_config:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"The requested language code '{language}' is not supported."
+            )
+
+        articles, next_cursor = storage_engine.get_following_feed(
+            device_id=device_id,
+            language=language,
+            limit=limit,
+            cursor=cursor
+        )
+
+        profiles_cache: Dict[str, Optional[SourceProfile]] = {}
+
+        def _get_profile(source_id: str) -> Optional[SourceProfile]:
+            if source_id not in profiles_cache:
+                profiles_cache[source_id] = storage_engine.get_source_profile(source_id)
+            return profiles_cache[source_id]
+
+        enriched = []
+        for a in articles:
+            raw_data = a.model_dump()
+            profile = _get_profile(a.source_id)
+            enriched_item = AttributionEngine.enrich_article_presentation(
+                raw_data,
+                profile=profile,
+                is_rtl=lang_config.is_rtl
+            )
+            enriched.append(enriched_item)
+
+        # Batch record anonymous impressions
+        if articles:
+            storage_engine.record_impressions_batch([
+                {
+                    "source_id": a.source_id,
+                    "article_id": a.id,
+                    "language": a.language,
+                    "category_id": a.category.primary_id if a.category else None
+                }
+                for a in articles
+            ])
+
+        return {
+            "articles": enriched,
+            "next_cursor": next_cursor,
+            "has_more": next_cursor is not None,
+            "total_returned": len(enriched),
+            "following": storage_engine.get_reader_following(device_id)
+        }
+
+    @app.get("/v1/reader/{device_id}/following")
+    def get_reader_following(device_id: str) -> Dict[str, Any]:
+        """
+        Retrieve all categories and sources followed by an anonymous device ID.
+        DPDP Act 2023: Full transparency on stored preferences.
+        """
+        following = storage_engine.get_reader_following(device_id)
+        from src.taxonomy import default_taxonomy_registry
+
+        # Enrich categories with display metadata
+        enriched_categories = []
+        for cat_item in following["categories"]:
+            cat_id_int = int(cat_item) if isinstance(cat_item, int) or (isinstance(cat_item, str) and cat_item.isdigit()) else None
+            if cat_id_int:
+                cat = default_taxonomy_registry.get_by_id(cat_id_int)
+                if cat:
+                    enriched_categories.append({
+                        "id": cat.id,
+                        "slug": cat.slug,
+                        "name_en": cat.name_en,
+                        "display_name": cat.get_display_name("en")
+                    })
+
+        # Enrich sources with publisher metadata
+        enriched_sources = []
+        for src_id in following["sources"]:
+            prof = storage_engine.get_source_profile(src_id)
+            if prof:
+                enriched_sources.append({
+                    "id": prof.id,
+                    "publisher_name": prof.publisher_name,
+                    "primary_domain": prof.primary_domain,
+                    "verification_status": prof.verification_status.value
+                })
+
+        return {
+            "device_id": device_id,
+            "categories": following["categories"],
+            "sources": following["sources"],
+            "enriched_categories": enriched_categories,
+            "enriched_sources": enriched_sources
+        }
+
+    @app.post("/v1/reader/{device_id}/follow")
+    def follow_topic_or_source(device_id: str, request: FollowRequest) -> Dict[str, Any]:
+        """
+        Follow a visible news category or active publisher source.
+        Fail-closed invariant: Hidden categories (14-18) are never followable.
+        """
+        from src.taxonomy import default_taxonomy_registry
+
+        target_str = str(request.target_id)
+        if request.following_type == "category":
+            target_cat = None
+            if target_str.isdigit():
+                target_cat = default_taxonomy_registry.get_by_id(int(target_str))
+            else:
+                target_cat = default_taxonomy_registry.get_by_slug(target_str)
+
+            if not target_cat:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail=f"Category '{request.target_id}' not found."
+                )
+            if not target_cat.is_visible:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail="Hidden news categories cannot be followed under constructive journalism guidelines."
+                )
+            storage_engine.follow_target(device_id, "category", str(target_cat.id))
+
+        elif request.following_type == "source":
+            prof = storage_engine.get_source_profile(target_str)
+            if not prof:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail=f"Publisher source '{request.target_id}' not found."
+                )
+            if prof.takedown_status.value == "takedown_enforced":
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail="Delisted publisher sources cannot be followed."
+                )
+            storage_engine.follow_target(device_id, "source", prof.id)
+        else:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Invalid following_type. Must be 'category' or 'source'."
+            )
+
+        return {
+            "success": True,
+            "status": "followed",
+            "device_id": device_id,
+            "following_type": request.following_type,
+            "target_id": request.target_id,
+            "following": storage_engine.get_reader_following(device_id)
+        }
+
+    @app.delete("/v1/reader/{device_id}/follow")
+    def unfollow_topic_or_source(
+        device_id: str,
+        request: Optional[FollowRequest] = None,
+        following_type: Optional[str] = Query(None, description="'category' or 'source'"),
+        target_id: Optional[Union[str, int]] = Query(None, description="Category ID or source slug")
+    ) -> Dict[str, Any]:
+        """Unfollow a category or publisher source."""
+        f_type = request.following_type if request else following_type
+        t_id = str(request.target_id) if request else (str(target_id) if target_id is not None else None)
+        if not f_type or not t_id:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Must provide following_type and target_id."
+            )
+        unfollowed = storage_engine.unfollow_target(device_id, f_type, t_id)
+        return {
+            "success": True,
+            "status": "unfollowed" if unfollowed else "not_found",
+            "device_id": device_id,
+            "following": storage_engine.get_reader_following(device_id)
+        }
+
+    @app.delete("/v1/reader/{device_id}/following")
+    def clear_all_reader_following(device_id: str) -> Dict[str, Any]:
+        """
+        DPDP Section 12 Right to Erasure.
+        Permanently wipes all followed topic and source preferences for the device.
+        """
+        cleared_count = storage_engine.clear_reader_following(device_id)
+        return {
+            "success": True,
+            "status": "erased",
+            "device_id": device_id,
+            "records_cleared": cleared_count,
+            "deleted_count": cleared_count
         }
 
     @app.get("/v1/articles/{article_id}")

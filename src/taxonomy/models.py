@@ -104,6 +104,10 @@ class Category(BaseModel):
     def name_en(self) -> str:
         return self.display_names.get("en", self.slug)
 
+    @property
+    def is_visible(self) -> bool:
+        return self.visibility == CategoryVisibility.VISIBLE
+
 
 class TaxonomyVersion(BaseModel):
     """
