@@ -78,8 +78,8 @@ sources:
   respect_robots_txt: true
 - id: odisha-tv
   name: Odisha TV (OTV)
-  feed_url: https://odishatv.in/feed
-  homepage_url: https://odishatv.in
+  feed_url: https://otvkhabar.in/rss
+  homepage_url: https://otvkhabar.in
   language: or
   is_active: true
   health_status: healthy

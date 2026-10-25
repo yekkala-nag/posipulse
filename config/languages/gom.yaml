@@ -80,7 +80,7 @@ sources:
 
   - id: "google-news-goa-konkani"
     name: "Google News (Goa & Konkani)"
-    feed_url: "https://news.google.com/rss/search?q=Goa+Konkani&hl=en-IN&gl=IN&ceid=IN:en"
+    feed_url: "https://news.google.com/rss/search?q=%E0%A4%97%E0%A5%8B%E0%A4%82%E0%A4%AF+%E0%A4%95%E0%A5%8B%E0%A4%82%E0%A4%95%E0%A4%A3%E0%A5%80&hl=mr&gl=IN&ceid=IN:mr"
     homepage_url: "https://news.google.com"
     language: "gom"
     is_active: true
