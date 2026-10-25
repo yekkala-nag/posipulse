@@ -52,7 +52,7 @@ sources:
   homepage_url: https://www.eenadu.net
   language: te
   is_active: true
-  health_status: healthy
+  health_status: degraded
   fetch_interval_minutes: 30
   circuit_breaker_fail_threshold: 5
   respect_robots_txt: true
@@ -62,7 +62,7 @@ sources:
   homepage_url: https://telugu.news18.com
   language: te
   is_active: true
-  health_status: healthy
+  health_status: degraded
   fetch_interval_minutes: 30
   circuit_breaker_fail_threshold: 5
   respect_robots_txt: true
@@ -96,3 +96,34 @@ sources:
   fetch_interval_minutes: 30
   circuit_breaker_fail_threshold: 5
   respect_robots_txt: true
+- id: v6-velugu
+  name: V6 Velugu
+  feed_url: https://www.v6velugu.com/feed/
+  homepage_url: https://www.v6velugu.com
+  language: te
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: tv9-telugu-tech
+  name: TV9 Telugu Tech Desk
+  feed_url: https://tv9telugu.com/technology/feed
+  homepage_url: https://tv9telugu.com
+  language: te
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+- id: ntnews-agriculture
+  name: Namasthe Telangana Vyavasayam
+  feed_url: https://www.ntnews.com/agriculture/feed
+  homepage_url: https://www.ntnews.com
+  language: te
+  is_active: true
+  health_status: healthy
+  fetch_interval_minutes: 30
+  circuit_breaker_fail_threshold: 5
+  respect_robots_txt: true
+

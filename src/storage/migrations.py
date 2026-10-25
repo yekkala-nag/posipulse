@@ -350,6 +350,8 @@ def migrate_existing_yaml_sources_to_profiles(conn: sqlite3.Connection, config_r
             primary_domain = re.sub(r"^www\.", "", netloc).split("/")[0] or "unknown.domain"
 
             publisher_id = source.id.rsplit("-", 1)[0] if "-" in source.id else source.id
+            if len(publisher_id) < 3:
+                publisher_id = source.id
 
             cursor.execute("""
                 INSERT INTO source_profiles (
