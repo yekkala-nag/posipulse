@@ -89,11 +89,19 @@ class LanguageDetector:
         if declared == "pa" and not has_gurmukhi:
             return False, "non_gurmukhi", 0.0
 
+        # Sanitize whitespace and newlines for single-line fastText inference
+        clean_text = " ".join(text.split())
+        if not clean_text:
+            return False, "unknown", 0.0
+
         # FastText model inference if available
         if self.model:
-            labels, probs = self.model.predict(text)
-            pred_lang = labels[0].replace("__label__", "")
-            confidence = float(probs[0])
+            try:
+                labels, probs = self.model.predict(clean_text)
+                pred_lang = labels[0].replace("__label__", "")
+                confidence = float(probs[0])
+            except Exception:
+                return True, declared, 0.85
 
             # Disambiguation rules for known shared scripts (FastText lid.176 lacks gom/mai and shares Devanagari/Eastern Nagri):
             if declared == "as" and pred_lang in {"as", "bn"}:
