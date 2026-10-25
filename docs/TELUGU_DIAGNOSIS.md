@@ -139,33 +139,82 @@ Live benchmark across active pipeline runs:
 
 ---
 
-## 7. Publisher Candidate Audit (Pending Terms Review)
+## 7. Feedspot Public Directory Audit (`rss.feedspot.com/telugu_news_rss_feeds/`)
 
-Under the non-negotiable policy, **no feeds from Feedspot or external directories are added or enabled**. 
+An audit of the public Feedspot Telugu directory (49 entries) was conducted to verify whether any can be onboarded into PosiPulse without compromising standards.
 
-The following candidates from established Telugu publishers were probed directly on their own official domains to evaluate technical viability, content mix, and legal access terms:
+### 7.1 Directory Composition Breakdown
+- **Total Directory Entries:** 49
+- **No Native RSS Feed (Feedspot Scraper / "Generate RSS"):** **27 entries (55.1%)**. These lack publisher-provided endpoints; using Feedspot's scraper wrapper carries no rights grant and violates publisher terms.
+- **Native Publisher Feed URLs Provided:** **22 entries (44.9%)**.
 
-| Candidate Publisher | Official Domain | Verified Live Feed URL | HTTP Status | Items | Content & Topic Mix | Robots.txt Policy | Terms & Rights Review | Candidate Status |
-| :--- | :--- | :--- | :---: | :---: | :--- | :--- | :--- | :---: |
-| **TV9 Telugu** | `tv9telugu.com` | `https://tv9telugu.com/feed` | 200 OK | 60 | Sports, community, human interest, state news | Allows `/feed`; Disallows `/wp-admin/` | Standard Associated Broadcasting terms; needs syndication agreement | **Pending terms review** |
-| **NTV Telugu** | `ntvtelugu.com` | `https://ntvtelugu.com/feed` | 200 OK | 60 | National initiatives, civic news, sports, local advisories | Allows `/feed`; Disallows `/wp-admin/` | Rachana Television terms; requires formal review | **Pending terms review** |
-| **Namasthe Telangana** | `ntnews.com` | `https://www.ntnews.com/feed` | 200 OK | 200 | Agriculture, state infrastructure, literature, science | Allows `/feed`; Disallows `/wp-admin/` | Telangana Publications Pvt Ltd; requires formal review | **Pending terms review** |
-| **Asianet News Telugu** | `telugu.asianetnews.com` | `https://telugu.asianetnews.com/rss` | 200 OK | 128 | Lifestyle, home farming/gardening, education, tech guides | Allows `/rss`; Disallows `/related-articles` | Asianet News Network digital terms; requires onboarding | **Pending terms review** |
-| **Vaartha** | `vaartha.com` | `https://www.vaartha.com/feed` | 200 OK | 100 | General news, district news, commerce | **Disallows: /** (Blanket crawl block) | Terms forbid scraping or ingestion without contract | **Rejected (Robots block)** |
-| **Prajasakti** | `prajasakti.com` | `https://www.prajasakti.com/feed` | SSL Err | 0 | Labor, rural, education news | SSL Certificate hostname mismatch | Unusable due to TLS certificate failure | **Rejected (Technical failure)** |
-| **Andhra Jyothy** | `andhrajyothy.com` | `https://www.andhrajyothy.com/feed` | 404 | 0 | General news, politics, Tollywood | Disallows `/search*` | No public native RSS endpoint available | **Rejected (Endpoint 404)** |
+### 7.2 Live Technical & Content Probe of All 22 Native Feeds
+
+| # | Directory Entry Name | Feed URL | HTTP Status | Items | Telugu Script Ratio | Content Classification | Technical & Policy Verdict |
+| :-: | :--- | :--- | :---: | :---: | :---: | :--- | :--- |
+| 1 | **Andhrawatch** | `andhrawatch.com/feed/` | **500** | 0 | 0.0% | N/A | **Rejected:** Internal Server Error |
+| 2 | **Telugu Bullet** | `telugu.telugubullet.com/feed/` | 200 OK | 25 | 87% | Movie PR, Tollywood gossip, celebrity buzz | **Rejected:** Fails positivity rubric (cinema hype) |
+| 3 | **NTV Telugu** | `ntvtelugu.com/feed` | 200 OK | 60 | 80% | Rachana TV general desk: national, sports, tech | **Conditional:** General feed has high crime; tech desk viable |
+| 4 | **Visala Andhra** | `visalaandhra.com/feed/` | 200 OK | 10 | 100% | Political party clashes, suicides, flood warnings | **Rejected:** 100% negative/conflict mix |
+| 5 | **OkTelugu** | `oktelugu.com/feed` | 200 OK | 60 | 75% | Political family disputes, sensational rumors | **Rejected:** Fails positivity rubric (political gossip) |
+| 6 | **Telugu Bulletin** | `telugubulletin.com/feed` | 200 OK | 10 | **0.0%** | English-only articles on Telugu topics | **Rejected:** Fails Telugu script gate (100% Latin) |
+| 7 | **Telugu Stop** | `telugustop.com/feed` | 200 OK | 0 | 0.0% | Serves HTML wrapper (0 items parsed) | **Rejected:** Invalid RSS format |
+| 8 | **V6 Velugu** | `v6velugu.com/feed/` | 200 OK | 50 | 97% | ISRO jobs, career guidance, moral stories, defense | **VIABLE CANDIDATE (Pending terms review)** |
+| 9 | **Telugu Rajyam** | `telugurajyam.com/feed` | 200 OK | 30 | 100% | Partisan political feuds, MLA election infighting | **Rejected:** Pure political conflict |
+| 10 | **Adya News** | `adya.news/telugu/feed/` | 200 OK | 12 | 94% | Crime blackmail, political feud letters | **Rejected:** Sensationalism & crime |
+| 11 | **Namasthe Telangana** | `ntnews.com/news/feed` | 200 OK | 200 | 84% | State infra, development, science, agriculture | **VIABLE CANDIDATE (Pending terms review)** |
+| 12 | **Telugu360** | `telugu360.com/feed/` | 200 OK | 10 | **16.0%** | English commentary on AP politics & movies | **Rejected:** Fails Telugu script gate (84% English) |
+| 13 | **Telugu Journalist** | `telugujournalist.com/category/news/feed/` | 200 OK | 10 | 99% | Film VFX PR, horror trailer releases | **Rejected:** Entertainment PR/hype |
+| 14 | **Vaartha** | `vaartha.com/feed/` | 200 OK | 100 | 100% | District news, general commerce | **Rejected:** Robots.txt blanket block (`Disallow: /`) |
+| 15 | **Gulte Telugu** | `telugu.gulte.com/feed` | 200 OK | 20 | 100% | Tollywood gossip, political speculation | **Rejected:** Celebrity gossip & political rumor |
+| 16 | **Prajatantra News** | `prajatantranews.com/feed/` | 200 OK | 10 | 100% | Partisan opposition party opinion pieces | **Rejected:** Partisan commentary |
+| 17 | **TeluguISM** | `teluguism.com/category/news/feed/` | 200 OK | 10 | 100% | Aggressive political accusations ("Jagan is criminal") | **Rejected:** Partisan mudslinging |
+| 18 | **Telugu Post** | `telugupost.com/latest-news/feed` | **403** | 0 | 0.0% | WAF block (HTTP 403 Forbidden) | **Rejected:** Ingestion blocked |
+| 19 | **10TV** | `10tv.in/latest/feed` | 200 OK | 70 | 83% | Cyclone emergency, movie promos, TV stills | **Rejected:** Disaster alerts & TV promos |
+| 20 | **Manalokam** | `manalokam.com/news/feed` | 200 OK | 10 | 100% | Health, wellness ("NTR Baby Kit", nutrition) | **VIABLE TOPIC CANDIDATE (Pending terms review)** |
+| 21 | **Telugu Mirchi** | `telugumirchi.com/telugu/feed` | 200 OK | 0 | 0.0% | 0 items parsed | **Rejected:** Empty endpoint |
+| 22 | **Andhrajyothi** | `andhrajyothy.com/rss/feed.xml` | 200 OK | 1,000 | 83% | Stale archive (articles from 2023–2024; kidnapping/scares) | **Rejected:** Stale unmaintained archive feed |
 
 ---
 
-## 8. Key Findings & Recommendations
+## 8. Viable Publisher Onboarding Candidates
+
+From both the Feedspot audit and our direct publisher probing, the following top 3 viable publisher onboarding candidates emerge for Telugu:
+
+1. **Namasthe Telangana (`ntnews.com`):**
+   - **Entity:** Telangana Publications Pvt Ltd
+   - **Recommended Endpoints:**
+     - Agriculture: `https://www.ntnews.com/agriculture/feed`
+     - Science & Tech: `https://www.ntnews.com/technology/feed`
+     - State Development: `https://www.ntnews.com/news/feed`
+   - **Why It Succeeds:** Highest volume of development, agriculture, and infrastructure reporting in Telangana/AP.
+   - **Status:** **Pending Terms Review** (Requires publisher challenge verification token).
+
+2. **V6 Velugu (`v6velugu.com`):**
+   - **Entity:** VIL Media Pvt Ltd
+   - **Recommended Endpoint:** `https://www.v6velugu.com/feed/`
+   - **Why It Succeeds:** Features positive human interest stories, ISRO technical recruitment, moral literature, and educational advisories. Telugu script ratio is 97%.
+   - **Status:** **Pending Terms Review**.
+
+3. **TV9 Telugu Topic Desks (`tv9telugu.com`):**
+   - **Entity:** Associated Broadcasting Company Pvt Ltd (ABCL)
+   - **Recommended Endpoint:** `https://tv9telugu.com/technology/feed` and `https://tv9telugu.com/sports/feed`
+   - **Why It Succeeds:** TV9’s general feed is crime-heavy, but its specialized technology and sports desks yield genuine constructive reporting.
+   - **Status:** **Pending Terms Review**.
+
+---
+
+## 9. Key Recommendations & Next Steps
 
 1. **Do NOT Loosen Thresholds:** The fact that Telugu currently yields 0 stories is an accurate reflection of the current feed selection's content mix (partisan politics, crime, and sensationalism). Weakening the $\ge 0.85$ positivity gate or 0.70 category threshold would pollute the app with political mudslinging and violate our core promise of constructive journalism.
-2. **Pilot Publisher Onboarding for Telugu:** Because general RSS feeds in Telugu are heavily political, Telugu is the prime candidate for our first **Publisher Onboarding Pilot**. Engaging publishers like **Namasthe Telangana** or **Asianet News Telugu** directly for specific topic feeds (Agriculture, Rural Enterprise, Science & Tech) will unlock high-yield constructive Telugu reporting.
-3. **Fix Existing Broken Endpoints:**
-   - `eenadu-national` should be replaced or updated once Eenadu provides a real XML endpoint instead of an HTML page.
-   - `news18-telugu` requires WAF-allowlisting or header negotiation to resolve the 403 Forbidden barrier.
-4. **Reader Transparency:** The Telugu empty state now clearly informs readers: *"PosiPulse upholds a strict $\ge 0.85$ constructive threshold and fails closed. Because digital publishing in this selection is currently dominated by political coverage, fewer stories pass our editorial integrity checks without dilution."*
+2. **Onboard Topic-Specific Desks:** General feeds from Indian news outlets are dominated by political conflict and crime. Feeds configured for PosiPulse must point to topic desks (Agriculture, Science, Education, Sports, Environment) rather than root / national feeds.
+3. **Pilot Publisher Onboarding for Telugu:** Engage Namasthe Telangana and V6 Velugu via the formal publisher onboarding pipeline (`POST /v1/publishers/onboard` with `terms_review_status: pending` and challenge tokens).
+4. **Fix Degraded Endpoints in Registry:**
+   - De-list or fix `eenadu-national` until a valid XML RSS feed is provided.
+   - Resolve `news18-telugu` 403 Forbidden with appropriate user-agent negotiation or partner allowlisting.
+5. **Reader Transparency:** The Telugu empty state now clearly informs readers: *"PosiPulse upholds a strict $\ge 0.85$ constructive threshold and fails closed. Because digital publishing in this selection is currently dominated by political coverage, fewer stories pass our editorial integrity checks without dilution."*
 
 ---
 
-*CHECKPOINT REACHED. Telugu diagnosis complete in read-only mode. No code, configuration, or thresholds were altered.*
+*CHECKPOINT REACHED. Feedspot directory audit and Telugu diagnosis complete in read-only mode. No code, configuration, or thresholds were altered.*
+
