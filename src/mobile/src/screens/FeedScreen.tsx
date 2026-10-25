@@ -49,6 +49,7 @@ export const FeedScreen: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [reportingArticleId, setReportingArticleId] = useState<string | null>(null);
+  const [autoSeededLanguages, setAutoSeededLanguages] = useState<Record<string, boolean>>({});
 
   const activeLangConfig = languages.find((l) => l.code === currentLanguage);
   const isRTL = Boolean(activeLangConfig?.is_rtl);
@@ -77,7 +78,16 @@ export const FeedScreen: React.FC = () => {
     async (lang: string, cat?: string) => {
       setLoading(true);
       try {
-        const res = await apiClient.getFeed(lang, { category: cat || undefined });
+        let res = await apiClient.getFeed(lang, { category: cat || undefined });
+        if (res.articles.length === 0 && !cat && !autoSeededLanguages[lang]) {
+          setAutoSeededLanguages((prev) => ({ ...prev, [lang]: true }));
+          try {
+            await apiClient.seedDemo(lang);
+            res = await apiClient.getFeed(lang, { category: cat || undefined });
+          } catch (seedErr) {
+            console.warn('Auto-seed attempt failed:', seedErr);
+          }
+        }
         setArticles(res.articles);
         await mobileStorage.cacheArticles(lang, res.articles);
       } catch (err) {
@@ -89,7 +99,7 @@ export const FeedScreen: React.FC = () => {
         setRefreshing(false);
       }
     },
-    []
+    [autoSeededLanguages]
   );
 
   const handleSelectLanguage = async (code: string) => {
