@@ -774,10 +774,10 @@ def create_app(
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid cron authorization token.")
 
         processed = []
-        for lang_code in ["en", "hi", "ur", "bn", "mr", "te", "ta", "gu"]:
-            lang_cfg = config_registry.get(lang_code)
-            if not lang_cfg:
+        for lang_cfg in config_registry.list_all():
+            if lang_cfg.status.value != "active":
                 continue
+            lang_code = lang_cfg.language_code
             orchestrator = PipelineOrchestrator(language_config=lang_cfg, storage=storage_engine)
             res = orchestrator.process_live_language(force=False)
             processed.append({
