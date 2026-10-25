@@ -323,6 +323,14 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
           `;
         } else {
+          const emptyDesc = emptyState.querySelector('.empty-description');
+          if (emptyDesc) {
+            if (currentLanguage === 'gom' || currentLanguage === 'mai') {
+              emptyDesc.textContent = 'PosiPulse upholds a strict ≥0.85 constructive threshold and fails closed. Because digital publishing in this language has lower online volume, fewer stories pass our editorial integrity checks without dilution. You can fetch live updates or seed verified demonstration items.';
+            } else {
+              emptyDesc.textContent = 'The pipeline fails closed to protect precision (≥0.85 positivity threshold). Fetch live stories directly from registered publisher RSS feeds or load verified demonstration items.';
+            }
+          }
           emptyState.classList.remove('hidden');
         }
       } else {

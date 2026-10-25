@@ -11,11 +11,14 @@ EMBEDDED_LANGUAGE_CONFIGS: Dict[str, Dict[str, Any]] = {'as': {'cost_caps': {'al
                       'cost_per_published_item_target_usd': 0.00052,
                       'max_cost_per_run_usd': 1.5,
                       'max_daily_budget_usd': 15.0},
-        'exemplars': [{'body_snippet': 'কাজিৰঙা ৰাষ্ট্ৰীয় উদ্যানত আধুনিক ড্ৰোন আৰু স্থানীয় যুৱক-যুৱতীৰ তহলৰ জৰিয়তে '
-                                       'চোৰাং চিকাৰ সম্পূৰ্ণৰূপে প্ৰতিহত হৈছে।',
-                       'headline': 'কাজিৰঙাত বনকৰ্মীৰ সফল নিৰীক্ষণ; চোৰাং চিকাৰ শূন্যলৈ নামি গঁড়ৰ সংখ্যা বৃদ্ধি',
+        'exemplars': [{'body_snippet': 'কাজিৰঙা ৰাষ্ট্ৰীয় উদ্যানত আধুনিক ড্ৰোন আৰু স্থানীয় '
+                                       'যুৱক-যুৱতীৰ তহলৰ জৰিয়তে চোৰাং চিকাৰ সম্পূৰ্ণৰূপে প্ৰতিহত '
+                                       'হৈছে।',
+                       'headline': 'কাজিৰঙাত বনকৰ্মীৰ সফল নিৰীক্ষণ; চোৰাং চিকাৰ শূন্যলৈ নামি গঁড়ৰ '
+                                   'সংখ্যা বৃদ্ধি',
                        'label': 'positive',
-                       'reason': 'বন্যপ্ৰাণী সংৰক্ষণ আৰু জৈৱ বৈচিত্ৰ্য ৰক্ষাৰ ক্ষেত্ৰত যুগান্তকাৰী সফলতা।',
+                       'reason': 'বন্যপ্ৰাণী সংৰক্ষণ আৰু জৈৱ বৈচিত্ৰ্য ৰক্ষাৰ ক্ষেত্ৰত যুগান্তকাৰী '
+                                 'সফলতা।',
                        'substance_category': 'Ecology'}],
         'is_rtl': False,
         'language_code': 'as',
@@ -104,16 +107,19 @@ EMBEDDED_LANGUAGE_CONFIGS: Dict[str, Dict[str, Any]] = {'as': {'cost_caps': {'al
                       'cost_per_published_item_target_usd': 0.00056,
                       'max_cost_per_run_usd': 1.5,
                       'max_daily_budget_usd': 15.0},
-        'exemplars': [{'body_snippet': 'ঘূর্ণিঝড়প্রবণ সুন্দরবনের গোসাবা ব্লকে ৫০০ জন স্থানীয় গ্রামবাসী নারী '
-                                       'স্বেচ্ছায় ম্যানগ্রোভ নার্সারি তৈরি করে নতুন বন সৃজন করেছেন।',
-                       'headline': 'সুন্দরবনের নদীভাঙন রোধে স্থানীয় মহিলাদের ম্যানগ্রোভ রোপণ আন্দোলন সফল, ৫ হেক্টর '
-                                   'বনাঞ্চল পুনরুজ্জীবিত',
+        'exemplars': [{'body_snippet': 'ঘূর্ণিঝড়প্রবণ সুন্দরবনের গোসাবা ব্লকে ৫০০ জন স্থানীয় '
+                                       'গ্রামবাসী নারী স্বেচ্ছায় ম্যানগ্রোভ নার্সারি তৈরি করে '
+                                       'নতুন বন সৃজন করেছেন।',
+                       'headline': 'সুন্দরবনের নদীভাঙন রোধে স্থানীয় মহিলাদের ম্যানগ্রোভ রোপণ '
+                                   'আন্দোলন সফল, ৫ হেক্টর বনাঞ্চল পুনরুজ্জীবিত',
                        'label': 'positive',
-                       'reason': 'স্থানীয় জনগোষ্ঠীর নেতৃত্বে পরিবেশ সংরক্ষণ ও বাঁধ রক্ষার টেকসই সমাধান।',
+                       'reason': 'স্থানীয় জনগোষ্ঠীর নেতৃত্বে পরিবেশ সংরক্ষণ ও বাঁধ রক্ষার টেকসই '
+                                 'সমাধান।',
                        'substance_category': 'Ecology'},
-                      {'body_snippet': 'কারখানায় দাহ্য পদার্থ মজুত থাকায় আগুন দ্রুত ছড়িয়ে পড়ে এবং তিনজনের '
-                                       'প্রাণহানি ঘটে।',
-                       'headline': 'হাওড়ায় রাসায়নিক কারখানায় ভয়াবহ অগ্নিকাণ্ড, ৩ শ্রমিকের মৃত্যু',
+                      {'body_snippet': 'কারখানায় দাহ্য পদার্থ মজুত থাকায় আগুন দ্রুত ছড়িয়ে পড়ে '
+                                       'এবং তিনজনের প্রাণহানি ঘটে।',
+                       'headline': 'হাওড়ায় রাসায়নিক কারখানায় ভয়াবহ অগ্নিকাণ্ড, ৩ শ্রমিকের '
+                                   'মৃত্যু',
                        'label': 'negative',
                        'reason': 'মারাত্মক দুর্ঘটনা এবং প্রাণহানি।',
                        'substance_category': 'Accident/Disaster'}],
@@ -194,19 +200,22 @@ EMBEDDED_LANGUAGE_CONFIGS: Dict[str, Dict[str, Any]] = {'as': {'cost_caps': {'al
                       'cost_per_published_item_target_usd': 0.0003,
                       'max_cost_per_run_usd': 1.5,
                       'max_daily_budget_usd': 15.0},
-        'exemplars': [{'body_snippet': 'Researchers at the Indian Institute of Science Bengaluru synthesized a '
-                                       'nanotech filtration membrane from discarded rice husks removing 99.8% of '
-                                       'microplastics.',
-                       'headline': 'IISc scientists develop ultra-low-cost water purification membrane using '
-                                   'agricultural waste',
+        'exemplars': [{'body_snippet': 'Researchers at the Indian Institute of Science Bengaluru '
+                                       'synthesized a nanotech filtration membrane from discarded '
+                                       'rice husks removing 99.8% of microplastics.',
+                       'headline': 'IISc scientists develop ultra-low-cost water purification '
+                                   'membrane using agricultural waste',
                        'label': 'positive',
-                       'reason': 'Verifiable scientific breakthrough providing low-cost public health solution.',
+                       'reason': 'Verifiable scientific breakthrough providing low-cost public '
+                                 'health solution.',
                        'substance_category': 'Science/Tech'},
-                      {'body_snippet': 'In an inspiring tale, Aryan sells garlands at traffic junctions to afford '
-                                       'treatment.',
-                       'headline': "8-Year-Old Works 14 Hours Daily Selling Flowers to Pay for Mother's Chemotherapy",
+                      {'body_snippet': 'In an inspiring tale, Aryan sells garlands at traffic '
+                                       'junctions to afford treatment.',
+                       'headline': '8-Year-Old Works 14 Hours Daily Selling Flowers to Pay for '
+                                   "Mother's Chemotherapy",
                        'label': 'toxic_positivity',
-                       'reason': 'Exploitation and severe systemic failure masked as heartwarming inspiration.',
+                       'reason': 'Exploitation and severe systemic failure masked as heartwarming '
+                                 'inspiration.',
                        'substance_category': 'Exclusion/Toxic Positivity'}],
         'is_rtl': False,
         'language_code': 'en',
@@ -265,10 +274,10 @@ EMBEDDED_LANGUAGE_CONFIGS: Dict[str, Dict[str, Any]] = {'as': {'cost_caps': {'al
                        'cost_per_published_item_target_usd': 0.0006,
                        'max_cost_per_run_usd': 1.5,
                        'max_daily_budget_usd': 15.0},
-         'exemplars': [{'body_snippet': 'खारवी समाजाने मांडवी न्हंयेच्या देगेर कांदळवनाची रोपां लावन पर्यावरणाचे रक्षण '
-                                        'केले आनी नुस्त्याक नवो जीव दिलो.',
-                        'headline': 'गोयांत कांदळवन संवर्धना खातीर पारंपरीक खारवी समाजाचो व्हड वावर; नुस्तें '
-                                    'उत्पादनांत वाड',
+         'exemplars': [{'body_snippet': 'खारवी समाजाने मांडवी न्हंयेच्या देगेर कांदळवनाची रोपां '
+                                        'लावन पर्यावरणाचे रक्षण केले आनी नुस्त्याक नवो जीव दिलो.',
+                        'headline': 'गोयांत कांदळवन संवर्धना खातीर पारंपरीक खारवी समाजाचो व्हड '
+                                    'वावर; नुस्तें उत्पादनांत वाड',
                         'label': 'positive',
                         'reason': 'पर्यावरण संवर्धन आनी पारंपरीक समाजाचो स्वावलंबन वावर.',
                         'substance_category': 'Ecology'}],
@@ -324,7 +333,7 @@ EMBEDDED_LANGUAGE_CONFIGS: Dict[str, Dict[str, Any]] = {'as': {'cost_caps': {'al
                       'name': 'Google News (Konkani / कोंकणी)',
                       'respect_robots_txt': True},
                      {'circuit_breaker_fail_threshold': 5,
-                      'feed_url': 'https://news.google.com/rss/search?q=Goa+Konkani&hl=en-IN&gl=IN&ceid=IN:en',
+                      'feed_url': 'https://news.google.com/rss/search?q=%E0%A4%97%E0%A5%8B%E0%A4%82%E0%A4%AF+%E0%A4%95%E0%A5%8B%E0%A4%82%E0%A4%95%E0%A4%A3%E0%A5%80&hl=mr&gl=IN&ceid=IN:mr',
                       'fetch_interval_minutes': 30,
                       'health_status': 'healthy',
                       'homepage_url': 'https://news.google.com',
@@ -339,14 +348,15 @@ EMBEDDED_LANGUAGE_CONFIGS: Dict[str, Dict[str, Any]] = {'as': {'cost_caps': {'al
                       'cost_per_published_item_target_usd': 0.00058,
                       'max_cost_per_run_usd': 1.5,
                       'max_daily_budget_usd': 15.0},
-        'exemplars': [{'body_snippet': 'એશિયાના સૌથી મોટા રિન્યુએબલ એનર્જી પાર્કમાંથી વીજ ઉત્પાદન શરૂ થતાં કાર્બન '
-                                       'ઉત્સર્જનમાં મોટો ઘટાડો નોંધાયો છે.',
-                       'headline': 'કચ્છના રણમાં સૌર-પવન હાઇબ્રિડ પાર્ક કાર્યરત, દરરોજ હજારો ઘરોને સ્વચ્છ ઊર્જા',
+        'exemplars': [{'body_snippet': 'એશિયાના સૌથી મોટા રિન્યુએબલ એનર્જી પાર્કમાંથી વીજ ઉત્પાદન '
+                                       'શરૂ થતાં કાર્બન ઉત્સર્જનમાં મોટો ઘટાડો નોંધાયો છે.',
+                       'headline': 'કચ્છના રણમાં સૌર-પવન હાઇબ્રિડ પાર્ક કાર્યરત, દરરોજ હજારો ઘરોને '
+                                   'સ્વચ્છ ઊર્જા',
                        'label': 'positive',
                        'reason': 'પર્યાવરણ સંરક્ષણ અને સ્વચ્છ ઊર્જા ક્ષેત્રે ઐતિહાસિક સિદ્ધિ.',
                        'substance_category': 'Ecology'},
-                      {'body_snippet': 'બોઈલર ફાટવાને કારણે આગ વિકરાળ બની હતી જેમાં ત્રણ નિર્દોષ શ્રમિકો ભડથું થઈ ગયા '
-                                       'હતા.',
+                      {'body_snippet': 'બોઈલર ફાટવાને કારણે આગ વિકરાળ બની હતી જેમાં ત્રણ નિર્દોષ '
+                                       'શ્રમિકો ભડથું થઈ ગયા હતા.',
                        'headline': 'સુરતમાં કેમિકલ ફેક્ટરીમાં ભીષણ આગ, ૩ કામદારોનાં મોત',
                        'label': 'negative',
                        'reason': 'ગંભીર ઔદ્યોગિક અકસ્માત અને જાનહાનિ.',
@@ -428,9 +438,10 @@ EMBEDDED_LANGUAGE_CONFIGS: Dict[str, Dict[str, Any]] = {'as': {'cost_caps': {'al
                       'cost_per_published_item_target_usd': 0.0004,
                       'max_cost_per_run_usd': 1.5,
                       'max_daily_budget_usd': 15.0},
-        'exemplars': [{'body_snippet': 'बाड़मेर और जैसलमेर के दूरदराज गांवों में प्राथमिक स्वास्थ्य केंद्रों को 100% '
-                                       'सौर ऊर्जा से लैस किया गया।',
-                       'headline': 'राजस्थान के 50 प्राथमिक स्वास्थ्य केंद्रों में सौर ऊर्जा से निर्बाध सेवाएं शुरू',
+        'exemplars': [{'body_snippet': 'बाड़मेर और जैसलमेर के दूरदराज गांवों में प्राथमिक '
+                                       'स्वास्थ्य केंद्रों को 100% सौर ऊर्जा से लैस किया गया।',
+                       'headline': 'राजस्थान के 50 प्राथमिक स्वास्थ्य केंद्रों में सौर ऊर्जा से '
+                                   'निर्बाध सेवाएं शुरू',
                        'label': 'positive',
                        'reason': 'ग्रामीण स्वास्थ्य बुनियादी ढांचे में ठोस और लाभकारी सुधार।',
                        'substance_category': 'Infrastructure/Health'},
@@ -506,15 +517,15 @@ EMBEDDED_LANGUAGE_CONFIGS: Dict[str, Dict[str, Any]] = {'as': {'cost_caps': {'al
                       'cost_per_published_item_target_usd': 0.00062,
                       'max_cost_per_run_usd': 1.5,
                       'max_daily_budget_usd': 15.0},
-        'exemplars': [{'body_snippet': 'ಸ್ಥಳೀಯ ತಂತ್ರಜ್ಞಾನ ಬಳಸಿ ತಯಾರಿಸಿದ ಈ ಫಿಲ್ಟರ್ ಗ್ರಾಮೀಣ ಜನರಿಗೆ ಶುದ್ಧ ಕುಡಿಯುವ ನೀರನ್ನು '
-                                       'ಒದಗಿಸುವಲ್ಲಿ ಯಶಸ್ವಿಯಾಗಿದೆ.',
-                       'headline': 'ಬೆಂಗಳೂರಿನ ಐಐಎಸ್\u200cಸಿ ವಿಜ್ಞಾನಿಗಳಿಂದ ಕೃಷಿ ತ್ಯಾಜ್ಯದಿಂದ ಅಗ್ಗದ ಜಲ ಶುದ್ಧೀಕರಣ ಪೊರೆ '
-                                   'ಸಂಶೋಧನೆ',
+        'exemplars': [{'body_snippet': 'ಸ್ಥಳೀಯ ತಂತ್ರಜ್ಞಾನ ಬಳಸಿ ತಯಾರಿಸಿದ ಈ ಫಿಲ್ಟರ್ ಗ್ರಾಮೀಣ ಜನರಿಗೆ '
+                                       'ಶುದ್ಧ ಕುಡಿಯುವ ನೀರನ್ನು ಒದಗಿಸುವಲ್ಲಿ ಯಶಸ್ವಿಯಾಗಿದೆ.',
+                       'headline': 'ಬೆಂಗಳೂರಿನ ಐಐಎಸ್\u200cಸಿ ವಿಜ್ಞಾನಿಗಳಿಂದ ಕೃಷಿ ತ್ಯಾಜ್ಯದಿಂದ ಅಗ್ಗದ '
+                                   'ಜಲ ಶುದ್ಧೀಕರಣ ಪೊರೆ ಸಂಶೋಧನೆ',
                        'label': 'positive',
                        'reason': 'ಗ್ರಾಮೀಣ ಸಾರ್ವಜನಿಕ ಆರೋಗ್ಯವನ್ನು ಸುಧಾರಿಸುವ ನವೀನ ವೈಜ್ಞಾನಿಕ ಆವಿಷ್ಕಾರ.',
                        'substance_category': 'Science/Tech'},
-                      {'body_snippet': 'ಅತಿವೇಗವಾಗಿ ಬಂದ ಲಾರಿ ಕಾರಿಗೆ ಡಿಕ್ಕಿ ಹೊಡೆದ ಪರಿಣಾಮ ನಾಲ್ವರು ಪ್ರಯಾಣಿಕರು ಸ್ಥಳದಲ್ಲೇ '
-                                       'ಮೃತಪಟ್ಟಿದ್ದಾರೆ.',
+                      {'body_snippet': 'ಅತಿವೇಗವಾಗಿ ಬಂದ ಲಾರಿ ಕಾರಿಗೆ ಡಿಕ್ಕಿ ಹೊಡೆದ ಪರಿಣಾಮ ನಾಲ್ವರು '
+                                       'ಪ್ರಯಾಣಿಕರು ಸ್ಥಳದಲ್ಲೇ ಮೃತಪಟ್ಟಿದ್ದಾರೆ.',
                        'headline': 'ಬೆಂಗಳೂರು-ಮೈಸೂರು ಹೆದ್ದಾರಿಯಲ್ಲಿ ಭೀಕರ ಸರಣಿ ಅಪಘಾತ, ೪ ಸಾವು',
                        'label': 'negative',
                        'reason': 'ಮಾರಣಾಂತಿಕ ಹೆದ್ದಾರಿ ರಸ್ತೆ ಅಪಘಾತ ಮತ್ತು ಜೀವಹಾನಿ.',
@@ -561,14 +572,14 @@ EMBEDDED_LANGUAGE_CONFIGS: Dict[str, Dict[str, Any]] = {'as': {'cost_caps': {'al
                      'name': 'Kannada Prabha',
                      'respect_robots_txt': True},
                     {'circuit_breaker_fail_threshold': 5,
-                     'feed_url': 'https://www.vijayavani.net/rss/karnataka.xml',
+                     'feed_url': 'https://tv9kannada.com/feed',
                      'fetch_interval_minutes': 30,
                      'health_status': 'healthy',
-                     'homepage_url': 'https://www.vijayavani.net',
-                     'id': 'vijayavani',
+                     'homepage_url': 'https://tv9kannada.com',
+                     'id': 'tv9-kannada',
                      'is_active': True,
                      'language': 'kn',
-                     'name': 'Vijayavani',
+                     'name': 'TV9 Kannada',
                      'respect_robots_txt': True},
                     {'circuit_breaker_fail_threshold': 5,
                      'feed_url': 'https://kannada.oneindia.com/rss/kannada-news-fb.xml',
@@ -596,9 +607,11 @@ EMBEDDED_LANGUAGE_CONFIGS: Dict[str, Dict[str, Any]] = {'as': {'cost_caps': {'al
                        'cost_per_published_item_target_usd': 0.0006,
                        'max_cost_per_run_usd': 1.5,
                        'max_daily_budget_usd': 15.0},
-         'exemplars': [{'body_snippet': 'दरभंगाक महिला स्वयं सहायता समूह मखाना प्रोसेसिंग लेल सौर्य ऊर्जा आधारित '
-                                        'ड्रायरक उपयोग कए आय मे भारी वृद्धि कएलक।',
-                        'headline': 'मिथिलाक महिला समूह द्वारा मखाना प्रोसेसिंग मे आधुनिक तकनीकक सफल प्रयोग',
+         'exemplars': [{'body_snippet': 'दरभंगाक महिला स्वयं सहायता समूह मखाना प्रोसेसिंग लेल '
+                                        'सौर्य ऊर्जा आधारित ड्रायरक उपयोग कए आय मे भारी वृद्धि '
+                                        'कएलक।',
+                        'headline': 'मिथिलाक महिला समूह द्वारा मखाना प्रोसेसिंग मे आधुनिक तकनीकक '
+                                    'सफल प्रयोग',
                         'label': 'positive',
                         'reason': 'महिला सशक्तिकरण एवं पारंपरिक उद्योग मे तकनीकी नवोन्मेष।',
                         'substance_category': 'Empowerment'}],
@@ -659,16 +672,17 @@ EMBEDDED_LANGUAGE_CONFIGS: Dict[str, Dict[str, Any]] = {'as': {'cost_caps': {'al
                       'cost_per_published_item_target_usd': 0.00068,
                       'max_cost_per_run_usd': 1.5,
                       'max_daily_budget_usd': 15.0},
-        'exemplars': [{'body_snippet': 'സമ്പൂർണ്ണ സൗരോർജ്ജത്തിൽ പ്രവർത്തിക്കുന്ന ലോകത്തിലെ ആദ്യ വിമാനത്താവളമായി കൊച്ചി '
-                                       'ചരിത്രം സൃഷ്ടിച്ചു.',
-                       'headline': 'കൊച്ചി വിമാനത്താവളം 100 ശതമാനം സൗരോർജ്ജത്തിൽ വിജയകരമായി പ്രവർത്തിക്കുന്നു; '
-                                   'അന്താരാഷ്ട്ര ഹരിത പുരസ്കാരം',
+        'exemplars': [{'body_snippet': 'സമ്പൂർണ്ണ സൗരോർജ്ജത്തിൽ പ്രവർത്തിക്കുന്ന ലോകത്തിലെ ആദ്യ '
+                                       'വിമാനത്താവളമായി കൊച്ചി ചരിത്രം സൃഷ്ടിച്ചു.',
+                       'headline': 'കൊച്ചി വിമാനത്താവളം 100 ശതമാനം സൗരോർജ്ജത്തിൽ വിജയകരമായി '
+                                   'പ്രവർത്തിക്കുന്നു; അന്താരാഷ്ട്ര ഹരിത പുരസ്കാരം',
                        'label': 'positive',
                        'reason': 'ആഗോള തലത്തിൽ പരിസ്ഥിതി സൗഹൃദ ഗതാഗത മാതൃക സൃഷ്ടിച്ച നേട്ടം.',
                        'substance_category': 'Ecology'},
-                      {'body_snippet': 'ഷോർട്ട് സർക്യൂട്ടിനെ തുടർന്ന് ഉണ്ടായ തീപിടുത്തത്തിൽ ഫാക്ടറി പൂർണ്ണമായി '
-                                       'കത്തിയമർന്നു.',
-                       'headline': 'കോഴിക്കോട് കെമിക്കൽ ഫാക്ടറിയിൽ ഉണ്ടായ വൻ തീപിടുത്തത്തിൽ 3 തൊഴിലാളികൾ മരിച്ചു',
+                      {'body_snippet': 'ഷോർട്ട് സർക്യൂട്ടിനെ തുടർന്ന് ഉണ്ടായ തീപിടുത്തത്തിൽ '
+                                       'ഫാക്ടറി പൂർണ്ണമായി കത്തിയമർന്നു.',
+                       'headline': 'കോഴിക്കോട് കെമിക്കൽ ഫാക്ടറിയിൽ ഉണ്ടായ വൻ തീപിടുത്തത്തിൽ 3 '
+                                   'തൊഴിലാളികൾ മരിച്ചു',
                        'label': 'negative',
                        'reason': 'ദാരുണമായ അപകടവും ജീവഹാനിയും.',
                        'substance_category': 'Accident/Disaster'}],
@@ -749,15 +763,16 @@ EMBEDDED_LANGUAGE_CONFIGS: Dict[str, Dict[str, Any]] = {'as': {'cost_caps': {'al
                       'cost_per_published_item_target_usd': 0.00055,
                       'max_cost_per_run_usd': 1.5,
                       'max_daily_budget_usd': 15.0},
-        'exemplars': [{'body_snippet': 'गडचिरोली व चंद्रपूर जिल्ह्यातील सुमारे 1200 आदिवासी महिलांनी एकत्र येत '
-                                       'रानभाज्या आणि पारंपरिक औषधी वनस्पतींवर प्रक्रिया करणारी संस्था स्थापन केली.',
-                       'headline': 'सह्याद्रीच्या कुशीत आदिवासी महिलांनी उभारली औषधी वनस्पतींची यशस्वी सहकारी संस्था; '
-                                   '1200 कुटुंबांचे स्थलांतर थांबले',
+        'exemplars': [{'body_snippet': 'गडचिरोली व चंद्रपूर जिल्ह्यातील सुमारे 1200 आदिवासी '
+                                       'महिलांनी एकत्र येत रानभाज्या आणि पारंपरिक औषधी वनस्पतींवर '
+                                       'प्रक्रिया करणारी संस्था स्थापन केली.',
+                       'headline': 'सह्याद्रीच्या कुशीत आदिवासी महिलांनी उभारली औषधी वनस्पतींची '
+                                   'यशस्वी सहकारी संस्था; 1200 कुटुंबांचे स्थलांतर थांबले',
                        'label': 'positive',
                        'reason': 'शाश्वत ग्रामीण उपजीविका आणि स्थलांतर रोखणारा समुदाय उपक्रम.',
                        'substance_category': 'Empowerment'},
-                      {'body_snippet': 'भरधाव कंटेनरने ट्रॅव्हल्स बसला पाठीमागून धडक दिल्याने चार प्रवाशांचा मृत्यू '
-                                       'झाला आणि पंधरा जखमी झाले.',
+                      {'body_snippet': 'भरधाव कंटेनरने ट्रॅव्हल्स बसला पाठीमागून धडक दिल्याने चार '
+                                       'प्रवाशांचा मृत्यू झाला आणि पंधरा जखमी झाले.',
                        'headline': 'मुंबई-पुणे एक्सप्रेसवेवर भीषण अपघात, 4 प्रवाशांचा जागीच मृत्यू',
                        'label': 'negative',
                        'reason': 'जीवघेणा महामार्ग अपघात आणि जीवितहानी.',
@@ -839,10 +854,11 @@ EMBEDDED_LANGUAGE_CONFIGS: Dict[str, Dict[str, Any]] = {'as': {'cost_caps': {'al
                       'cost_per_published_item_target_usd': 0.00046,
                       'max_cost_per_run_usd': 1.5,
                       'max_daily_budget_usd': 15.0},
-        'exemplars': [{'body_snippet': 'सिक्किमका साना किसानहरूले सहकारी बनाएर जैविक अर्थोडक्स चियाको उत्पादन र '
-                                       'अन्तर्राष्ट्रिय बजारमा सिधा बिक्री सुरु गरेका छन्।',
-                       'headline': 'सिक्किमका किसानहरूले जैविक चिया उत्पादनमा नयाँ कीर्तिमान रचे; युरोपमा प्रत्यक्ष '
-                                   'निर्यात',
+        'exemplars': [{'body_snippet': 'सिक्किमका साना किसानहरूले सहकारी बनाएर जैविक अर्थोडक्स '
+                                       'चियाको उत्पादन र अन्तर्राष्ट्रिय बजारमा सिधा बिक्री सुरु '
+                                       'गरेका छन्।',
+                       'headline': 'सिक्किमका किसानहरूले जैविक चिया उत्पादनमा नयाँ कीर्तिमान रचे; '
+                                   'युरोपमा प्रत्यक्ष निर्यात',
                        'label': 'positive',
                        'reason': 'कृषि स्वावलम्बन र जैविक खेतीको दिगो उपलब्धि।',
                        'substance_category': 'Empowerment'}],
@@ -933,14 +949,15 @@ EMBEDDED_LANGUAGE_CONFIGS: Dict[str, Dict[str, Any]] = {'as': {'cost_caps': {'al
                       'cost_per_published_item_target_usd': 0.00075,
                       'max_cost_per_run_usd': 1.5,
                       'max_daily_budget_usd': 15.0},
-        'exemplars': [{'body_snippet': 'ସ୍ଥାନୀୟ ମହିଳା ସ୍ୱୟଂ ସହାୟକ ଗୋଷ୍ଠୀ ବିନା ରାସାୟନିକ ସାରରେ ଉନ୍ନତ ମାନର ମାଣ୍ଡିଆ '
-                                       'ଉତ୍ପାଦନ କରି ଅର୍ଥନୈତିକ ସ୍ୱାବଲମ୍ବୀ ହୋଇଛନ୍ତି।',
-                       'headline': 'କୋରାପୁଟର ଆଦିବାସୀ ମହିଳାଙ୍କ ଜୈବିକ ମାଣ୍ଡିଆ ଚାଷରେ ରେକର୍ଡ ସଫଳତା; ବିଦେଶକୁ ରପ୍ତାନି ଆରମ୍ଭ',
+        'exemplars': [{'body_snippet': 'ସ୍ଥାନୀୟ ମହିଳା ସ୍ୱୟଂ ସହାୟକ ଗୋଷ୍ଠୀ ବିନା ରାସାୟନିକ ସାରରେ ଉନ୍ନତ '
+                                       'ମାନର ମାଣ୍ଡିଆ ଉତ୍ପାଦନ କରି ଅର୍ଥନୈତିକ ସ୍ୱାବଲମ୍ବୀ ହୋଇଛନ୍ତି।',
+                       'headline': 'କୋରାପୁଟର ଆଦିବାସୀ ମହିଳାଙ୍କ ଜୈବିକ ମାଣ୍ଡିଆ ଚାଷରେ ରେକର୍ଡ ସଫଳତା; '
+                                   'ବିଦେଶକୁ ରପ୍ତାନି ଆରମ୍ଭ',
                        'label': 'positive',
                        'reason': 'ଜୈବିକ କୃଷି ଓ ମହିଳା ସଶକ୍ତୀକରଣର ସଫଳ ଆଦର୍ଶ।',
                        'substance_category': 'Empowerment'},
-                      {'body_snippet': 'ଦ୍ରୁତଗତିରେ ଆସୁଥିବା ବସ୍ ଭାରସାମ୍ୟ ହରାଇ ରାସ୍ତା କଡ଼କୁ ଓଲଟି ପଡ଼ିବାରୁ ଘଟଣାସ୍ଥଳରେ '
-                                       'ତିନି ଜଣଙ୍କ ମୃତ୍ୟୁ ଘଟିଛି।',
+                      {'body_snippet': 'ଦ୍ରୁତଗତିରେ ଆସୁଥିବା ବସ୍ ଭାରସାମ୍ୟ ହରାଇ ରାସ୍ତା କଡ଼କୁ ଓଲଟି '
+                                       'ପଡ଼ିବାରୁ ଘଟଣାସ୍ଥଳରେ ତିନି ଜଣଙ୍କ ମୃତ୍ୟୁ ଘଟିଛି।',
                        'headline': 'ବାଲେଶ୍ୱର ନିକଟରେ ଯାତ୍ରୀବାହୀ ବସ୍ ଦୁର୍ଘଟଣା, ୩ ମୃତ ଓ ୨୦ ଗୁରୁତର',
                        'label': 'negative',
                        'reason': 'ସଡ଼କ ଦୁର୍ଘଟଣା ଏବଂ ପ୍ରାଣହାନି।',
@@ -997,10 +1014,10 @@ EMBEDDED_LANGUAGE_CONFIGS: Dict[str, Dict[str, Any]] = {'as': {'cost_caps': {'al
                      'name': 'Dharitri',
                      'respect_robots_txt': True},
                     {'circuit_breaker_fail_threshold': 5,
-                     'feed_url': 'https://odishatv.in/feed',
+                     'feed_url': 'https://otvkhabar.in/rss',
                      'fetch_interval_minutes': 30,
                      'health_status': 'healthy',
-                     'homepage_url': 'https://odishatv.in',
+                     'homepage_url': 'https://otvkhabar.in',
                      'id': 'odisha-tv',
                      'is_active': True,
                      'language': 'or',
@@ -1012,15 +1029,17 @@ EMBEDDED_LANGUAGE_CONFIGS: Dict[str, Dict[str, Any]] = {'as': {'cost_caps': {'al
                       'cost_per_published_item_target_usd': 0.0005,
                       'max_cost_per_run_usd': 1.5,
                       'max_daily_budget_usd': 15.0},
-        'exemplars': [{'body_snippet': 'ਵਾਤਾਵਰਣ ਪੱਖੀ ਤਕਨੀਕ ਅਪਣਾ ਕੇ ਕਿਸਾਨਾਂ ਨੇ ਹਵਾ ਪ੍ਰਦੂਸ਼ਣ ਰੋਕਣ ਵਿੱਚ ਵੱਡੀ ਕਾਮਯਾਬੀ ਹਾਸਲ '
-                                       'ਕੀਤੀ ਹੈ।',
-                       'headline': 'ਲੁਧਿਆਣਾ ਦੇ ਕਿਸਾਨਾਂ ਨੇ ਬਾਇਓ-ਡੀਕੰਪੋਜ਼ਰ ਨਾਲ ਪਰਾਲੀ ਸਾੜਨ ਦੀ ਸਮੱਸਿਆ ਹੱਲ ਕੀਤੀ; ਧਰਤੀ ਦੀ '
-                                   'ਉਪਜਾਊ ਸ਼ਕਤੀ ਵਧੀ',
+        'exemplars': [{'body_snippet': 'ਵਾਤਾਵਰਣ ਪੱਖੀ ਤਕਨੀਕ ਅਪਣਾ ਕੇ ਕਿਸਾਨਾਂ ਨੇ ਹਵਾ ਪ੍ਰਦੂਸ਼ਣ ਰੋਕਣ '
+                                       'ਵਿੱਚ ਵੱਡੀ ਕਾਮਯਾਬੀ ਹਾਸਲ ਕੀਤੀ ਹੈ।',
+                       'headline': 'ਲੁਧਿਆਣਾ ਦੇ ਕਿਸਾਨਾਂ ਨੇ ਬਾਇਓ-ਡੀਕੰਪੋਜ਼ਰ ਨਾਲ ਪਰਾਲੀ ਸਾੜਨ ਦੀ ਸਮੱਸਿਆ '
+                                   'ਹੱਲ ਕੀਤੀ; ਧਰਤੀ ਦੀ ਉਪਜਾਊ ਸ਼ਕਤੀ ਵਧੀ',
                        'label': 'positive',
                        'reason': 'ਖੇਤੀਬਾੜੀ ਵਿੱਚ ਪ੍ਰਦੂਸ਼ਣ ਰੋਕਥਾਮ ਅਤੇ ਵਾਤਾਵਰਣ ਸੰਭਾਲ ਦਾ ਸ਼ਾਨਦਾਰ ਹੱਲ।',
                        'substance_category': 'Ecology'},
-                      {'body_snippet': "ਤੇਜ਼ ਰਫ਼ਤਾਰ ਟਰੱਕ ਅਤੇ ਕਾਰ ਦੀ ਟੱਕਰ ਵਿੱਚ ਚਾਰ ਯਾਤਰੀਆਂ ਨੇ ਮੌਕੇ 'ਤੇ ਹੀ ਦਮ ਤੋੜ ਦਿੱਤਾ।",
-                       'headline': 'ਅੰਮ੍ਰਿਤਸਰ ਨੇੜੇ ਧੁੰਦ ਕਾਰਨ ਵਾਪਰਿਆ ਭਿਆਨਕ ਸੜਕ ਹਾਦਸਾ, ੪ ਲੋਕਾਂ ਦੀ ਮੌਤ',
+                      {'body_snippet': 'ਤੇਜ਼ ਰਫ਼ਤਾਰ ਟਰੱਕ ਅਤੇ ਕਾਰ ਦੀ ਟੱਕਰ ਵਿੱਚ ਚਾਰ ਯਾਤਰੀਆਂ ਨੇ ਮੌਕੇ '
+                                       "'ਤੇ ਹੀ ਦਮ ਤੋੜ ਦਿੱਤਾ।",
+                       'headline': 'ਅੰਮ੍ਰਿਤਸਰ ਨੇੜੇ ਧੁੰਦ ਕਾਰਨ ਵਾਪਰਿਆ ਭਿਆਨਕ ਸੜਕ ਹਾਦਸਾ, ੪ ਲੋਕਾਂ ਦੀ '
+                                   'ਮੌਤ',
                        'label': 'negative',
                        'reason': 'ਸੜਕ ਹਾਦਸਾ ਅਤੇ ਜਾਨੀ ਨੁਕਸਾਨ।',
                        'substance_category': 'Accident/Disaster'}],
@@ -1101,16 +1120,19 @@ EMBEDDED_LANGUAGE_CONFIGS: Dict[str, Dict[str, Any]] = {'as': {'cost_caps': {'al
                       'cost_per_published_item_target_usd': 0.00066,
                       'max_cost_per_run_usd': 1.5,
                       'max_daily_budget_usd': 15.0},
-        'exemplars': [{'body_snippet': '80 மாற்றுத்திறனாளி இளைஞர்கள் ஒன்றிணைந்து அறிவியல் பூர்வமான கடல்பாசி வளர்ப்பு '
-                                       'திட்டத்தை மேற்கொண்டு நிலையான வாழ்வாதாரம் பெற்றுள்ளனர்.',
-                       'headline': 'தூத்துக்குடியில் மாற்றுத்திறனாளி இளைஞர்கள் உருவாக்கிய கடல்பாசி வளர்ப்பு கூட்டுறவு; '
-                                   'மாதம் ரூ.45,000 வருவாய்',
+        'exemplars': [{'body_snippet': '80 மாற்றுத்திறனாளி இளைஞர்கள் ஒன்றிணைந்து அறிவியல் பூர்வமான '
+                                       'கடல்பாசி வளர்ப்பு திட்டத்தை மேற்கொண்டு நிலையான வாழ்வாதாரம் '
+                                       'பெற்றுள்ளனர்.',
+                       'headline': 'தூத்துக்குடியில் மாற்றுத்திறனாளி இளைஞர்கள் உருவாக்கிய கடல்பாசி '
+                                   'வளர்ப்பு கூட்டுறவு; மாதம் ரூ.45,000 வருவாய்',
                        'label': 'positive',
-                       'reason': 'மாற்றுத்திறனாளிகளின் பொருளாதார தன்னிறைவு மற்றும் சூழல்சார் வாழ்வாதார வெற்றி.',
+                       'reason': 'மாற்றுத்திறனாளிகளின் பொருளாதார தன்னிறைவு மற்றும் சூழல்சார் '
+                                 'வாழ்வாதார வெற்றி.',
                        'substance_category': 'Empowerment'},
-                      {'body_snippet': 'அதிவேகமாக வந்த சரக்கு லாரி கட்டுப்பாட்டை இழந்து பேருந்து மீது மோதியதில் ஐந்து '
-                                       'பேர் சம்பவ இடத்திலேயே உயிரிழந்தனர்.',
-                       'headline': 'செங்கல்பட்டு அருகே அரசுப் பேருந்து மீது லாரி மோதி விபத்து; 5 பயணிகள் உயிரிழப்பு',
+                      {'body_snippet': 'அதிவேகமாக வந்த சரக்கு லாரி கட்டுப்பாட்டை இழந்து பேருந்து '
+                                       'மீது மோதியதில் ஐந்து பேர் சம்பவ இடத்திலேயே உயிரிழந்தனர்.',
+                       'headline': 'செங்கல்பட்டு அருகே அரசுப் பேருந்து மீது லாரி மோதி விபத்து; 5 '
+                                   'பயணிகள் உயிரிழப்பு',
                        'label': 'negative',
                        'reason': 'கோர விபத்து மற்றும் உயிரிழப்பு.',
                        'substance_category': 'Accident/Disaster'}],
@@ -1191,15 +1213,17 @@ EMBEDDED_LANGUAGE_CONFIGS: Dict[str, Dict[str, Any]] = {'as': {'cost_caps': {'al
                       'cost_per_published_item_target_usd': 0.00061,
                       'max_cost_per_run_usd': 1.5,
                       'max_daily_budget_usd': 15.0},
-        'exemplars': [{'body_snippet': 'పూర్తిగా స్థానిక పరికరాలతో రూపొందించిన సోలార్ డ్రోన్ ద్వారా రసాయనాల వినియోగం '
-                                       'తగ్గి ఎకరానికి ఖర్చులు గణనీయంగా తగ్గాయి.',
-                       'headline': 'వరంగల్ యువ ఇంజనీర్ ఆవిష్కరణ: సౌర ఆధారిత డ్రోన్ స్ప్రేయర్\u200cతో సాగు ఖర్చు 70 '
-                                   'శాతం ఆదా',
+        'exemplars': [{'body_snippet': 'పూర్తిగా స్థానిక పరికరాలతో రూపొందించిన సోలార్ డ్రోన్ '
+                                       'ద్వారా రసాయనాల వినియోగం తగ్గి ఎకరానికి ఖర్చులు గణనీయంగా '
+                                       'తగ్గాయి.',
+                       'headline': 'వరంగల్ యువ ఇంజనీర్ ఆవిష్కరణ: సౌర ఆధారిత డ్రోన్ '
+                                   'స్ప్రేయర్\u200cతో సాగు ఖర్చు 70 శాతం ఆదా',
                        'label': 'positive',
-                       'reason': 'వ్యవసాయంలో ఖర్చులు తగ్గించి రైతులకు లబ్ధి చేకూర్చే స్వదేశీ సాంకేతిక ఆవిష్కరణ.',
+                       'reason': 'వ్యవసాయంలో ఖర్చులు తగ్గించి రైతులకు లబ్ధి చేకూర్చే స్వదేశీ '
+                                 'సాంకేతిక ఆవిష్కరణ.',
                        'substance_category': 'Science/Tech'},
-                      {'body_snippet': 'అతివేగంగా వచ్చిన టిప్పర్ లారీ అదుపుతప్పి కారును ఢీకొనడంతో ఘటనాస్థలిలోనే '
-                                       'నలుగురు ప్రయాణికులు మృతి చెందారు.',
+                      {'body_snippet': 'అతివేగంగా వచ్చిన టిప్పర్ లారీ అదుపుతప్పి కారును ఢీకొనడంతో '
+                                       'ఘటనాస్థలిలోనే నలుగురు ప్రయాణికులు మృతి చెందారు.',
                        'headline': 'హైదరాబాద్ శివారులో లారీ-కారు ఢీకొన్న ఘటనలో నలుగురు దుర్మరణం',
                        'label': 'negative',
                        'reason': 'తీవ్రమైన రోడ్డు ప్రమాదం మరియు ప్రాణనష్టం.',
@@ -1281,9 +1305,11 @@ EMBEDDED_LANGUAGE_CONFIGS: Dict[str, Dict[str, Any]] = {'as': {'cost_caps': {'al
                       'cost_per_published_item_target_usd': 0.00035,
                       'max_cost_per_run_usd': 1.5,
                       'max_daily_budget_usd': 15.0},
-        'exemplars': [{'body_snippet': 'طلباء نے جدید سینسرز پر مبنی سستا نیویگیشن سسٹم تیار کیا جو بصارت سے محروم '
-                                       'افراد کو آزادانہ نقل و حرکت کی سہولت دیتا ہے۔',
-                       'headline': 'جامعہ ملیہ کے طلباء نے بصارت سے محروم افراد کے لیے سمارٹ نیویگیشن ڈیوائس تیار کی',
+        'exemplars': [{'body_snippet': 'طلباء نے جدید سینسرز پر مبنی سستا نیویگیشن سسٹم تیار کیا '
+                                       'جو بصارت سے محروم افراد کو آزادانہ نقل و حرکت کی سہولت '
+                                       'دیتا ہے۔',
+                       'headline': 'جامعہ ملیہ کے طلباء نے بصارت سے محروم افراد کے لیے سمارٹ '
+                                   'نیویگیشن ڈیوائس تیار کی',
                        'label': 'positive',
                        'reason': 'معاشرتی شمولیت اور خود انحصاری کے لیے سائنسی ایجاد۔',
                        'substance_category': 'Assistive Tech'}],

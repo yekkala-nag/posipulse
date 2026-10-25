@@ -66,10 +66,10 @@ sources:
   fetch_interval_minutes: 30
   circuit_breaker_fail_threshold: 5
   respect_robots_txt: true
-- id: vijayavani
-  name: Vijayavani
-  feed_url: https://www.vijayavani.net/rss/karnataka.xml
-  homepage_url: https://www.vijayavani.net
+- id: tv9-kannada
+  name: TV9 Kannada
+  feed_url: https://tv9kannada.com/feed
+  homepage_url: https://tv9kannada.com
   language: kn
   is_active: true
   health_status: healthy

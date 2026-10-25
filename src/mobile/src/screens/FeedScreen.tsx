@@ -187,9 +187,11 @@ export const FeedScreen: React.FC = () => {
       ) : articles.length === 0 ? (
         <View style={styles.centerContainer}>
           <Text style={styles.emptyIcon}>🌾</Text>
-          <Text style={styles.emptyTitle}>No Stories in Current Filter</Text>
+          <Text style={styles.emptyTitle}>Strict Constructive Gate Enforced</Text>
           <Text style={styles.emptySubtitle}>
-            No constructive articles have been verified yet for this language or category.
+            {currentLanguage === 'gom' || currentLanguage === 'mai'
+              ? 'PosiPulse maintains an uncompromising ≥0.85 positivity threshold. In languages with lower digital news volumes, fewer articles pass our verification gates without quality dilution.'
+              : 'No constructive articles have passed our verification gates yet for this selection. The pipeline fails closed to ensure only positive stories are published.'}
           </Text>
           <TouchableOpacity style={styles.seedButton} onPress={handleSeedDemo}>
             <Text style={styles.seedButtonText}>⚡ Seed Verified Stories</Text>
